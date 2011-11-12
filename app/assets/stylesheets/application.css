@@ -1,0 +1,240 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+*/
+
+
+.fileupload-content{
+border-style: dashed!important;
+border-width: 2px!important;
+vertical-align: middle;
+height: 100%;
+width: 100%;
+margin:auto;
+background: transparent;
+}
+
+.content {
+background-color: white;
+padding: 20px 20px 20px 20px;
+margin: 0 -20px;
+-webkit-border-radius: 0 0 6px 6px;
+-moz-border-radius: 0 0 6px 6px;
+border-radius: 0 0 6px 6px;
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+box-shadow: 0 1px 2px rgba(0,0,0,.15);
+margin-left:1px;
+width:680px;
+margin-top:66px;
+margin-left:46px;
+float:left;
+position:relative;
+}
+
+
+.page-header {
+
+padding: 20px 0px 0px;
+margin: 20px 0px 20px;
+}
+
+.files_pic{
+	opacity:0.1;
+
+	background: url('/assets/Files.png') top center no-repeat;
+	background-size:100px 100px;
+	position:absolute;
+	width: 100px;
+height: 85px;
+left:380px;
+top:10px;
+z-index:1;
+
+}
+
+
+.senditnow{
+	opacity:0.1;
+
+	background: url('/assets/senditnow.png') top center no-repeat;
+	background-size:100px 100px;
+	position:absolute;
+	width: 100px;
+height: 85px;
+left:380px;
+top:10px;
+z-index:1;
+
+}
+
+
+
+.custom-form{
+	width: 560px;
+	margin:auto;
+	margin-top:90px;
+}
+
+#xlInput_addTag input{
+	width:148px;	
+}
+
+.icon{
+	background-image: url("/assets/expand.png");
+    height: 11px;
+    width: 13px;
+}
+
+.logo{
+	background-image: url("/assets/cloud.png");
+	width: 30px;
+	background-size: 30px 30px;	
+}
+
+.subject-field1{
+	display:none;	
+}
+.subject-field2{
+	display:none;	
+}
+
+
+.password-block{
+	margin-left:17px;
+	margin-top:5px;
+	display:none;
+}
+
+.product-callout{
+	margin-top:20px;
+
+
+}
+.product-callout .product {
+float: left;
+width: 220px;
+margin: 0 10px;
+margin-top:19px;
+background-repeat: no-repeat;
+padding-left: 123px;
+background-position: 0px 0px;
+}
+
+#main-console{
+	
+width: 1050px;
+margin: 0 auto;
+text-align: left;
+padding-bottom: 100px;
+
+}
+
+#left_nav {
+font-size: 15px;
+width: 165px;
+float: left;
+margin-left: 0;
+}
+
+#left_nav ul {
+display: block;
+}
+.newsend a {
+	display: block;
+	font-size: 12px;
+	padding: 5px 10px;
+	color: white;
+	text-decoration: none;
+	font-family: arial,sans-serif;
+	line-height: 20px;
+}
+
+.newsend a:hover{
+	color: white;
+	text-decoration: none;
+}
+
+
+#left_nav > ul > li a {
+padding: 10px;
+padding-left: 35px;
+font-weight: 450;
+display: inline-block;
+width: 100%;
+height: 100%;
+width: 110px;
+color: #555;
+}
+
+
+.newsend{
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	background-color: #4D90FE;
+	background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+	background-image: -moz-linear-gradient(top,#4d90fe,#4787ed);
+	background-image: -ms-linear-gradient(top,#4d90fe,#4787ed);
+	background-image: -o-linear-gradient(top,#4d90fe,#4787ed);
+	background-image: linear-gradient(top,#4d90fe,#4787ed);
+	border: 1px solid #3079ED;
+	color: white;
+	float:left;
+	margin-left:0px;
+	margin-bottom:15px;
+}
+
+.newsend:hover{
+  background: #357AE8;
+  color: white;
+  
+}
+
+
+
+
+#left_nav ul li.transfers > a {
+background: url('/assets/transfers.png') 0 8px no-repeat;
+}
+
+
+
+#left_nav ul li.account > a {
+background: url('/assets/account.png') 0 8px no-repeat;
+}
+
+
+#left_nav ul li.faq > a {
+background: url('/assets/faq.png') 0 8px no-repeat;
+}
+
+
+#left_nav ul li.pricing > a {
+background: url('/assets/pricing.png') 0 8px no-repeat;
+}
+
+#left_nav ul li.support> a {
+background: url('/assets/support.png') 0 8px no-repeat;
+}
+
+
+
+#left_nav ul li.security> a {
+background: url('/assets/security.png') 0 8px no-repeat;
+}
+
+.viewpane{
+	position: relative;
+	-moz-box-sizing: border-box;
+    background-color: #FFFFFF;
+    overflow: hidden;
+}
+
+.viewpane-content{
+	border-collapse: collapse;
+    width: 90%;
+
+}

@@ -1,0 +1,12 @@
+development:
+  bucket: filetunnel
+  access_key_id: AKIAICDXU5SXRWQA5RQA
+  secret_access_key: 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
+test:
+  bucket: filetunnel
+  access_key_id: AKIAICDXU5SXRWQA5RQA
+  secret_access_key: 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
+production:
+  bucket: filetunnel
+  access_key_id: AKIAICDXU5SXRWQA5RQA
+  secret_access_key: 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

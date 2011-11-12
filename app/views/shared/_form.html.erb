@@ -1,0 +1,70 @@
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert-message block-message warning">
+    	<a class="close" href="#">×</a>
+      <h2>Oops</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+  	
+
+  <div class="clearfix">	
+    <label for="xlInput">Email</label>
+    <div class="input">
+    	<%= f.text_field :email, :id=>"xlInput", :class=>"xlarge" %>
+    </div>
+  </div>
+  
+  </p>
+  <p>
+  <div class="clearfix">	
+    <label for="xlInput">Password</label>
+    <div class="input">
+    <%= f.password_field :password, :id=>"xlInput", :class=>"xlarge" %>
+   </div>
+  </div>
+  
+  </p>
+  <p>
+  <div class="clearfix">	
+    <label for="xlInput">Confirmation</label>
+    <div class="input">
+    <%= f.password_field :password_confirmation, :id=>"xlInput", :class=>"xlarge" %>
+    </div>
+  </div>
+    
+    
+  <div class="clearfix">
+  <label for="xlInput">Choose your plan</label>	  	
+  <div class="input">
+              <ul class="inputs-list">
+                <li>
+                  <label>
+                    <input type="radio" value="free" name="user[priviledge]" checked="">
+                    <span>Free</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" value="premium" name="user[priviledge]">
+                    <span>Premium</span>
+                  </label>
+                </li>
+              </ul>
+  	</div>
+  </div>	  
+    
+    
+    
+  </p>
+  <div class="actions">
+        <input type="submit" class="btn primary" value="Submit">
+  </div>
+  
+  
+<% end %>

@@ -1,0 +1,300 @@
+<style type="text/css">
+
+html, body{
+  background:#ffffff;
+}
+
+</style>
+  
+        
+<div class="page-header">
+          <h1>My Files</h1>
+</div>
+
+<section id="main-console">
+  <section id="left_nav">
+    <section class="newsend">
+          <a data-controls-modal="modal-from-dom" data-backdrop="static" data-keyboard="true">Send Files »</a>
+    </section>   
+  <ul> 
+        
+    
+    
+    <li class="transfers">
+    <a href="https://manage.stripe.com/payments">Sent</a>
+    </li>
+    <li class="account">
+    <a href="https://manage.stripe.com/customers">Account</a>
+    </li>
+
+
+    <!--
+    <li class="unselected recurring">
+    <a href="https://manage.stripe.com/recurring">Recurring</a>
+    
+    </li>
+    <li class="unselected transfers">
+    <a href="https://manage.stripe.com/transfers">Transfers</a>
+    </li>
+    <li class="unselected account">
+    <a href="https://manage.stripe.com/account">Your account</a>
+    </li>
+    <li class="unselected invites" style="margin-bottom: 25px;">
+    <a href="https://manage.stripe.com/invites">Invites</a>
+    </li>
+
+    <li class="unselected api">
+    <a href="https://stripe.com/docs">Docs</a>
+    
+    </li>
+    -->
+    <li class="faq">
+    <a href="https://stripe.com/help/faq">FAQ</a>
+    </li>
+    <li class="unselected pricing">
+    <a href="https://stripe.com/help/pricing">Pricing</a>
+    </li>
+    <li class="unselected support">
+    <a href="https://stripe.com/help/contact">Support</a>
+    </li>
+    <li class="unselected security">
+    <a href="https://stripe.com/help/security">Security</a>
+    </li>
+
+  </ul>
+  </section>
+
+
+
+  <section class="viewpane">
+    <table class="viewpane-content">
+        <tbody>
+            <th>
+
+
+            </th>
+        </tbody>
+    </table>  
+  </section>
+
+
+
+
+
+
+
+<div id="modal-from-dom" class="modal hide fade">
+            <div class="modal-header">
+              <a href="#" class="close">×</a>
+              <h3>New Transfer</h3>
+            </div>
+             <div class="modal-body">
+             <div id="fileupload">
+
+<%= form_for @stuff, :html => {:multipart => true, :class=>"form-stacked", :name=>"main-form"} do |f| %>
+    
+    
+    
+    <div class="error">
+
+    </div>
+    
+     <input name="container_id" type="hidden" value=<%= @container.id %> />
+     <input name="emails" class="emails" type="hidden" value=""/>
+
+     
+    
+ 
+<!--
+           <button type="submit" class="start">Start upload</button>
+-->
+
+
+<!--
+            <button type="reset" class="cancel">Cancel upload</button>
+
+-->
+<!--
+            <button type="button" class="delete">Delete files</button>
+-->  
+
+ 
+
+   
+   <div class="clearfix">
+            <label for="xlInput3">Sender:</label>
+            <div class="input">
+              <input class="xlarge span3" id="xlInput3" name="xlInput3" size="30" type="text" placeholder="Your email address">
+            </div>
+  </div>
+
+      
+    <div class="clearfix">  
+    <label for="xlInput3">Files Recipients:</label>
+    <div class="input">
+    <input class="xlarge recipients" id="xlInput" name="email" size="30" type="text" style="width:100%">
+   </div> 
+  </div>
+
+
+<div class="clearfix">
+            
+    
+            <label for="xlInput3">
+        
+                Subject<span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> (Optional)</span>
+         <span>
+            <a class="expand1">
+                <img class="icon" width="1" height="1" title="Expand" alt="Expand" src="https://a15.ysicdo002.com/web/en_US/theme_default/images/img_trans.gif">
+            </a>
+            </span>
+
+</label>
+            <div class="input">
+              <input class="xlarge subject-field1" id="xlInput3" name="xlInput3" size="30" type="text">
+            </div>
+</div>
+
+    
+<div class="clearfix">
+
+    
+            <label for="xlInput3">
+       
+                Message<span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> (Optional)</span>
+        <span>
+            <a class="expand2">
+                <img class="icon" width="1" height="1" title="Expand" alt="Expand" src="https://a15.ysicdo002.com/web/en_US/theme_default/images/img_trans.gif">
+            </a>
+    </span> 
+
+</label>
+            <div class="input message-field">
+                <textarea class="xxlarge subject-field2" id="textarea2" name="textarea2" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 484px; "></textarea>
+            </div>
+</div>
+
+
+<div class="clearfix">
+
+    
+            <label for="xlInput3">
+            Options
+        <span>
+        
+    </span> 
+
+</label>
+
+<div class="input" style="margin-left:20px;">
+<ul class="inputs-list">
+                <li>
+                  <label>
+                    <input type="checkbox" name="optionsCheckboxes" value="option1">
+                    <span> Premium Delivery (Send files up to 5GB. One time payment)</span>
+                    <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> Only $5.99</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" name="optionsCheckboxes" value="option2" onClick="passwordToggle()">
+                    <span> Protect Download (Password)</span> <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> Free</span>
+                  </label>
+              <div class="password-block">
+                  <div class="clearfix">
+                    
+                      <div class="input">
+                    
+                        <input class="span3" id="xlInput" name="container_password" size="5" type="password" placeholder="Password">
+                        <input class="span3" id="xlInput" name="container_password_confirm" size="5" type="password" placeholder="Confirm Password">
+                      </div>
+                 </div>
+             
+              <div>
+
+                </li>
+                 <li>
+                  <label>
+                    <input type="checkbox" name="optionsCheckboxes" value="option2">
+                    <span> Return Receipt</span><span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> Free</span>
+                  </label>
+                </li>
+              </ul>
+
+</div>
+</div>
+
+
+    
+  
+    <div style="margin-bottom:10px;"></div>
+    
+  <label for="xlInput3">Send Your Files (<span class="filesize">0 KB</span>)</label>
+    <div class="fileupload-content">
+        
+        
+        <table style="margin-bottom:0px;">
+                <tbody><tr>
+                    <td style="vertical-align: middle;">
+                        <div class="drag-drop-show" style="color:#777777">
+                            <h1 style="margin-left:55px;margin-top:40px;color:#777777">Drag &amp; Drop Files Here</h1>
+                
+                        </div>
+                    </td>
+                </tr>
+            </tbody></table>
+        
+        
+        
+        <table class="files"></table>
+        <div class="fileupload-progressbar"></div>
+    </div>
+   <div style="margin-top:5px;">
+    <%= f.file_field :file %>   
+   </div>
+   
+
+
+
+
+  
+   <br/>
+   
+
+    <div style="margin-top:5px;">
+    <button class="btn primary large" style="margin-left:175px;margin-top:10px;">Send Now</button>
+    </div>
+    
+    
+    <% end %> 
+        </div>
+   </div> 
+</div>
+
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
