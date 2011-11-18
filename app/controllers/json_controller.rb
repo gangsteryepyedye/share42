@@ -5,6 +5,8 @@ class JsonController < ApplicationController
 
 
 
+
+
   def storage
     @remote_ip = request.remote_ip.to_s
 

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/stripe/stripe-ruby
+  revision: 332b0caaf46ad4c0130485cb8ed9f3c23586bde8
+  specs:
+    stripe (1.5.23)
+      rest-client (~> 1.4)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -105,6 +112,8 @@ GEM
     rake (0.9.2)
     rdoc (3.10)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sass (3.1.10)
     sass-rails (3.1.4)
       actionpack (~> 3.1.0)
@@ -148,5 +157,6 @@ DEPENDENCIES
   sass-rails (~> 3.1.4)
   sqlite3
   sqlite3-ruby
+  stripe!
   turn
   uglifier (>= 1.0.3)

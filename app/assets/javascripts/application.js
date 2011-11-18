@@ -3,114 +3,83 @@
 
    $(function () {
    	
-$('.topbar').dropdown();
-
-});
-
-
-
-
-$.g_config = {
-	totalSize:0,
-	error:false
-};
-
-
-
-
-
-
-$(".expand1").click(
-	function(){
-		$(".subject-field1").toggle();
-	}	
-);
-
-$(".expand2").click(
-	function(){
-		$(".subject-field2").toggle();
-	}	
-);
-
-
-
 $('#fileupload').fileupload({
-	
+  
  
     
-	drop: function (e, data) {
-    	
+  drop: function (e, data) {
+      
 
        var response=$.ajax({
-			url: "http://127.0.0.1:3000/priviledge",
-			dataType: "json",
-			type: "GET",
-			processData: true,
-			contentType: "application/json",
-			async: false,
-		});	
+      url: "http://127.0.0.1:3000/priviledge",
+      dataType: "json",
+      type: "GET",
+      processData: true,
+      contentType: "application/json",
+      async: false,
+    }); 
      
      var response_object = eval('(' + response.responseText + ')');
-    	
+      
          $.each(data.files, function (index, file) {
-			$.g_config.totalSize += file.size;
+      $.g_config.totalSize += file.size;
         });
           var total =$.g_config.totalSize;
           var result;
-				
-				if (total >= 1000000000) {
-                	result = (total / 1000000000).toFixed(2) + ' GB';
-            	}
-            	else if (total >= 1000000) {
-                	result = (total / 1000000).toFixed(2) + ' MB';
-            	}
-            	else{
-             		result = (total / 1000).toFixed(2) + ' KB';				
-				}
-			
-		$(".filesize").text(result);
+        
+        if (total >= 1000000000) {
+                  result = (total / 1000000000).toFixed(2) + ' GB';
+              }
+              else if (total >= 1000000) {
+                  result = (total / 1000000).toFixed(2) + ' MB';
+              }
+              else{
+                result = (total / 1000).toFixed(2) + ' KB';       
+        }
+      
+    $(".filesize").text(result);
  
- 	if(response_object.maxfilesize<total){
- 		$(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p><strong>Oh snap!</strong>Over Free transfer size limit</p></div>');	
- 	}
- 	
+  if(response_object.maxfilesize<total){
+    $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p><strong>Oh snap!</strong>Over Free transfer size limit</p></div>'); 
+  }
+  
    },
     change: function (e, data) {
    
    
     var response=$.ajax({
-			url: "http://127.0.0.1:3000/priviledge",
-			dataType: "json",
-			type: "GET",
-			processData: true,
-			contentType: "application/json",
-			async: false,
-		});	
+      url: "http://127.0.0.1:3000/priviledge",
+      dataType: "json",
+      type: "GET",
+      processData: true,
+      contentType: "application/json",
+      async: false,
+    }); 
      
      var response_object = eval('(' + response.responseText + ')');
-    	
+      
         $.each(data.files, function (index, file) {
-			       $.g_config.totalSize += file.size;
+             $.g_config.totalSize += file.size;
         });
           var total =$.g_config.totalSize;
           var result;
-				
-				if (total >= 1000000000) {
-                	result = (total / 1000000000).toFixed(2) + ' GB';
-            	}
-            	else if (total >= 1000000) {
-                	result = (total / 1000000).toFixed(2) + ' MB';
-            	}
-            	else{
-             		result = (total / 1000).toFixed(2) + ' KB';				
-				}
-			
-		$(".filesize").text(result);
+        
+        if (total >= 1000000000) {
+                  result = (total / 1000000000).toFixed(2) + ' GB';
+              }
+              else if (total >= 1000000) {
+                  result = (total / 1000000).toFixed(2) + ' MB';
+              }
+              else{
+                result = (total / 1000).toFixed(2) + ' KB';       
+        }
+      
+    $(".filesize").text(result);
  
- 	if(response_object.maxfilesize<total){
- 		$(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p><strong>Oh snap!</strong>Over Free transfer size limit</p></div>');	
- 	}
- 	
+  if(response_object.maxfilesize<total){
+    $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p><strong>Oh snap!</strong>Over Free transfer size limit</p></div>'); 
+  }
+  
     },
 
 
@@ -120,13 +89,125 @@ $('#fileupload').fileupload({
 
 
 
-$('.recipients').tagsInput({
-	'height':'30px',
-   'width':'483px',
-   'unique':true,
-   'defaultText':'Add an email recipient'	
-});    
-    
+$('#fileupload').bind('fileuploadstart', function () {
+    var widget = $(this),
+        progressElement = $('#fileupload-progress').fadeIn(),
+        interval = 500,
+        total = 0,
+        loaded = 0,
+        loadedBefore = 0,
+        progressTimer,
+        progressHandler = function (e, data) {
+            loaded = data.loaded;
+            total = data.total;
+        },
+        stopHandler = function () {
+            widget
+                .unbind('fileuploadprogressall', progressHandler)
+                .unbind('fileuploadstop', stopHandler);
+            window.clearInterval(progressTimer);
+            progressElement.fadeOut(function () {
+                progressElement.html('');
+            });
+        },
+        formatTime = function (seconds) {
+            var date = new Date(seconds * 1000);
+            return ('0' + date.getUTCHours()).slice(-2) + ':' +
+                ('0' + date.getUTCMinutes()).slice(-2) + ':' +
+                ('0' + date.getUTCSeconds()).slice(-2);
+        },
+        formatBytes = function (bytes) {
+            if (bytes >= 1000000000) {
+                return (bytes / 1000000000).toFixed(2) + ' GB';
+            }
+            if (bytes >= 1000000) {
+                return (bytes / 1000000).toFixed(2) + ' MB';
+            }
+            if (bytes >= 1000) {
+                return (bytes / 1000).toFixed(2) + ' KB';
+            }
+            return bytes + ' B';
+        },
+        formatPercentage = function (floatValue) {
+            return (floatValue * 100).toFixed(2) + ' %';
+        },
+        updateProgressElement = function (loaded, total, bps) {
+         
+            progressElement.html(
+                formatBytes(bps) + 'ps | ' +
+                    formatTime((total - loaded) / bps) + ' | ' +
+                    formatPercentage(loaded / total) + ' | ' +
+                    formatBytes(loaded) + ' / ' + formatBytes(total)
+            ).css("margin-left","40px");
+        },
+        intervalHandler = function () {
+            var diff = loaded - loadedBefore;
+            if (!diff) {
+                return;
+            }
+            loadedBefore = loaded;
+            updateProgressElement(
+                loaded,
+                total,
+                diff * (1000 / interval)
+            );
+        };
+    widget
+        .bind('fileuploadprogressall', progressHandler)
+        .bind('fileuploadstop', stopHandler);
+    progressTimer = window.setInterval(intervalHandler, interval);
+});
+
+
+
+$("#premiumCheck").change(function(){
+    if(this.checked){
+       $("#premiumSignup").modal('show');
+    }
+});
+
+
+
+
+$.g_config = {
+  totalSize:0,
+  error:false
+};
+
+
+
+
+
+
+$(".expand1").click(
+  function(){
+    $(".subject-field1").toggle();
+  } 
+);
+
+$(".expand2").click(
+  function(){
+    $(".subject-field2").toggle();
+  } 
+);
+
+
+
+
+$('.topbar').dropdown();
+
+
+
+
+});
+
+
+
+
+
+
+
+
 
     $(function () {
     	
@@ -197,8 +278,12 @@ function validatePassword(){
     $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p><strong>Oh snap!</strong> Your Passwords do not match</p></div>');  
     return false;
   }
+  else{
+    $(".error").html('');
+    return true;   
+  }
 
-  return true; 
+  
 }
 
 
@@ -209,7 +294,9 @@ function passwordToggle(){
 
 function divpoll() {
 	
-  
+ 
+
+
    if($(".template-upload").length==0){
          $(".drag-drop-show").html('<h1 style="margin-left:55px;margin-top:40px;color:#777777">Drag &amp; Drop Files Here</h1><p style="margin-left:150px; font-weight:bold;">(Up to 100MB for free)</p>')	            	
  		 $(".fileupload-content").css('background','#F2F5F7');    
@@ -221,6 +308,9 @@ function divpoll() {
         	$(".fileupload-content").css('background','transparent');  
       }
    }
+
+  
+
    	
 }
 
@@ -239,10 +329,10 @@ function validateEmail(elementValue){
 
 function uploadAll(){
 	
-	
+	/*
 	  var emails=$('.input').find('.tag span').text();
 	  $('.emails').val(emails);
-	
+	*/
 	
 	
 	   var filesList = $('.files');
@@ -264,9 +354,4 @@ function checkStorage(){
 
    return response_object.storage
 }
-
-
-
-
-
 

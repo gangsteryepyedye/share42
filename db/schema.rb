@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111105190221) do
+ActiveRecord::Schema.define(:version => 20111112234530) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(:version => 20111105190221) do
     t.integer  "tempuser_id"
     t.integer  "user_id"
     t.string   "password"
+    t.integer  "expires"
+    t.boolean  "empty",       :default => true
+    t.integer  "downloaded",  :default => 0
+    t.integer  "expiration"
+  end
+
+  create_table "emails", :force => true do |t|
+    t.integer  "container_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "stuffs", :force => true do |t|

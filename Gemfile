@@ -25,7 +25,7 @@ gem 'jquery-rails'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "googl"
-
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 
 # To use ActiveModel has_secure_password

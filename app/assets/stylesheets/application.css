@@ -200,7 +200,9 @@ color: #555;
 background: url('/assets/transfers.png') 0 8px no-repeat;
 }
 
-
+#left_nav ul li.received > a {
+background: url('/assets/received.png') 0 8px no-repeat;
+}
 
 #left_nav ul li.account > a {
 background: url('/assets/account.png') 0 8px no-repeat;
@@ -236,5 +238,179 @@ background: url('/assets/security.png') 0 8px no-repeat;
 .viewpane-content{
 	border-collapse: collapse;
     width: 90%;
+
+}
+
+.viewpane-content tr{
+	border-bottom: 1px solid #DDD;
+}
+
+
+div#pricingTable {
+background: url('/assets/temp-bg.gif') repeat-x;
+margin: 18px 0 36px;
+padding: 0;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+position: relative;
+border: 1px solid #E7E3D7;
+-moz-box-shadow: 0 0 15px #d6d9ea;
+-webkit-box-shadow: 0 0 15px #d6d9ea;
+box-shadow: 0 0 15px #d6d9ea;
+width:78%;
+}
+
+
+div#pricingTable div.wrap {
+padding: 0;
+border-top: 1px solid white;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+}
+
+div#pricingTable div.column-row {
+margin: 0;
+}
+.column, .columns {
+float: left;
+display: inline;
+margin: 0px 0px 0px 20px;
+position: relative;
+}
+
+.column-row, .clearfix {
+display: block;
+}
+
+.column-row::after, .clearfix::after {
+content: '.';
+display: block;
+height: 0px;
+clear: both;
+visibility: hidden;
+}
+
+
+div#pricingTable div.column {
+width: 178px;
+height: 376px;
+margin: 0;
+}
+
+div#pricingTable div.header {
+ margin-bottom:10px;
+}
+
+
+div#pricingTable div.column * {
+text-align: center;
+}
+
+
+div#pricingTable ul {
+height:170px;
+margin: 0 0 18px;
+padding: 0;
+list-style: none;
+border-top: 1px solid #EEEAD3;
+}
+
+div#pricingTable li {
+font-size: 13px;
+line-height: 22px;
+border-top: 1px solid white;
+border-bottom: 1px solid #EEEAD3;
+color: #777;
+}
+
+div#pricingTable h2 {
+margin: 0;
+padding: 16px 0 0;
+font-size: 30px;
+line-height: 1.2;
+margin: 0px;
+letter-spacing: -1px;
+color: #333;
+font-weight: bold;
+}
+
+div#pricingTable h3 {
+margin: 0;
+padding: 0 0 5px;
+font-size: 18px;
+font-weight: normal;
+color: #999;
+}
+
+div#pricingTable p {
+line-height: 18px;
+margin: 0px 0px 18px;
+}
+
+div#pricingTable div.header p {
+font-weight: bold;
+line-height: 16px;
+margin: 5px 10px 0;
+color: rgba(0, 0, 0, .75);
+}
+
+div#pricingTable div#planPremium, div#pricingTable div#planBasic {
+background: rgba(255, 255, 255, .5);
+}
+
+div#pricingTable div#planPlus {
+background: white;
+width: 176px;
+margin: 0 0 -36px;
+padding: 9px 20px;
+position: relative;
+top: -18px;
+z-index: 5;
+border: 5px solid #45BCE6;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+
+-moz-box-shadow: 0 0 15px #BBB;
+-webkit-box-shadow: 0 0 15px #BBB;
+box-shadow: 0 0 15px #BBB;
+}
+
+.pressit{
+	margin-bottom:30px;
+
+}
+
+.blue-sub {
+border: none;
+border-top: 1px solid #50BEDD;
+background: #45BCDE;
+background: -webkit-gradient(linear,left top,left bottom,from(#45BCDE),to(#43BADD));
+background: -webkit-linear-gradient(top,#45BCDE,#43BADD);
+background: -moz-linear-gradient(top,#45BCDE,#43BADD);
+background: -ms-linear-gradient(top,#45BCDE,#43BADD);
+background: -o-linear-gradient(top,#45BCDE,#43BADD);
+padding: 5px 14px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: rgba(150,150,150,1) 0 1px 0;
+-moz-box-shadow: rgba(150,150,150,1) 0 1px 0;
+box-shadow: rgba(150,150,150,1) 0 1px 0;
+text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+color: white!important;
+font-size: 13px;
+font-family: Helvetica,Arial,Sans-Serif;
+text-decoration: none;
+vertical-align: middle;
+cursor: pointer;
+font-size: 12px;
+padding: 10px 18px;
+}
+
+.blue-sub:hover{
+	
+text-decoration: none;
+background:#50BEDD;
+
 
 }

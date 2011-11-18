@@ -28,8 +28,32 @@ function validateEmail(elementValue){
 	var tags_callbacks = new Array();
 	
 	$.fn.addTag = function(value,options) {
+
+		
+
+
 			var options = jQuery.extend({focus:false,callback:true},options);
 			this.each(function() { 
+
+
+					 var total = 0;
+  			$(".tag").each(function(index) {
+    		total=total+($(this).width());
+    		if(total>=200&&($("#xlInput_tagsinput").height()==30))
+    		{
+        		$("#xlInput_tagsinput").height($("#xlInput_tagsinput").height()+30);
+    		}
+
+    		if(total>=500&&($("#xlInput_tagsinput").height()==60))
+    		{
+        		$("#xlInput_tagsinput").height($("#xlInput_tagsinput").height()+30);
+    		}
+  			});
+
+  			
+
+
+
 				id = $(this).attr('id');
 
 				var tagslist = $(this).val().split(delimiter[id]);
@@ -87,6 +111,21 @@ function validateEmail(elementValue){
 	$.fn.removeTag = function(value) { 
 			value = unescape(value);
 			this.each(function() { 
+
+				 var total = 0;
+  			$(".tag").each(function(index) {
+    		total=total+($(this).width());
+    		
+    		if(total<200){
+    			$("#xlInput_tagsinput").height(30);
+    		}
+
+  			});
+
+
+
+
+
 				id = $(this).attr('id');
 	
 				var old = $(this).val().split(delimiter[id]);

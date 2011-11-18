@@ -23,6 +23,11 @@ html, body{
     <li class="transfers">
     <a href="https://manage.stripe.com/payments">Sent</a>
     </li>
+    <li class="received">
+    <a href="https://manage.stripe.com/payments">Received</a>
+    </li>
+
+
     <li class="account">
     <a href="https://manage.stripe.com/customers">Account</a>
     </li>
@@ -66,15 +71,73 @@ html, body{
 
 
 
+
   <section class="viewpane">
     <table class="viewpane-content">
         <tbody>
-            <th>
+            <tr>
+                <th>NAME</th>
+                <th>RECIPIENT(S)</th>
+                <th>FILES</th>
+                <th>SIZE</th>
+                <th>DOWNLOADED</th>
+                <th>DATE</th>
+                <th style="color: #DD4B39;">EXPIRES IN</th>
+            </tr>
+
+ 
+
+<% for f in @containers %>
+
+<tr>
+<td>
+<%= link_to f.stuffs.first.file_file_name, f %>
+</td>
+<td>
+<%= f.emails.count %>
+</td>
+<td>
+<p>
+<%= f.stuffs.count %>
+<p>
+</td>
+<td>
+<p>
+<%= get_size(f) %>
+</p>
+</td>
+<td>
+<p>
+<%= download_tracker(f) %>
+</p>
+</td>
+<td>
+<p>
+<%= f.created_at %>
+<p>
+</td>
+<td>
+<p>
+<%= expiration_day(f) %>
+<p>
+</td>
 
 
-            </th>
-        </tbody>
-    </table>  
+
+<tr>
+
+
+
+
+
+
+<% end %>
+
+      
+
+             </tbody>
+    
+        </table>  
   </section>
 
 

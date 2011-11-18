@@ -21,6 +21,53 @@ class StuffsController < ApplicationController
 
     @stuff = Stuff.new(params[:stuff])
     @stuff.container_id = params[:container_id]        
+    @container=Container.find(params[:container_id])
+    @container.empty=false
+    
+
+    if (@container.emails.empty?)
+      
+
+
+
+      if !(params[:email]=="")
+        emails=params[:email].to_s.split(/,/)
+        
+          for email in emails
+          #get sender's name
+          sender=params[:sender]
+          #get subject if there is any
+          subject=params[:subject]
+          #get message if there is any
+          message=params[:message]
+          #send the email
+          Notifier.notify(sender,message,sender,email,@stuff.file_file_name).deliver
+
+          #add the email to collection
+          a=@container.emails.new(:name=>email)
+          a.save
+          end
+      end
+      #set number of downloads to 0
+      @container.downloaded=0
+      
+      #get the password
+      @container.password=params[:container_password]
+        
+
+
+
+
+    end
+   
+
+
+
+   @container.save
+
+
+
+
 
 
     if current_user
