@@ -1,0 +1,62 @@
+
+    <table class="viewpane-content">
+        <tbody>
+            <tr id="header">
+                <th>NAME</th>
+                <th>RECIPIENT(S)</th>
+                <th>FILES</th>
+                <th>SIZE</th>
+                <th>DOWNLOADED</th>
+                <th>DATE</th>
+                <th style="color: #DD4B39;">EXPIRES IN</th>
+            </tr>
+<% for container in @containers %>
+
+<tr>
+<td>
+<%= link_to container.stuffs.first.file_file_name, container %>
+</td>
+<td>
+<%= container.emails.count %>
+</td>
+<td>
+
+<%= container.stuffs.count %>
+
+</td>
+<td>
+
+<%= get_size(container) %>
+
+</td>
+<td>
+
+<%= download_tracker(container) %>
+
+</td>
+<td>
+
+<%= container.created_at %>
+
+</td>
+<td>
+
+<%= expiration_day(container) %>
+
+</td>
+
+
+
+<tr>
+
+<% end %>
+
+
+             </tbody>
+    
+        </table>  
+
+        <div>   
+            <p style="color:#777777;margin-left:12px;margin-top:3px;"><%= number_to_human_size(current_user.storage)%> of <%= number_to_human_size(current_user.capacity) %> used </p> 
+          </div> 
+

@@ -1,0 +1,116 @@
+
+
+	<div class="signup_content">
+
+<div class="callout-container">
+<h1>Thanks for choosing filetunnel!</h1>
+<p class="about">
+<strong>Filetunnel</strong> is the securest and fastest way to send files of any size. And you're just <strong>30 seconds</strong> away from your new Filetunnel account</p>
+
+
+
+
+</div>
+
+<div class="signup_left">
+
+
+ <%= form_for @user do |f| %>
+  
+  <span class="payment-errors"></span>
+
+  <% if @user.errors.any? %>
+    <div class="alert-message block-message warning">
+      <h2>Oops</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="clearfix" style="margin-bottom:5px">
+            <label for="planSelect">Your plan:</label>
+            <div class="input">
+             <h3>Free</h2>
+            </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<h2 style="color:grey">The basics:</h2>  	
+
+  <div class="clearfix">	
+    <label for="xlInput">Email</label>
+    <div class="input">
+    	<%= f.text_field :email, :id=>"xlInput", :class=>"xlarge" %>
+    </div>
+  </div>
+  
+
+  </p>
+  <p>
+  <div class="clearfix">	
+    <label for="xlInput">Password</label>
+    <div class="input">
+    <%= f.password_field :password, :id=>"xlInput", :class=>"xlarge" %>
+   </div>
+  </div>
+  
+  </p>
+  <p>
+  <div class="clearfix">	
+    <label for="xlInput">Confirmation</label>
+    <div class="input">
+    <%= f.password_field :password_confirmation, :id=>"xlInput", :class=>"xlarge" %>
+    </div>
+  </div>
+    
+
+    
+    
+    
+   <div style="padding-left:150px;"> 
+        <input type="submit" class="btn primary submit-button" value="Create my account">
+  <div>
+  
+<% end %>
+</div>
+
+
+
+
+
+
+
+	</div>
+</div>
+<div class="signup_right">
+
+
+	<div class="free_summary">
+	<h2>Plan summary:</h2>
+	<ul>
+		<li>Storage space:<strong>1GB</strong></li>
+		<li>Maximum Tranfer Size: <strong>150MB</strong></li>
+		<li>Maximum Downloads: <strong>2GB</strong></li>
+		<li>Files expire in: <strong>14days</strong></li>
+
+
+
+
+	<ul>
+	</div>
+	
+
+
+</div>
