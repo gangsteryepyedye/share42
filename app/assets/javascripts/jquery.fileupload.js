@@ -439,6 +439,7 @@
                     total: 1
                 }), options);
             }
+          
             options.result = result;
             options.textStatus = textStatus;
             options.jqXHR = jqXHR;

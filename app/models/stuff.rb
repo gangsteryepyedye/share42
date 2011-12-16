@@ -6,10 +6,10 @@ class Stuff < ActiveRecord::Base
    validates_attachment_size :file, :less_than=>200.megabyte
 
   
-  
   has_attached_file :file,
      :storage => :s3,
      :s3_credentials => "#{Rails.root}/config/s3.yml",
+       :s3_permissions => :private,
      :path => "/:style/:id/:filename"
 
   
@@ -24,14 +24,16 @@ class Stuff < ActiveRecord::Base
     end
   end
 
-  def validate_storage_left(stuff,storage)
+  def validate_storage_left(stuff,left)
   
-    self.errors.add(:file,"Not enough space left") if stuff[:file].size>storage
+    self.errors.add(:file,"Not enough space left") if stuff[:file].size>left
 
     return true if self.errors.empty?
     return false
 
   end
+
+
 
    def to_jq_upload
   {
@@ -40,7 +42,14 @@ class Stuff < ActiveRecord::Base
  end
 
 
+  def self.find_by_id_or_sha1(id)
+    Stuff.find_by_id(id) || Stuff.find_by_sha1(id)
+  end
 
+
+  def to_param
+    sha1
+  end
   
   
       

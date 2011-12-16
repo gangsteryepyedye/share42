@@ -7,20 +7,33 @@ class UsersController < ApplicationController
     
   end
 
+  def new_free
+    @user = User.new
+  end
+
+
+
   def create
     @user = User.new(params[:user])
 
     if(!params[:stripeToken].nil?)
       createPremium
-    end
-
-
-
-    if @user.save
-      redirect_to root_url, :notice => "Signed up!"
+      #do more things here  
     else
-      render :action => "new"
+      
+      @user.free_init
+      if @user.save
+        redirect_to '/containers', :notice => "Signed up!"
+      else
+        render :action => "new_free"
+      end 
+    
+   
     end
+
+
+
+   
   end
 
 

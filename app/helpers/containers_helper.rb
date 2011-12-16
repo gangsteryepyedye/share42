@@ -19,10 +19,12 @@ module ContainersHelper
 	end
 
 	def expiration_day(container)
-		if container.expiration.nil?
-			return "3 days"
+		interval = Time.at(container.exptime-Time.now).day
+
+		if interval <= 0
+			return "Expired"
 		else
-			return expiration+"days"
+			return interval.to_s + " Days"
 		end
 	end
 		

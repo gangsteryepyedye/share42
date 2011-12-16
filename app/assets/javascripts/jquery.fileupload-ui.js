@@ -57,7 +57,7 @@
             // allowed to be uploaded using this widget:
             maxNumberOfFiles: response_object.maxfilenumber,
             // The maximum allowed file size:
-            maxFileSize: undefined,
+            maxFileSize: response_object.maxfilesize,
             // The minimum allowed file size:
             minFileSize: 1,
             // The regular expression for allowed file types, matches
@@ -144,7 +144,6 @@
                                 });
                         });
                     });
-                      $(".error").html('<div class="alert-message success"><a class="close" href="#">×</a><p><strong>Well done!</strong> Your upload was successful, an email has been sent to recipient(s). <a href="#">Go to your management console</a></p></div>');
                 } else {
                     that._renderDownload(data.result)
                         .css('display', 'none')
@@ -154,6 +153,8 @@
                             $(this).show();
                         });
                 }
+
+               
             },
             // Callback for failed (abort or error) uploads:
             fail: function (e, data) {
@@ -203,7 +204,14 @@
                 $(this).find('.fileupload-progressbar').progressbar(
                     'value',
                     parseInt(data.loaded / data.total * 100, 10)
-                );
+             );
+             if(data.loaded==data.total){
+                $(".error").html('<div class="alert-message fade in"><p><strong>Well done!</strong> Your upload was successful, an email has been sent to recipient(s). <a href="#">Go to your management console</a></p></div>');
+                $.get('/partial_update', function(data) {
+                        $('.viewpane').html(data);
+                });
+
+                }
             },
             // Callback for uploads start, equivalent to the global ajaxStart event:
             start: function () {
@@ -427,7 +435,7 @@
                 '<td class="name"></td>' +
                 '<td class="size"></td>' +
                 (file.error ?
-                    '<td class="error" colspan="2"></td>'
+                    '<td class="error_detail" colspan="2"></td>'
                 :
                     
                     '<td class="start"></td>'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111112234530) do
+ActiveRecord::Schema.define(:version => 20111207060156) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -22,7 +22,8 @@ ActiveRecord::Schema.define(:version => 20111112234530) do
     t.integer  "expires"
     t.boolean  "empty",       :default => true
     t.integer  "downloaded",  :default => 0
-    t.integer  "expiration"
+    t.string   "sha1"
+    t.datetime "exptime"
   end
 
   create_table "emails", :force => true do |t|
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(:version => 20111112234530) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.integer  "downloads"
+    t.string   "sha1"
   end
 
   create_table "tempusers", :force => true do |t|
@@ -48,6 +51,10 @@ ActiveRecord::Schema.define(:version => 20111112234530) do
     t.integer  "storage"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "capacity"
+    t.integer  "priviledge"
+    t.integer  "spf"
+    t.integer  "downloadcap"
   end
 
   create_table "users", :force => true do |t|
@@ -59,6 +66,9 @@ ActiveRecord::Schema.define(:version => 20111112234530) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "capacity"
+    t.integer  "spf"
+    t.integer  "downloadcap"
+    t.text     "list"
   end
 
 end

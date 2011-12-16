@@ -233,21 +233,26 @@ background: url('/assets/security.png') 0 8px no-repeat;
 	-moz-box-sizing: border-box;
     background-color: #FFFFFF;
     overflow: hidden;
+
 }
 
 .viewpane-content{
 	border-collapse: collapse;
     width: 90%;
-
 }
 
 .viewpane-content tr{
 	border-bottom: 1px solid #DDD;
 }
 
+.viewpane-content tr td{
+	padding-bottom:10px;
+}
+
+
 
 div#pricingTable {
-background: url('/assets/temp-bg.gif') repeat-x;
+background: white;
 margin: 18px 0 36px;
 padding: 0;
 -webkit-border-radius: 5px;
@@ -257,7 +262,8 @@ border: 1px solid #E7E3D7;
 -moz-box-shadow: 0 0 15px #d6d9ea;
 -webkit-box-shadow: 0 0 15px #d6d9ea;
 box-shadow: 0 0 15px #d6d9ea;
-width:78%;
+width:95%;
+margin:auto;
 }
 
 
@@ -308,11 +314,23 @@ text-align: center;
 
 
 div#pricingTable ul {
-height:170px;
-margin: 0 0 18px;
+height:174px;
+margin: 0px 0px 18px 18px;
 padding: 0;
 list-style: none;
 border-top: 1px solid #EEEAD3;
+width:80%;
+
+}
+
+div#pricingTable strong{
+	color:#009694;
+	font-size:120%;
+}	
+
+#planPlus ul{
+	
+	margin-left:0px;
 }
 
 div#pricingTable li {
@@ -355,7 +373,7 @@ color: rgba(0, 0, 0, .75);
 }
 
 div#pricingTable div#planPremium, div#pricingTable div#planBasic {
-background: rgba(255, 255, 255, .5);
+background: white;
 }
 
 div#pricingTable div#planPlus {
@@ -413,4 +431,136 @@ text-decoration: none;
 background:#50BEDD;
 
 
+}
+
+
+div.masthead {
+margin: 0px auto;
+padding: 20px 0px 0px;
+text-align: center;
+width: 100%;
+font-family: "BaskervilleFSRegular", serif;
+margin-top:30px;
+}
+
+div.masthead h1 {
+margin-left:0px;
+padding: 5px 0px 0px;
+letter-spacing: -1px;
+font-size: 36px;
+position: relative;
+color: #333;
+font-weight: bold;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+div.masthead h2 {
+color: #444;
+font-family: Helvetica, Arial, sans-serif;
+font-size: 20px;
+font-weight: normal;
+letter-spacing: 0px;
+margin: 0px;
+}
+
+.fileupload-progressbar{
+	margin-bottom:10px;
+
+}
+
+	
+
+
+#fileupload-progress{
+	margin-top:2px;
+	margin-left:15px;
+}
+
+
+.signup_content{
+	border: 1px solid #EDEDED;
+padding: 19px 19px 0 19px;
+width: 96%;
+margin: 20px auto;
+background-color: white;
+overflow:hidden;
+
+}
+
+
+div.callout-container {
+background: #E6E6E6;
+padding: 30px 0 30px 30px;
+border: 1px solid #D9D9D9;
+margin-bottom: 20px;
+width: 96%;
+}
+
+div.signup_left{
+	padding-bottom:20px;
+	width: 500px;
+	float: left;
+	margin-right: 20px !important;
+	padding-left:30px;
+
+}
+
+
+.signup_left label{
+	text-align:left;
+}
+
+.signup_left h2{
+	margin-bottom:10px;
+}
+
+.signup_right{
+	width: 300px;
+	float: left;
+}
+.signup_right ul{
+	list-style:circle;
+	margin-left:20px;
+
+
+}
+.signup_right ul li{
+	color:#404040;
+
+
+}
+
+.personal_summary{
+	display:none;
+
+}
+
+.instant_summary{
+	display:none;
+
+}
+
+.premium_summary{
+	display:none;
+
+}
+
+.plus_summary{
+	display:none;
+
+}
+
+#upload_left{
+	float:left;
+}
+
+#upload_right{
+	float:left;
+}
+
+.container_information{
+	padding-left:20px;
+	width:250px;
+	float:left;
 }

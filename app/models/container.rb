@@ -9,5 +9,18 @@ class Container < ActiveRecord::Base
   end
 
 
+  def expire
+  	self.destroy
+  end
+
+
+  def self.find_by_id_or_sha1(id)
+    Container.find_by_id(id) || Container.find_by_sha1(id)
+  end
+
+
+  def to_param
+    sha1
+  end
 
 end

@@ -7,9 +7,6 @@
 
 
 
-<%= stylesheet_link_tag 'jquery-ui-1.8.16.custom' %>
-<%= stylesheet_link_tag 'jquery.fileupload-ui' %>
-
 
 
   <div class="senditnow"></div>
@@ -46,8 +43,6 @@ border-radius: 5px;">
 
 <%= form_for @stuff, :html => {:multipart => true, :class=>"form-stacked", :name=>"main-form"} do |f| %>
 	
-	
-	
 	<div class="error">
 
 	</div>
@@ -75,7 +70,9 @@ border-radius: 5px;">
 
    
    <div class="clearfix">
-            <label for="xlInput3">Sender:</label>
+            <label for="xlInput3">Sender:<span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> (Optional)</span></label>
             <div class="input">
               <input class="xlarge span3" id="xlInput3" name="sender" size="30" type="text" placeholder="Your email address">
             </div>
@@ -218,8 +215,8 @@ font-weight: normal;" > Free</span>
     	
     	
         <table class="files"></table>
-    <div class="fileupload-progressbar" style="margin:auto"></div>
-    <div id="fileupload-progress"></div>
+    <div class="fileupload-progressbar" style="margin:auto" ><span id="fileupload-progress"></span></div>
+
 
     </div>
 
@@ -236,7 +233,7 @@ font-weight: normal;" > Free</span>
    
 
     <div style="margin-top:5px;">
-    <button class="btn primary large" style="margin-left:175px;margin-top:10px;">Send Now!</button>
+    <button class="btn primary large" style="margin-left:175px;margin-top:10px;" onClick="validateForm();return false;">Send Now!</button>
     </div>
     
     
@@ -248,6 +245,17 @@ font-weight: normal;" > Free</span>
 
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

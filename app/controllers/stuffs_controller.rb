@@ -1,6 +1,32 @@
 class StuffsController < ApplicationController
   
-  
+ # def download
+   # @stuff=Stuff.find(params[:id])
+   # url=@stuff.file
+
+  #  redirect_to(url.expiring_url(15),:type=>@stuff.file_content_type)
+ # end
+def download
+require 'aws/s3'
+@stuff=Stuff.find_by_id_or_sha1(params[:id])   
+AWS::S3::Base.establish_connection!(
+:access_key_id => "AKIAICDXU5SXRWQA5RQA",
+:secret_access_key => "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"
+)
+filename=CGI::unescape(@stuff.file.to_s.scan(/nel\/([^"]*)\?/).first.first)
+
+s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
+file_type = s3obj.about["content-type"]
+file_length = s3obj.about["content-length"]
+
+
+send_file_headers!(:length => file_length, :type => file_type, :filename => @stuff.file_file_name)
+render :status => 200, :text => Proc.new { |response, output|
+AWS::S3::S3Object.stream(filename, 'filetunnel') do |chunk|
+output.write chunk
+end
+}
+end
 
 
   
@@ -21,9 +47,19 @@ class StuffsController < ApplicationController
 
     @stuff = Stuff.new(params[:stuff])
     @stuff.container_id = params[:container_id]        
+    sha1=Digest::SHA1.hexdigest([@stuff.id.to_s,rand].join)
+    @stuff.sha1=sha1
+  
+
+
     @container=Container.find(params[:container_id])
     @container.empty=false
     
+    if current_user.priviledge=="1"
+      @container.exptime=Time.now+14.days
+    end
+    
+      
 
     if (@container.emails.empty?)
       
@@ -71,13 +107,14 @@ class StuffsController < ApplicationController
 
 
     if current_user
-      storage=current_user.storage
+      left=current_user.capacity-current_user.storage
     else
-      storage=Tempuser.where("ip =?",@remote_ip).first.storage
+      user=Tempuser.where("ip =?",@remote_ip).first
+      left=user.capacity-user.storage
     end
 
 
-    if(!@stuff.validate_storage_left(params[:stuff],storage))
+    if(!@stuff.validate_storage_left(params[:stuff],left))
        render :json => { :result => 'error'}, :content_type => 'text/html'
     else    
       if @stuff.save
@@ -104,11 +141,11 @@ class StuffsController < ApplicationController
     @remote_ip = request.remote_ip.to_s
 
     if(current_user)
-      current_user.storage = current_user.storage-amount
+      current_user.storage = current_user.storage+amount
       current_user.save
     else
       temp_user=Tempuser.where("ip =?",@remote_ip).first
-      temp_user.storage = temp_user.storage-amount
+      temp_user.storage = temp_user.storage+amount
       temp_user.save
     end
       

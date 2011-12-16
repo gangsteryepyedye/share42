@@ -1,6 +1,209 @@
-<div class="custom-form">
 
-<%= render "/shared/form" %>
+
+<style type="text/css" media="screen">
+
+html, body {
+background: #E8ECDC url(/assets/bg.png) repeat fixed;
+}
+
+
+
+</style>
+
+	<div class="signup_content">
+
+<div class="callout-container">
+<h1>Thanks for choosing filetunnel!</h1>
+<p class="about">
+<strong>Filetunnel</strong> is the securest and fastest way to send files of any size. And you're just <strong>30 seconds</strong> away from your new Filetunnel account</p>
+
+
+
+
+</div>
+
+<div class="signup_left">
+
+
+ <%= form_for @user,:html=>{:class=>"payment-form"} do |f| %>
+  
+  <span class="payment-errors"></span>
+
+  <% if @user.errors.any? %>
+    <div class="alert-message block-message warning">
+    	<a class="close" href="#">×</a>
+      <h2>Oops</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="clearfix">
+            <label for="planSelect">Your plan:</label>
+            <div class="input">
+              <select name="planSelect" id="planSelect">
+                <option value="instant">Instant ($2/time)</option>
+                <option value="personal">Personal ($5/month)</option>
+                <option value="premium">Premium ($10/month)</option>
+                <option value="plus">Plus ($20/month)</option>
+              </select>
+            </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<h2 style="color:grey">The basics:</h2>  	
+
+  <div class="clearfix">	
+    <label for="xlInput">Email</label>
+    <div class="input">
+    	<%= f.text_field :email, :id=>"xlInput", :class=>"xlarge" %>
+    </div>
+  </div>
+  
+
+  </p>
+  <p>
+  <div class="clearfix">	
+    <label for="xlInput">Password</label>
+    <div class="input">
+    <%= f.password_field :password, :id=>"xlInput", :class=>"xlarge" %>
+   </div>
+  </div>
+  
+  </p>
+  <p>
+  <div class="clearfix">	
+    <label for="xlInput">Confirmation</label>
+    <div class="input">
+    <%= f.password_field :password_confirmation, :id=>"xlInput", :class=>"xlarge" %>
+    </div>
+  </div>
+    
+
+
+
+<h2 style="color:grey">Card Information:</h2>  	
+
+
+
+            <div class="clearfix">
+              <label for="xlInput3">Card Number</label>
+              <div class="input">
+                <input type="text" size="20" autocomplete="off" class="card-number xlarge span3" id="xlInput3" />
+              </div>
+            </div>
+             <div class="clearfix">
+              <label for="xlInput3">CVC</label>
+              <div class="input">
+                <input type="text" size="4" autocomplete="off" class="card-cvc xlarge span1" id="xlInput3"/>
+            </div>
+            </div>
+
+             <div class="clearfix">
+              <label for="xlInput3">Expiration</label>
+              <div class="input">
+                
+                <input type="text" size="2" class="card-expiry-month span1" placeholder="MM"/>
+                <span> / </span>
+                <input type="text" size="4" class="card-expiry-year span2" placeholder="YYYY"/>
+             </div>
+            </div>
+
+
+
+   
+    
+    
+    
+   <div style="padding-left:150px;"> 
+        <input type="submit" class="btn primary submit-button" value="Create my account">
+  <div>
+  
+<% end %>
+</div>
+
+
+
+
+
+
+
+	</div>
+</div>
+<div class="signup_right">
+
+
+	<div class="personal_summary">
+	<h2>Plan summary:</h2>
+	<ul>
+		<li>Storage space:<strong>5GB</strong></li>
+		<li>Maximum Tranfer Size: <strong>5GB</strong></li>
+		<li>Maximum Downloads: <strong>50GB</strong></li>
+		<li>Transfers: <strong>Unlimited</strong></li>
+		<li>Maximum Upload/Download speed: <strong>5Mb/s</strong></li>
+		<li>Payment: <strong>$5/month</strong></li>
+
+
+
+	<ul>
+	</div>
+	
+	<div class="instant_summary">
+	<h2>Plan summary:</h2>
+	<ul>
+		<li>Storage space:<strong>2GB</strong></li>
+		<li>Maximum Tranfer Size: <strong>2GB</strong></li>
+		<li>Maximum Downloads: <strong>10GB</strong></li>
+		<li>Transfers: <strong>Once</strong></li>
+		<li>Maximum Upload/Download speed: <strong>5Mb/s</strong></li>
+		<li>Payment: <strong>$2 (One time payment)</strong></li>
+	<ul>
+	</div>
+
+	<div class="premium_summary">
+	<h2>Plan summary:</h2>
+	<ul>
+		<li>Storage space:<strong>20GB</strong></li>
+		<li>Maximum Tranfer Size: <strong>5GB</strong></li>
+		<li>Maximum Downloads: <strong>Unlimited</strong></li>
+		<li>Transfers: <strong>Unlimited</strong></li>
+		<li>Maximum Upload/Download speed: <strong>5Mb/s</strong></li>
+		<li>Payment: <strong>$10/month</strong></li>
+
+
+
+	<ul>
+	</div>
+
+	<div class="plus_summary">
+	<h2>Plan summary:</h2>
+	<ul>
+		<li>Storage space:<strong>100GB</strong></li>
+		<li>Maximum Tranfer Size: <strong>5GB</strong></li>
+		<li>Maximum Downloads: <strong>Unlimited</strong></li>
+		<li>Transfers: <strong>Unlimited</strong></li>
+		<li>Maximum Upload/Download speed: <strong>5Mb/s</strong></li>
+		<li>Payment: <strong>$25/month</strong></li>
+
+
+	<ul>
+	</div>
+
+
+
+
 
 
 </div>

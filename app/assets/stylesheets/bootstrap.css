@@ -1109,6 +1109,7 @@ table th {
    font-weight:bold;
   vertical-align: middle;
   border-bottom: 1px solid #ddd;
+  padding-bottom: 6px;
 }
 table td {
   vertical-align: top;
@@ -2095,6 +2096,24 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -moz-background-clip: padding-box;
   background-clip: padding-box;
 }
+.modal-two{
+  position:relative;
+    width: 560px;
+    float:left;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  /* IE6-7 */
+
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
 .modal .close {
   margin-top: 7px;
 }
