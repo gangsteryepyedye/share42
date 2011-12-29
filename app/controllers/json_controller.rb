@@ -1,18 +1,39 @@
 class JsonController < ApplicationController
 
   respond_to :json
-  
+
+
+  def password_match
+    
+    @container=Container.find_by_id_or_sha1(params[:id].to_i)
+
+    if (!@container.nil?)
+      if(params[:password]==@container.password)
+        respond_with({
+          :match => "true"
+        })  
+      else
+        respond_with({
+          :match => "false"
+        })
+      end
+    else
+      respond_with({
+          :match => "false"
+      })  
+    end  
+
+  end
+
 
   def storage
-    @remote_ip = request.remote_ip.to_s
     if(current_user)
       respond_with({
         :availablespace => current_user.capacity - current_user.storage
       })
     else
-      temp_user=Tempuser.where("ip =?",@remote_ip).first
       respond_with({
-        :availablespace => temp_user.capacity - temp_user.storage
+        :availablespace => 157286400
       })
     end
   end
@@ -26,10 +47,9 @@ class JsonController < ApplicationController
             :maxfilesize => @user.spf
           })          
     else 
-        @user=current_temp
         respond_with({
             :maxfilenumber => 50,
-            :maxfilesize => @user.spf
+            :maxfilesize => 157286400
         })          
     end
        

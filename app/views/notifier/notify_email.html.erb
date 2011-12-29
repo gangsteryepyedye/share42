@@ -372,16 +372,23 @@
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
                                                                
-                                                                <h4 class="h4">Hi! <%= @sender %> just sent you one or more files through filetunnel</h4>
-                                                                <a href="http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change" target="_blank">Download the attachment(s) (including <%= @filename %>)</a>	
-                                                                <br />
-                                                                <br />
+                                                                <h4 class="h4">Hi! <%= @sender %> just sent you <%= @count %> file(s) using Senditu.com</h4>
+                                                                <a href=<%= @link %> ></a>	
+                                                    
 
-                                                                <% if !(@sub.nil?) %>
+                                                                <ul >
+	                                                                <% for n in @filenames %>
+	                                                                	<li>
+	                                                             			<%= n %>		  
+	                                                                	</li>
+	                                                                <% end %>
+                                                                </ul>
+
+                                                                <% if (!@sub.nil?) %>
                                                                 <strong>Subject:</strong><%= @sub %>
                                                                 <br />
                                                                 <% end %>
-                                                                <% if !(@message.nil?) %>
+                                                                <% if (!@message.nil?) %>
                                                                 <strong>Message:</strong><%= @message %>                                                                 <br />
                                                                 <br />
                                                               	<% end %>
@@ -412,14 +419,14 @@
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="social">
                                                             <div mc:edit="std_social">
-                                                                &nbsp;<a href="*|TWITTER:PROFILEURL|*">Try Filetunnel for Free (No registration required)</a>
+                                                                &nbsp;<a href="*|TWITTER:PROFILEURL|*">Try Senditu for Free (No registration required)</a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td valign="top" width="350">
                                                             <div mc:edit="std_footer">
-																<a>Filetunnel</a> makes it easy and secure to share files with anyone.
+																<a>Senditu</a> makes it easy and secure to share files with anyone.
                                                             </div>
                                                             <br />
                                                         

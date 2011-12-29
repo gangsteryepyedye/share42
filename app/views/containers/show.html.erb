@@ -1,27 +1,64 @@
+<style type="text/css" media="screen">
+
+.headtabs{
+  display:none ;
+}
+
+.page-header{
+ position:absolute;
+}
+
+.breadcrumb{
+  margin-top:35px;
+
+}
+
+
+
+</style>
+
 <%= render :partial=>"header" %>
 
 
-    <table class="viewpane-content" style="width:50%">
-        <tbody>
-            <tr id="header">
-                <th>NAME</th>
-                <th>SIZE</th>
-                <th style="color: #DD4B39;">ACTION</th>
-            </tr>
 
-            <% for f in @files %>
-            <tr>
-              <td>
-              <%= f.file_file_name %>
-              </td>
-              <td>
-              <%= number_to_human_size(f.file_file_size) %>
-              </td>
-              <td>
-              <%= link_to "Download", :controller=>"stuffs", :action=>"download", :id=>f.sha1 %>
-              </td>
-            </tr>
-            <% end %>
+<div id="folder_display" style="width:93.5%">
+
+
+<% if need_pwd(@container) %>
+
+<div class="folder_password_form">
+    
+        
+        
+          <span>Please enter the password to access the files:</span>
+          <br>
+          <br>
+          <input autocomplete="disabled" class="text" id="folder_password" name="password" style="width: 21em;" tabindex="2" type="password" value="">
+          <input id="container_id" name="container_id" type="hidden" value=<%= @container.id %> />
+
+          <input type="submit" name="submit" class="btn" id="submit_btn" value="Go" style="margin-top:20px;" onClick="folderPassword();return false;"/>  
+
+         
+
+  
+</div>
+
+<% elsif current_user %>
+
+ <%= render :partial => "container_main",  :locals =>{:container=>@container} %> 
+
+<% else %>
+
+ <%= render :partial => "container_main_visit",  :locals =>{:container=>@container} %> 
+
+
+<% end %>
+
+
+
+
+
+
 
 
 
@@ -30,3 +67,22 @@
   </section>
 
 
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+
+
+   $(function () {
+      $("#newtransfer a").css("padding-left","0px");
+
+
+    });
+
+
+     
+
+
+
+</script>

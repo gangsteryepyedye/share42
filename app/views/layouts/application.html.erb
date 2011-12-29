@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Filetunnel</title>
+  <title>Send Large Files Free, Online File Sharing, Transfer Big Files Free, Managed File Transfer | Senditu</title>
 
 
 
@@ -10,6 +10,7 @@
         <td class="preview"></td>
         <td class="name">${name}</td>
         <td class="size">${sizef}</td>
+
         {{if error}}
             <td class="error_detail" colspan="2">Error:
                 {{if error === 'custom_failure'}}Custom Error Message
@@ -20,7 +21,8 @@
             <td class="progress"><div></div></td>
             <td class="start"><button>Start</button></td>
         {{/if}}
-        <td class="cancel"><button>Cancel</button></td>
+
+        <td class="cancel" style="float:right"><button>Cancel</button></td>
     </tr>
 </script>
 <script id="template-download" type="text/x-jquery-tmpl">
@@ -73,8 +75,8 @@
 });
 </script>
 
-	<%= javascript_include_tag "bootstrap-modal"%>
-	
+<%= javascript_include_tag "bootstrap-modal"%>
+<%= javascript_include_tag 'humane.min' %>
 <%= javascript_include_tag 'jquery.iframe-transport' %>
 <%= javascript_include_tag 'jquery.fileupload' %>
 <%= javascript_include_tag 'jquery.fileupload-ui' %>
@@ -82,14 +84,15 @@
 <%= javascript_include_tag "jquery.tagsinput.js" %>
 <%= javascript_include_tag "bootstrap-dropdown" %>
 <%= javascript_include_tag "jquery.fixheadertable.js" %>
-
+<%= javascript_include_tag "bootstrap-tabs" %> 
+<%= javascript_include_tag "jquery.zclip.min" %>
+<%= javascript_include_tag "jquery.tablesorter.min" %>
 <%= stylesheet_link_tag 'jquery-ui-1.8.16.custom' %>
 <%= stylesheet_link_tag 'jquery.fileupload-ui' %>
 
   <%= stylesheet_link_tag "application" %>
   <%= stylesheet_link_tag "base" %>
   <%= javascript_include_tag "application" %>	
-	
 	
 
   <%= csrf_meta_tags %>
@@ -104,9 +107,9 @@
       <div class="fill">
         <div class="container">
           <a class="brand" href="#">
-				<img class="logo" width="14" height="18" title="File Tunnel" src="https://a15.ysicdo002.com/web/en_US/theme_default/images/img_trans.gif">
+				<img class="logo" width="14" height="18" title="File Tunnel" src="/assets/img_trans.gif">
 
-File Tunnel</a>
+Senditu</a>
           <ul class="nav">
             <li><a href="#about">Plans & Pricing</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -136,16 +139,18 @@ File Tunnel</a>
         <% end %>
         
         	
-        </div>
-      </div>
     </div>
+  </div>
+</div>
+
+
  	<br>
  	<br>
+
+
 <div class="container">
 	
 	
-	
-
   		
   		
 	<%= yield %>
@@ -165,7 +170,7 @@ $('.recipients').tagsInput({
   'height':'30px',
    'width':'483px',
    'unique':true,
-   'defaultText':'Add an email recipient' 
+   'defaultText':'Email Address(es)' 
 });    
     
 

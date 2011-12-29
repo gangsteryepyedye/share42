@@ -1,0 +1,461 @@
+ 
+<script type="text/javascript" charset="utf-8">
+
+jQuery.ajaxSetup({ 
+  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
+jQuery.fn.submitWithAjax = function() {
+  this.submit(function() {
+    $.post(this.action, $(this).serialize(), null, "script");
+    return false;
+  })
+  return this;
+};
+
+$(document).ready(function() {
+  $(".edit_user").submitWithAjax();
+})
+
+</script>
+
+
+
+ <%= render :partial =>"/containers/header" %>
+
+<div class="stats" >
+
+
+            <ul>
+
+                <li><a href="#" class="count" style="padding-left:0px"><%= return_available_space(current_user) %></a><br><span>Availabe/Total space</span></li>
+                <li><a href="#" class="count" ><%= @containers.count %></a><br><span>Folders/Transfers</span></li>
+                
+                <li><a href="#" class="count" title=""><%= number_to_human_size(current_user.storage) %></a><br><span>Space used</span></li>
+                 <li><a href="#" class="count" title=""><%= @downloads %></a><br><span>Total Downloads</span></li>
+
+                <li style="width:120px;"><a href="#" class="count"><%= return_plans(current_user) %></a><span>My Plan</span></li>
+
+            </ul>
+</div>
+
+
+
+	<nav class="sidebar">
+			<ul class="sidebar_tab" data-tabs="sidebar_tab">
+				<li class="active"><a href="#plans">Plans & Billing</a></li>			
+				<li class=""><a href="#change_password">Change Password</a></li>			
+				<li class=""><a href="#change_email">Change Email</a></li>			
+				<li class=""><a href="#notifications">Notifications</a></li>			
+			</ul>
+	</nav>
+
+
+<div class="tab-content">
+<% if current_user.priviledge=="1" %>
+	<div class="active" id="plans">
+	<table class="plan_table">
+		
+		<tbody>
+			<tr>
+				
+				<th>
+					Plan	
+				</th>
+				<th>
+					Storage	
+				</th>
+				<th>
+					Downloads(per file)	
+				</th>
+				<th>
+					Max transfer size(per file)
+				</th>
+				<th>
+					Expiration
+				</th>
+				<th>
+					Action
+				</th>
+			</tr>
+
+			<tr>
+				<td>
+					Plus ($19.99/month)
+				</td>
+				<td>
+					100GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Premium ($9.99/month)
+				</td>
+				<td>
+					20GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Personal ($4.99/month)
+				</td>
+				<td>
+					5GB
+				</td>
+				<td>
+					100
+				</td>
+				<td>
+					2GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Instant ($1.99/time)
+				</td>
+				<td>
+					2GB
+				</td>
+				<td>
+					100	
+				</td>
+				<td>
+					2GB
+				</td>					
+				<td>
+					14 Days
+				</td>
+				<td>
+							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Free
+				</td>
+				<td>
+					1GB
+				</td>
+				<td>
+					20
+				</td>
+				<td>
+					150MB
+				</td>					
+				<td>
+					14 Days
+				</td>
+				<td>
+							<p style="color:#d8d8d8d;">Your plan</p>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+	</div>
+<% elsif current_user.priviledge=="2" %>
+<div class="active" id="plans">
+	<table class="plan_table">
+		
+		<tbody>
+			<tr>
+				
+				<th>
+					Plan	
+				</th>
+				<th>
+					Storage	
+				</th>
+				<th>
+					Downloads(per file)	
+				</th>
+				<th>
+					Max transfer size(per file)
+				</th>
+				<th>
+					Expiration
+				</th>
+				<th>
+					Action
+				</th>
+			</tr>
+
+			<tr>
+				<td>
+					Plus ($19.99/month)
+				</td>
+				<td>
+					100GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Premium ($9.99/month)
+				</td>
+				<td>
+					20GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Personal ($4.99/month)
+				</td>
+				<td>
+					5GB
+				</td>
+				<td>
+					100
+				</td>
+				<td>
+					2GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Instant ($1.99/time)
+				</td>
+				<td>
+					2GB
+				</td>
+				<td>
+					100	
+				</td>
+				<td>
+					2GB
+				</td>					
+				<td>
+					14 Days
+				</td>
+				<td>
+							<p style="color:#d8d8d8d;">Your plan</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Free
+				</td>
+				<td>
+					1GB
+				</td>
+				<td>
+					20
+				</td>
+				<td>
+					150MB
+				</td>					
+				<td>
+					14 Days
+				</td>
+				<td>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+	</div>
+
+<% elsif current_user.priviledge=="3" %>
+
+<% elsif current_user.priviledge=="4" %>
+
+
+<% elsif current_user.priviledge=="5" %>
+
+
+<% end %>
+
+
+
+	<div id="change_password">
+		
+	<%= form_for current_user, :url=>update_password_user_path(current_user), :remote=>true do |f| %>
+		<h3 style="color:#gray;">
+		Change Password
+		</h3>		
+
+	  <br>
+
+      <div >
+       <input class="span3" id="old_password" name="old_password" size="5" type="password" placeholder="Current password" >
+      </div>
+	  <br>
+
+      <div > 
+       <input class="span3" id="new_password" name="new_password" size="5" type="password" placeholder="New password" >
+      </div>
+
+      <div style="margin-top:5px;">
+    	<%= submit_tag "Update password", :class=>"btn medium", :style=>"margin-top:15px;" %>
+
+       </div>
+    <% end %>
+
+
+	</div>
+
+	<div id="change_email">
+	<%= form_for current_user, :url=>update_email_user_path(current_user), :remote=>true do |f| %>
+	<h3 style="color:#gray;">
+		Change Email
+	</h3>		
+
+	  <br>
+	  <p>This will change your sign in and where notification emails are sent to.<p>
+
+      <div > 
+       <input class="span3" id="new_email" name="new_email" size="5" value=<%= current_user.email %> >
+      </div>
+
+      <div style="margin-top:5px;">
+    	<%= submit_tag "Update email", :class=>"btn medium", :style=>"margin-top:15px;" %>
+
+       </div>
+    <% end %>	
+
+	</div>
+
+	<div id="notifications">
+	<%= form_for current_user, :url=>update_notifications_user_path(current_user), :remote=>true do |f| %>
+
+	<h3 style="color:#gray;margin-left:3px;" >
+		Notifications
+	</h3>	
+            <label id="optionsRadio">Download notification:</label>
+            <div class="input" style="margin-left:140px">
+              <ul class="inputs-list">
+                
+                <% if current_user.everytime==false %>
+                <li>
+                  <label>
+                    <input type="radio" checked="" name="notification" value="first">
+                    <span>The first time each person downloads a file</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="notification" value="every">
+                    <span>Every time each person downloads a file</span>
+                  </label>
+                </li>
+               <% else %> 
+               <li>
+                  <label>
+                    <input type="radio" name="notification" value="first">
+                    <span>The first time each person downloads a file</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" checked="" name="notification" value="every">
+                    <span>Every time each person downloads a file</span>
+                  </label>
+                </li>
+                <% end %>	
+
+
+                <li>
+          			<label>
+                    	<%= f.check_box :limitnotif %>
+                    	<span>Remind me when the file reaches the download limit</span>
+                	</label>
+              	</li>
+              </ul>
+            </div>
+
+            <div style="margin-top:5px;">
+    			<%= submit_tag "Update notifications", :class=>"btn medium", :style=>"margin-top:15px;margin-left:140px;" %>
+       		</div>
+
+
+          
+    <% end %>
+	</div>
+
+
+</div>
+
+
+
+
+
+
+  </section>
+  </section>
+
+
+
+<script type="text/javascript" charset="utf-8">
+
+
+   $(function () {
+      $(".class").find('> .active').removeClass('active');
+      $("#account").addClass('active');
+      $("#newtransfer a").css("padding-left","0px");
+
+    });
+
+</script>

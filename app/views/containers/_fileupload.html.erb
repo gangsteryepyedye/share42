@@ -1,0 +1,217 @@
+
+
+
+<%= form_for @stuff, :html => {:multipart => true, :class=>"form-stacked", :name=>"main-form"} do |f| %>
+	
+	<div class="error">
+
+	</div>
+	
+     <input name="container_id" type="hidden" value=<%= @container.id %> />
+     <input name="emails" class="emails" type="hidden" value=""/>
+     <input name="link" class="link" type="hidden" value=<%= @link %> />
+     
+    
+ 
+<!--
+	       <button type="submit" class="start">Start upload</button>
+-->
+
+
+<!--
+            <button type="reset" class="cancel">Cancel upload</button>
+
+-->
+<!--
+            <button type="button" class="delete">Delete files</button>
+-->  
+
+
+   <div class="beforesend">
+   <div class="clearfix">
+            <label for="xlInput3">Sender:<span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> (Optional)</span></label>
+            <div class="input">
+              <input class="xlarge span3" id="xlInput3" name="sender" size="30" type="text" placeholder="Your Email Address">
+            </div>
+  </div>
+
+      
+    <div class="clearfix">  
+    <label for="xlInput3">Files Recipients: <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;">(separate emails with commas or tabs)<span></label>
+    <div class="input recipientInput">
+    <input class="xlarge recipients" id="xlInput" name="email" size="30" type="text" style="width:100%">
+   </div> 
+  </div>
+
+
+<div class="clearfix">
+			
+	
+            <label for="xlInput3">
+   		
+            	Subject<span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> (Optional)</span>
+         <span>
+			<a class="expand1" style="color:#395069">
+				expand
+			</a>
+			</span>
+
+</label>
+            <div class="input">
+              <input class="xlarge subject-field1" id="xlInput3" name="subject" size="30" type="text">
+            </div>
+</div>
+
+	
+<div class="clearfix">
+
+	
+            <label for="xlInput3">
+       
+            	Message<span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> (Optional)</span>
+     	<span>
+			<a class="expand2" style="color:#395069">
+				expand
+			</a>
+	</span>	
+
+</label>
+            <div class="input message-field">
+            	<textarea class="xxlarge subject-field2" id="textarea2" name="message" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 484px; "></textarea>
+            </div>
+</div>
+
+
+<div class="clearfix">
+
+	
+            <label for="xlInput3">
+ 			Options
+     	<span>
+		
+	</span>	
+
+</label>
+
+<div class="input" style="margin-left:20px;">
+<ul class="inputs-list">
+
+
+<!--
+                <li>
+                  <label>
+                    <input type="checkbox" name="optionsCheckboxes" value="option1" id="premiumCheck">
+                    <span> Premium Delivery (Send files up to 5GB. One time payment)</span>
+                    <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> Only $5.99</span>
+                  </label>
+                </li>
+
+-->
+
+
+                <li>
+                  <label>
+                    <input type="checkbox" name="optionsCheckboxes" value="option2" onClick="passwordToggle()">
+                    <span> Protect Download (Password)</span> <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> Free</span>
+                  </label>
+              <div class="password-block">
+                  <div class="clearfix">
+                    
+                      <div class="input">
+                    
+                        <input class="span3" id="container_password" name="container_password" size="5" type="password" placeholder="Password">
+                        <input class="span3" id="container_password_confirm" name="container_password_confirm" size="5" type="password" placeholder="Confirm Password" onkeyup="validatePassword(); return false;">
+                      </div>
+                 </div>
+             
+              </div>
+
+                </li>
+               
+                 
+                <li>
+                  <label>
+                    <%= f.check_box :notif %>
+
+                    <span>Notify Upon Download</span><span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;" > Free</span>
+                  </label>
+                </li>  
+
+                 <li>
+                <label class="disabled">
+                    <input type="checkbox" name="optionsCheckboxes" value="option2" checked="yes" disabled="">
+                    <span>Expire in 14 days</span>
+                </label>
+              <span class="help-block">
+                <strong>Note:</strong> Files will expire in 14 Days. Upgrade to have unlimited storage.
+              </span>
+
+            </li>    
+
+              </ul>
+
+</div>
+</div>
+
+</div>
+    
+  
+    <div style="margin-bottom:10px;"></div>
+    
+  <label for="xlInput3"><span id="syf">Send Your Files</span> (<span class="filesize">0 KB</span>)</label>
+
+    <div class="fileupload-content">
+    	
+    	
+    	<table style="margin-bottom:0px;">
+				<tbody><tr>
+					<td style="vertical-align: middle;">
+						<div class="drag-drop-show" style="color:#777777">
+							<h1 style="margin-left:55px;margin-top:40px;color:#777777">Drag &amp; Drop Files Here</h1>
+				
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+    	
+    	
+    	
+        <table class="files"></table>
+        <div class="percent"></div>
+    <div class="fileupload-progressbar"><span id="fileupload-progress"></span></div>
+
+
+    </div>
+
+   <div style="margin-top:5px;">
+   	<%= f.file_field :file %> 	
+   </div>
+   
+
+
+
+
+  
+   <br/>
+   
+
+    <div style="margin-top:5px;">
+    <button class="btn info large" style="margin-left:175px;margin-top:10px;" onClick="validateForm();return false;">Send Now!</button>
+    </div>
+    
+    
+    <% end %> 

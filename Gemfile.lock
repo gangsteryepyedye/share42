@@ -114,6 +114,7 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rubyzip (0.9.5)
     sass (3.1.10)
     sass-rails (3.1.4)
       actionpack (~> 3.1.0)
@@ -154,6 +155,7 @@ DEPENDENCIES
   mail
   paperclip (~> 2.4)
   rails (= 3.1.1)
+  rubyzip
   sass-rails (~> 3.1.4)
   sqlite3
   sqlite3-ruby

@@ -128,6 +128,7 @@
             done: function (e, data) {
                 var that = $(this).data('fileupload');
                 if (data.context) {
+        
                     data.context.each(function (index) {
                         var file = ($.isArray(data.result) &&
                                 data.result[index]) || {error: 'emptyResult'};
@@ -143,7 +144,10 @@
                                     $(this).show();
                                 });
                         });
+
+
                     });
+  
                 } else {
                     that._renderDownload(data.result)
                         .css('display', 'none')
@@ -206,11 +210,8 @@
                     parseInt(data.loaded / data.total * 100, 10)
              );
              if(data.loaded==data.total){
-                $(".error").html('<div class="alert-message fade in"><p><strong>Well done!</strong> Your upload was successful, an email has been sent to recipient(s). <a href="#">Go to your management console</a></p></div>');
-                $.get('/partial_update', function(data) {
-                        $('.viewpane').html(data);
-                });
-
+                    $(".error").html('<div style="padding-top:10px;"></div><div style="height:31px;float:left;padding-top:11px;"><label>Processing your upload...please wait</label></div><div id="loader" style="height:31px;float:left;"></div>');
+                    $("#loader").html('<img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px">');
                 }
             },
             // Callback for uploads start, equivalent to the global ajaxStart event:
@@ -221,6 +222,27 @@
             // Callback for uploads stop, equivalent to the global ajaxStop event:
             stop: function () {
                 $(this).find('.fileupload-progressbar').fadeOut();
+                $.notification({ message:"Success! We have uploaded your files. A notification is sent to recipient(s).", type:"notice" });
+                            var link = $(".link").val();
+                            var sha1 =$("#container_id").val();
+                            $("#syf").html('Send More Files');
+                            $(".percent").hide();   
+                            $(".error").html('<div class="nNote nSuccess"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px"><label>You can add more file(s) to this folder or <a href="javascript:location.reload(true)">start a new file transfer.</a></label></p></div>');
+                            $('a#copy').zclip({
+                                    path:'/assets/ZeroClipboard.swf',
+                                    copy:$('a.copied').text()
+                            });
+                          
+                            $(".beforesend").hide();
+                            $(".filesize").html("0 KB");   
+                                         
+                            $.get('/send_notification?id='+sha1, function(data) {
+                                return true
+                            });
+                            $.g_config.totalSize=0; 
+                            $.get('/partial_update', function(data) {
+                                    $('.recent_activity').html(data);
+              });
             },
             // Callback for file deletion:
             destroy: function (e, data) {
@@ -434,12 +456,6 @@
             var row = $('<tr class="template-upload">' +
                 '<td class="name"></td>' +
                 '<td class="size"></td>' +
-                (file.error ?
-                    '<td class="error_detail" colspan="2"></td>'
-                :
-                    
-                    '<td class="start"></td>'
-                ) +
                 '<td class="start" style="padding:0;display:none;"><button>Start</button></td>' + 
                 '<td class="cancel" style="padding:0;"><button>Cancel</button></td>' +
                 '</tr>');
@@ -551,20 +567,19 @@
                 data = tmpl.data('data') || {};
               $.each(data.files, function (index, file) {
 					$.g_config.totalSize -= file.size;
+                    $.g_config.totalNumber -= 1;
         		});
          		 var total =$.g_config.totalSize;
           		var result;
 				
-				if (total >= 1000000000) {
-                	result = (total / 1000000000).toFixed(2) + ' GB';
-            	}
-            	else if (total >= 1000000) {
-                	result = (total / 1000000).toFixed(2) + ' MB';
-            	}
-            	else{
-             		result = (total / 1000).toFixed(2) + ' KB';				
-				}
-			
+			if (total >= 1000000000) {
+                result = (total / 1000000000).toFixed(2) + ' GB, '+ $.g_config.totalNumber+' Files';
+            } else if (total >= 1000000) {
+                result = (total / 1000000).toFixed(2) + ' MB, '+ $.g_config.totalNumber+' Files';
+            } else {
+                result = (total / 1000).toFixed(2) + ' KB, '+ $.g_config.totalNumber+' Files';
+            }
+
 				$(".filesize").text(result);
 				
 				if(response_object.maxfilesize>total){

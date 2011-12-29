@@ -10,7 +10,9 @@
  */
 
 /*jslint nomen: true, unparam: true, regexp: true */
-/*global document, XMLHttpRequestUpload, Blob, File, FormData, location, jQuery */
+/*global 
+
+cument, XMLHttpRequestUpload, Blob, File, FormData, location, jQuery */
 
 (function ($) {
     'use strict';
@@ -439,7 +441,9 @@
                     total: 1
                 }), options);
             }
-          
+            $.get('/partial_update', function(data) {
+                $('#viewpane').html(data);
+            });
             options.result = result;
             options.textStatus = textStatus;
             options.jqXHR = jqXHR;

@@ -21,7 +21,7 @@ gem "aws-ses"
 gem 'aws-s3'
 gem "paperclip", "~> 2.4"
 gem 'jquery-rails'
-
+gem 'rubyzip'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "googl"

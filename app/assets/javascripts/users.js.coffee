@@ -3,13 +3,3 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 
-
- $("#planSelect").bind('change',function(){
-   
-   var name="."+$("#planSelect").val()+"_summary";
-  $(name).show();
-  $(name).siblings().hide();
-
-
-
- });

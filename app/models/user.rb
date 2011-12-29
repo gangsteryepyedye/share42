@@ -7,9 +7,13 @@ class User < ActiveRecord::Base
   
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
-  validates_presence_of :email
-  validates_uniqueness_of :email
-  
+  validates :email,   
+            :presence => true,   
+            :uniqueness => true,   
+            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }  
+
+
+
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && user.passowrd_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
@@ -18,7 +22,36 @@ class User < ActiveRecord::Base
       nil
     end
   end
+    
+  def change_password(old_password,new_password)
+    
+    if self.passowrd_hash == BCrypt::Engine.hash_secret(old_password, self.password_salt)
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.passowrd_hash = BCrypt::Engine.hash_secret(new_password, password_salt)
+      self.save
+      return true
+    else
+      return false
+    end
+
   
+  end 
+
+  def change_email(new_email)
+
+    self.email=new_email  
+
+    if self.save
+      return true
+    else
+      return false
+    end
+
+  end
+
+
+
+
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt

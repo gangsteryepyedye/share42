@@ -1,0 +1,214 @@
+
+
+
+<ul class="breadcrumb">
+        <li><a href="/containers">Home</a> <span class="divider">/</span></li>
+        
+        <% if @container.name.nil? %>
+        <li class="active"><%= @container.stuffs.first.file_file_name %></li>
+        <% else %>
+        <li class="active"><%= @container.name %></li>
+        <% end %>
+    
+
+      </ul>
+<% if expired(@container) %>         
+
+<div class="tiptip" style="height:20px;width:600px;">
+          <p>This folder has expired.</p>
+</div>
+<% else %>
+<ul class="well2">
+        <li>
+
+
+
+              <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]}, :class=>"minibutton", :style=>"text-decoration:none"%>
+
+        </li>
+        <li>
+    <div class="clearfix" style="margin-left:10px;"><a href="#" class="minibutton" disabled="disabled" style="text-decoration: none;float:left;">Folder Link</a>
+<input id="" name="" type="text" value=<%= @link %> spellcheck="false" class="copied"></div>
+
+        </li>
+        <li>
+<a id="copy" href="#"><img alt="directory" height="16" src="/assets/clipboard.png" width="16" style="margin-top:3px">Copy Link</a>
+        </li>
+
+
+</ul>
+
+
+<ul class="tabs" data-tabs="tabs" >
+  <li class="active"><a href="#files">Files</a></li>
+  <li><a href="#recipients">Recipients</a></li>
+  <li><a href="#settings">Settings</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="my-tab-content" class="tab-content">
+            
+            <div class="tab-pane active" id="files">
+                 <table class="viewpane-content bordered-table">
+        <thead>
+            <tr id="header">
+                <th>NAME</th>
+                <th>SIZE</th>
+                <th style="color: #DD4B39;">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for f in @container.stuffs %>
+            <tr>
+        
+              <td>
+              <img alt="file" height="16" src="/assets/file_icon.png" width="16">
+
+              <%= f.file_file_name %>
+              </td>
+              <td>
+              <%= number_to_human_size(f.file_file_size) %>
+              </td>
+              <td>
+              <%= link_to "Download", :controller=>"stuffs", :action=>"download", :id=>f.sha1, :email => params[:email] %>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+
+            </div>
+
+            <div class="tab-pane" id="recipients">
+  
+
+
+     <table class="zebra-striped">
+        <thead>
+          <tr>
+            <th>                
+Email</th>
+            <th>Download(s)</th>
+          </tr>
+        </thead>
+        <tbody>
+       <% for e in @container.emails %>
+          <tr>
+            <td style="height:28px"><img alt="directory" height="16" src="/assets/user.png" width="16">
+<%= e.name %><br></td>
+            <td><%= e.downloads %></td>
+          </tr>
+
+       <% end %>
+        </tbody>
+      </table>
+            </div>
+
+            <div class="tab-pane" id="settings">
+
+<div style="margin:30px 0px 0px 105px;">
+
+    
+ <%= form_for @container, :remote => true do |f| %>
+  <div class="error"></div>
+  <div class="clearfix">  
+    <label for="xlInput">Folder Name</label>
+    <div class="input">
+      <%= f.text_field :name, :id=>"xlInput", :class=>"xlarge" %>
+    </div>
+  </div>
+
+   <div class="clearfix">
+    
+      <label for="xlInput">
+          Options:           
+      </label>              
+          <div class="input">
+              <ul class="inputs-list">
+               <% if current_user.priviledge.to_i<3 %>  
+             <li>
+                <label class="disabled">
+                    <input type="checkbox" name="optionsCheckboxes" value="option2" checked="yes" disabled="">
+                    <span>Expire in  <%= expiration_day(@container) %></span>
+                </label>
+              <span class="help-block">
+                <strong>Note:</strong> Files will expire in <%= expiration_day(@container) %>. Upgrade to have unlimited storage.
+              </span>
+
+            </li>    
+      
+          <% end %>
+                <li>
+                  <label>
+                    <%= f.check_box :notif %>
+                    <span>Notify Upon Download</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <% if (@container.password=="")||(@container.password.nil?) %>
+                    <input type="checkbox" id="passwordCheckBox" name="optionsCheckboxes" value="0" onClick="passwordEnable()">
+                    <% else %>
+                   <input type="checkbox" id="passwordCheckBox" name="optionsCheckboxes" checked="true" onClick="passwordEnable()">
+                   <% end %>
+
+                    <span>Password protection</span>
+                  </label>
+                </li>
+
+
+              </ul>
+          </div>
+
+    
+    
+
+
+      <div class="input">
+      <% if (@container.password=="")||(@container.password.nil?) %>
+
+             <input class="span3" id="container_password" name="container_password" size="5" type="password" placeholder="Password" disabled="disabled" >
+        <input class="span3" id="container_password_confirm" name="container_password_confirm" size="5" type="password" placeholder="Confirm Password" disabled="disabled">
+      <% else %>
+       <input class="span3" id="container_password" name="container_password" size="5" type="password" placeholder="Password" value=<%= @container.password %> >
+        <input class="span3" id="container_password_confirm" name="container_password_confirm" size="5" type="password" placeholder="Confirm Password" value=<%= @container.password %> >
+      <% end %>          
+ 
+      </div>
+
+
+
+  </div>
+  
+    <div style="margin-top:5px;">
+    <%= f.submit "update", :class=>"btn large", :style=>"margin-left:150px;margin-top:10px;" %>
+
+    </div>
+
+
+
+
+
+
+ <% end %>
+</div>
+            </div>
+ 
+     
+</div>
+
+</div>
+<% end %>

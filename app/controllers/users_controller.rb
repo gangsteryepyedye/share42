@@ -59,6 +59,75 @@ class UsersController < ApplicationController
 
   end
 
+  def update_password
+    @user=current_user
+    old_password=params[:old_password]
+    new_password=params[:new_password]
+
+    if @user.change_password(old_password,new_password)
+      respond_to do |format|
+        format.js{
+          render :action=>"success_profile_update"
+        }
+      end 
+    else
+      respond_to do |format|
+        format.js{
+          render :action=>"wrong_password"
+        }
+      end 
+    end    
+  end
+
+  def update_email
+    @user=current_user
+    new_email=params[:new_email]
+
+    if @user.change_email(new_email)
+      respond_to do |format|
+        format.js{
+          render :action=>"success_email_update"
+        }
+      end 
+    else
+      respond_to do |format|
+        format.js{
+          render :action=>"wrong_email"
+        }
+      end 
+    end    
+  end
+
+  def update_notifications
+     @user=current_user
+     
+     option=params[:notification]
+
+     if option=="first"
+        @user.limitnotif=params[:user][:limitnotif]
+        @user.everytime=false
+        @user.save
+     elsif option=="every"
+        @user.limitnotif=params[:user][:limitnotif]
+        @user.everytime=true
+        @user.save
+     end 
+
+      respond_to do |format|
+        @message="We have updated your settings"
+        @type="notice"
+        format.js{
+          render :action=>"notice"
+        }
+      end 
+  end 
+
+
+
+    
+
+
+
 
 
 end

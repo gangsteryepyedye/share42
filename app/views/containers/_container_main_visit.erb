@@ -1,0 +1,89 @@
+
+
+<ul class="breadcrumb">
+        <li><a href="/containers">Home</a> <span class="divider">/</span></li>
+        
+        <% if @container.name.nil? %>
+        <li class="active"><%= @container.stuffs.first.file_file_name %></li>
+        <% else %>
+        <li class="active"><%= @container.name %></li>
+        <% end %>
+
+
+      </ul>
+<% if expired(@container) %>         
+
+<div class="tiptip" style="height:20px;width:600px;">
+          <p>This folder has expired.</p>
+</div>
+<% else %>
+<ul class="well2">
+        <li>
+
+
+
+              <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]}, :class=>"minibutton", :style=>"text-decoration:none"%>
+
+        </li>
+        <li>
+    <div class="clearfix" style="margin-left:10px;"><a href="#" class="minibutton" disabled="disabled" style="text-decoration: none;float:left;">Folder Link</a>
+<input id="" name="" type="text" value=<%= @link %> spellcheck="false" class="copied"></div>
+
+        </li>
+<li>
+<a id="copy" href="#"><img alt="clipboard" height="16" src="/assets/clipboard.png" width="16" style="margin-top:3px">Copy Link</a>
+</li>
+
+
+</ul>
+
+
+<ul class="tabs" data-tabs="tabs" >
+  <li class="active"><a href="#files">Files</a></li>
+</ul>
+
+
+
+
+
+<div id="my-tab-content" class="tab-content">
+            
+            <div class="tab-pane active" id="files">
+                 <table class="viewpane-content bordered-table">
+        <thead>
+            <tr id="header">
+                <th></th>
+                <th>NAME</th>
+                <th>SIZE</th>
+                <th style="color: #DD4B39;">ACTION</th>
+            </tr>
+        </thead>    
+        <tbody>
+            <% for f in @container.stuffs %>
+            <tr>
+              <td width="4%">
+                <img alt="file" height="16" src="/assets/file_icon.png" width="16">
+              </td>
+              <td>
+              <%= f.file_file_name %>
+              </td>
+              <td>
+              <%= number_to_human_size(f.file_file_size) %>
+              </td>
+              <td>
+              <%= link_to "Download", :controller=>"stuffs", :action=>"download", :id=>f.sha1, :email => params[:email] %>
+              </td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+
+            </div>
+
+         
+
+     
+</div>
+
+</div>
+<% end %>

@@ -4,7 +4,7 @@ Filetunnel::Application.routes.draw do
  
  
   get "pages/pricing"
-
+  get "pages/account"
   get "pages/about"
 
   get "sessions/new"
@@ -16,15 +16,24 @@ Filetunnel::Application.routes.draw do
      get 'download'
    end
   end
-  resources :containers
-  get "partial_update" => "containers#partial_update"  
+  resources :containers do
+    member do
+      get 'download_all'
+      get 'remove'
+      get 'remove_folder'
+    end
+  end
+
+  get "show_newtransfer" => "containers#show_newtransfer"
+  get "partial_update" => "containers#partial_update"
+  get "show_container" => "containers#show_container"  
   get "new_transfer" => "containers#new_transfer"
- 
+  get "send_notification" => "containers#send_notification"
 
   resources :json
   get "priviledge" => "json#user_info"
   get "storage" => "json#storage"
-
+  get "password_match" => "json#password_match"
 
 
   get "log_out" => "sessions#destroy", :as => "log_out"
@@ -34,7 +43,14 @@ Filetunnel::Application.routes.draw do
   root :to => "containers#new"
   
   
-  resources :users
+  resources :users do
+    member do 
+       put 'update_password'
+       put 'update_email'
+       put 'update_notifications'
+    end
+  end
+
   resources :sessions
   
   

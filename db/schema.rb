@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111207060156) do
+ActiveRecord::Schema.define(:version => 20111227065610) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(:version => 20111207060156) do
     t.integer  "downloaded",  :default => 0
     t.string   "sha1"
     t.datetime "exptime"
+    t.string   "name"
+    t.boolean  "notif",       :default => true
+    t.string   "sender"
+    t.string   "subject"
+    t.text     "message"
   end
 
   create_table "emails", :force => true do |t|
@@ -31,6 +36,8 @@ ActiveRecord::Schema.define(:version => 20111207060156) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.integer  "downloaded",   :default => 0
+    t.integer  "downloads",    :default => 0
   end
 
   create_table "stuffs", :force => true do |t|
@@ -44,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20111207060156) do
     t.datetime "file_updated_at"
     t.integer  "downloads"
     t.string   "sha1"
+    t.boolean  "notif",             :default => true
   end
 
   create_table "tempusers", :force => true do |t|
@@ -69,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20111207060156) do
     t.integer  "spf"
     t.integer  "downloadcap"
     t.text     "list"
+    t.boolean  "everytime",     :default => false
+    t.boolean  "limitnotif",    :default => true
   end
 
 end

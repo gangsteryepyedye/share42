@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Filetunnel</title>
+
+
+
+<script id="template-upload" type="text/x-jquery-tmpl">
+    <tr class="template-upload{{if error}} ui-state-error{{/if}}">
+        <td class="preview"></td>
+        <td class="name">${name}</td>
+        <td class="size">${sizef}</td>
+        {{if error}}
+            <td class="error_detail" colspan="2">Error:
+                {{if error === 'custom_failure'}}Custom Error Message
+                {{else}}${error}
+                {{/if}}
+            </td>
+        {{else}}
+            <td class="progress"><div></div></td>
+            <td class="start"><button>Start</button></td>
+        {{/if}}
+        <td class="cancel"><button>Cancel</button></td>
+    </tr>
+</script>
+<script id="template-download" type="text/x-jquery-tmpl">
+    <tr class="template-download{{if error}} ui-state-error{{/if}}">
+
+    </tr>
+</script>
+
+  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+	<script src="//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+<script type="text/javascript">
+    // this identifies your website in the createToken call below
+    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
+     
+  function stripeResponseHandler(status, response) {
+                if (response.error) {
+                    // re-enable the submit button
+                    $('.submit-button').removeAttr("disabled");
+                    // show the errors on the form
+                    $(".payment-errors").html(response.error.message);
+                } else {
+                    var form$ = $(".payment-form");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form$.get(0).submit();
+                }
+            }
+
+  $(document).ready(function() {
+  $(".payment-form").submit(function(event) {
+    // disable the submit button to prevent repeated clicks
+    $('.submit-button').attr("disabled", "disabled");
+
+    var amount = 1000; //amount you want to charge in cents
+    Stripe.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry-month').val(),
+        exp_year: $('.card-expiry-year').val()
+    }, amount, stripeResponseHandler);
+
+    // prevent the form from submitting with the default action
+    return false;
+  });
+});
+</script>
+
+<%= javascript_include_tag "bootstrap-modal"%>
+<%= javascript_include_tag 'humane.min' %>
+<%= javascript_include_tag 'jquery.iframe-transport' %>
+<%= javascript_include_tag 'jquery.fileupload' %>
+<%= javascript_include_tag 'jquery.fileupload-ui' %>
+<%= javascript_include_tag 'bootstrap-alerts' %>
+<%= javascript_include_tag "jquery.tagsinput.js" %>
+<%= javascript_include_tag "bootstrap-dropdown" %>
+<%= javascript_include_tag "jquery.fixheadertable.js" %>
+<%= javascript_include_tag "bootstrap-tabs" %> 
+
+<%= stylesheet_link_tag 'jquery-ui-1.8.16.custom' %>
+<%= stylesheet_link_tag 'jquery.fileupload-ui' %>
+
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "base" %>
+  <%= javascript_include_tag "application" %>	
+	
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+	
+	
+	
+	
+<div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">
+				<img class="logo" width="14" height="18" title="File Tunnel" src="/assets/img_trans.gif">
+
+Senditu</a>
+          <ul class="nav">
+            <li><a href="#about">Plans & Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+         
+         <% if current_user %>
+
+    	<ul class="nav secondary-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle"><%= current_user.email %></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Secondary link</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><%= link_to "Log out", log_out_path %></li>
+              </ul>
+            </li>
+          </ul>
+    		   	
+    	
+    	<% else %>		
+			<%= form_tag sessions_path, :class=>"pull-right" do %>
+            	 <%= text_field_tag :email, params[:email], :class=>"input-medium", :placeholder=>"Email", :style=>"border:none" %>
+            	 <input id="password" name="password" type="password" class="input-small" placeholder="Password" style="border:none">
+            	 <button class="btn" type="submit">Sign in</button>
+       		<% end %>
+        <% end %>
+        
+        	
+    </div>
+  </div>
+</div>
+
+
+ 	<br>
+ 	<br>
+
+
+<div class="container">
+	
+	
+  		
+  		
+	<%= yield %>
+
+
+
+<script type="text/javascript" charset="utf-8">
+
+
+
+
+
+
+
+
+$('.recipients').tagsInput({
+  'height':'30px',
+   'width':'483px',
+   'unique':true,
+   'defaultText':'Email Address(es)' 
+});    
+    
+
+
+
+
+
+
+    
+    
+</script>
+
+
+
+	</div>
+  </div>
+</body>
+</html>

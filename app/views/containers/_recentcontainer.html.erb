@@ -1,0 +1,49 @@
+
+    <table class="viewpane-content" style="width:100%">
+        <tbody>
+            <tr id="header">
+                <th>NAME</th>
+                <th>SENT ON</th>
+                <th>FILES</th>
+                <th>SIZE</th>
+              
+       
+
+            </tr>
+<% for container in @containers %>
+
+<tr>
+<td>
+<%= link_to truncate(container.name,:length=>24), container %>
+</td>
+<td>
+<%= container.created_at.strftime("%Y-%m-%d") %>
+</td>
+<td>
+
+<%= container.stuffs.count %>
+
+</td>
+<td>
+
+<%= get_size(container) %>
+
+</td>
+
+
+
+
+<tr>
+
+<% end %>
+
+
+             </tbody>
+    
+        </table>  
+
+          <div id="processing">
+
+
+
+          </div>
