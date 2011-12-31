@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/nathancolgate/s3-swf-upload-plugin
+  revision: 2084b368296aa8f9e71108a1466a7bb329e55789
+  specs:
+    s3_swf_upload (0.3.2)
+      aws-s3 (~> 0.6.2)
+
+GIT
   remote: https://github.com/stripe/stripe-ruby
   revision: 332b0caaf46ad4c0130485cb8ed9f3c23586bde8
   specs:
@@ -156,6 +163,7 @@ DEPENDENCIES
   paperclip (~> 2.4)
   rails (= 3.1.1)
   rubyzip
+  s3_swf_upload!
   sass-rails (~> 3.1.4)
   sqlite3
   sqlite3-ruby

@@ -416,18 +416,12 @@ function divpoll() {
 
 
 
-    if ($(".template-upload").length == 0) {
-        $(".drag-drop-show").html('<h1 style="margin-left:55px;margin-top:40px;color:#B7CFDF">Drag &amp; Drop Files Here</h1><br>')
-        $(".fileupload-content").css('background', '#F2F7FA');
-        $(".percent").hide();
-
-
-    } else {
-        if ($(".template-upload").length != 0) {
-            $(".drag-drop-show").html('<h2 style="color:#B7CFDF">Drag &amp; Drop Files Here</h2>');
-            $(".fileupload-content").css('background', 'transparent');
-        }
-    }
+    if ($("#file_todo_list li").length == 0) {
+        $(".drag-drop-show").html('<h2 style="margin-left:65px;margin-top:50px;color:#B7CFDF;font-size:200%;">Drag &amp; Drop Files Here</h2>')
+        $("#file_lists").css('background', '#F2F7FA');
+        $(".progress").hide();
+        //$(".percent").hide();
+    } 
 
 
 

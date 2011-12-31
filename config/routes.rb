@@ -3,9 +3,13 @@ Filetunnel::Application.routes.draw do
 
  
  
+  resources :s3_uploads
+
   get "pages/pricing"
   get "pages/account"
   get "pages/about"
+  get "pages/test"
+  get "pages/undefined"
 
   get "sessions/new"
 

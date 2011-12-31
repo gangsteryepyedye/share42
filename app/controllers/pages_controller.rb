@@ -2,6 +2,12 @@ class PagesController < ApplicationController
   def pricing
   end
 
+
+  def undefined
+
+  end
+
+  
   def about
   end
 

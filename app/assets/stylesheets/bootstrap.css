@@ -1921,23 +1921,23 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 .close {
   float: right;
-  color: #000000;
-  font-size: 20px;
+  color: #0069D6;
+  font-size: 18px;
   font-weight: bold;
   line-height: 13.5px;
   text-shadow: 0 1px 0 #ffffff;
-  filter: alpha(opacity=25);
-  -khtml-opacity: 0.25;
-  -moz-opacity: 0.25;
-  opacity: 0.25;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.60;
+  -moz-opacity: 0.60;
+  opacity: 0.60;
 }
 .close:hover {
-  color: #000000;
+  color: #0069D6;
   text-decoration: none;
-  filter: alpha(opacity=40);
-  -khtml-opacity: 0.4;
-  -moz-opacity: 0.4;
-  opacity: 0.4;
+  filter: alpha(opacity=80);
+  -khtml-opacity: 0.8;
+  -moz-opacity: 0.8;
+  opacity: 0.8;
 }
 .alert-message {
   position: relative;

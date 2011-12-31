@@ -29,7 +29,7 @@ Filetunnel::Application.configure do
   config.assets.debug = true
 
   MAXFSIZE_IP=100000000
-
+  config.log_level = :warn
   MAXFSIZE_PREMIUM=500000000 
   config.action_mailer.delivery_method = :ses
    

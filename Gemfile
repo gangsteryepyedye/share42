@@ -26,6 +26,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "googl"
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 's3_swf_upload', :git => 'git://github.com/nathancolgate/s3-swf-upload-plugin'
 
 
 # To use ActiveModel has_secure_password
