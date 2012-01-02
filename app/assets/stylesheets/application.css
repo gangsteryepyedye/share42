@@ -846,3 +846,19 @@ border-color: #C9C9C9;
 	position:absolute;
 	top:-100px;
 }
+
+.widget {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FAFAFA;
+    border-color: -moz-use-text-color #D5D5D5 #D5D5D5;
+    border-right: 1px solid #D5D5D5;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    clear: both;
+    display: block;
+    margin-top: 40px;
+}
