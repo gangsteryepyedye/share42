@@ -17,7 +17,7 @@ function s3_swf_init(id, options)
   buttonWidth      					= (options.buttonWidth != undefined) ? 							options.buttonWidth : 							50;
   buttonHeight          		= (options.buttonHeight != undefined) ? 						options.buttonHeight : 							50;
   flashVersion     					= (options.flashVersion != undefined) ? 						options.flashVersion : 							'9.0.0';
-  queueSizeLimit   					= (options.queueSizeLimit != undefined) ? 					options.queueSizeLimit : 						10;
+  queueSizeLimit   					= (options.queueSizeLimit != undefined) ? 					options.queueSizeLimit : 						5;
   fileSizeLimit    					= (options.fileSizeLimit != undefined) ? 						options.fileSizeLimit : 						524288000;
   fileTypes       					= (options.fileTypes != undefined) ? 								options.fileTypes : 								"*.*";
   fileTypeDescs   					= (options.fileTypeDescs != undefined) ? 						options.fileTypeDescs : 						"All Files";
@@ -77,10 +77,10 @@ function s3_swf_init(id, options)
     obj: function() { return document[id]; },
 
     init: function() { this.obj().init(signatureUrl, keyPrefix, fileSizeLimit, queueSizeLimit, fileTypes, fileTypeDescs, selectMultipleFiles,buttonWidth,buttonHeight,buttonUpUrl,buttonDownUrl,buttonOverUrl); },
-		clearQueue: function() { this.obj().clearQueue();},
+		clearQueue: function() { this.obj().clearQueue(); },
 		startUploading: function() { this.obj().startUploading();},
 		stopUploading: function() { this.obj().stopUploading();},
-		removeFileFromQueue: function(index) { this.obj().removeFileFromQueue(index); },
+		removeFileFromQueue: function(index) { this.obj().removeFileFromQueue(index);},
 		
 		onFileAdd: onFileAdd,
 		onFileRemove: onFileRemove,

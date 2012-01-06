@@ -47,7 +47,7 @@
 <% else %>
     <label for="xlInput3">Sender:<span style="color:#676767;font-size: 12px;
 font-family: Arial;
-font-weight: normal;"> (Required)</span></label>
+font-weight: normal;"> (Required) - We'll never spam you</span></label>
             <div class="input">
               <input class="xlarge span3" id="xlInput3" name="sender" size="30" type="text" placeholder="Your Email Address" >
             </div>
@@ -190,55 +190,131 @@ font-weight: normal;" > Free</span>
 
 </div>
     
-  
+
+
     <div style="margin-bottom:10px;"></div>
     
-  <label for="xlInput3"><span id="syf">Send Your Files</span> (<span class="filesize">0 KB</span>)</label>
 
-    <div class="fileupload-content">
-    	
-    	
-    	<table style="margin-bottom:0px;">
-				<tbody><tr>
-					<td style="vertical-align: middle;">
-						<div class="drag-drop-show" style="color:#777777">
-							<h1 style="margin-left:55px;margin-top:40px;color:#777777">Drag &amp; Drop Files Here</h1>
-				
-						</div>
-					</td>
-				</tr>
-			</tbody></table>
-    	
-    	
-    	
-        <table class="files"></table>
-        <div class="percent"></div>
-    <div class="fileupload-progressbar"><span id="fileupload-progress"></span></div>
+   
+<div style="width:490px;margin:auto;">
 
 
-    </div>
+
+  <div class="widget" id="file_lists">
+                    <div class="head"><h4 style="margin-left:170px">Send Your Files </h4></div>
+                    <table cellpadding="0" cellspacing="0" width="100%" class="tableStatic">
+                        <thead>
+                            <tr>
+                              <td id="upload_col1" width="60%">File Name</td>
+                              <td id="upload_col2" width="30%">Size</td>
+                              <td id="upload_col3"width="10%">Delete?</td>
+                            </tr>
+                        </thead>
+                         <tbody id="file_done_list">
+                           
+      
+                        </tbody>
+                        <tbody id="file_todo_list">
+                           
+
+
+
+                        </tbody>
+
+
+ 
+      
+                    </table> 
+<div class="capacity_show">
+
+
+<h4>(Up to 150MB | <a href="#">Upgrade</a> to send larger files)</h4>
+
+</div>
+                </div>
+
+                <div class="upload_footer">
+
+                <div id="upload_control_panel">
+                  <ul>
+                    <li>
+                      <button class="cupid-green" onclick=" validateForm();return false;">Send!</button> 
+                    </li>
+                    <li>
+                      <button class="minimal" onclick="s3_swf_1_object.clearQueue();return false;">Clear Queue</button>
+                    </li>
+                  </ul>
+                </div>
+
+
+                <div id="overall_percentage">
+                  <div class="progress-bar green stripes" id="overall-progress-bar" style="
+                  width: 350px;height: 28px;padding-right:0px;float: left;">
+                  <span style="width: 10%"></span>
+                  </div>
+                <div id="count" style="font-size: 22px;
+font-weight: bold;
+text-align: center;
+color: #777;
+padding-top: 6px;
+float: left;
+margin-left: 20px;
+display:none">
+                  15%
+                </div>
+              </div>
+
+
+
+                <div id="upload_info" style="padding-top: 6px; padding-bottom: 10px; padding-left: 54px; margin-left: 240px; color:#777;"></div>
+
+
+                </div>                               
+
+</div> 
+
 
    <div id="input_button_container">
-   <span>
- <a href="#" class="btn medium select_files">Select Files</a>
-   </span>
-   <span>
-  <a href="#" class="btn medium select_folder">Select Folder</a>
-   </span>
+
+<%=raw s3_swf_upload_tag(
+:queueSizeLimit => "availableNumber()",
+:fileSizeLimit => "availableSpace()",
+:fileTypes => '*.*',
+:fileTypeDescs => 'All files.',
+:onFileNotInQueue => "",
+:onFileSizeLimitReached => "tooBig();",
+:onQueueChange => "queueChangeHandler(queue);",
+:onQueueSizeLimitReached => "tooMany();",
+:onQueueEmpty => "alert('You gotta have at least one file in there');",
+:onQueueClear => "queueClearHandler(queue);",
+:onUploadingStart => "uploadingStartHandler();",
+:onUploadingFinish => "uploadingFinishHandler();",
+:onSignatureIOError => "alert('There was an error');",
+:onSignatureXMLError => "alert('There was an error');",
+:onSignatureSecurityError => "alert('There was an error');",
+:onUploadError => "alert('There was an error');",
+:onUploadIOError => "alert('There was an error');",
+:onUploadSecurityError => "alert('There was an error');",
+:onUploadProgress => "progressHandler(progress_event);",
+:onUploadComplete => "uploadCompleteHandler(upload_options,event);",
+:buttonWidth=>"130",
+:buttonHeight=>"47"
+
+) %>
+
+
 
    </div>
-   
-    <div id="real_input_button_container">
-    <input class="select_files_target" id="stuff_file" name="stuff[file]" type="file" multiple>
-    <input class="select_folder_target" type="file" id="stuff_file" name="stuff[file]" webkitdirectory="" directory="" />
-    </div>
-  
- 
 
-    <div id="send_now" style="margin-top:5px;">
-    <button class="btn info large" style="margin-left:175px;margin-top:10px;" onClick="validateForm();return false;">Send Now!</button>
-    </div>
-    
+
+
+</div>
+
+
+
+
+
+
     
     <% end %> 
 

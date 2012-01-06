@@ -578,7 +578,7 @@ pre {
  * Base styles for various input types, form layouts, and states
  * ------------------------------------------------------------- */
 form {
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 fieldset {
   margin-bottom: 18px;
@@ -1121,27 +1121,6 @@ table th + th, table td + td {
 table tr + tr td {
     /*  */  
 }
-table tbody tr:first-child td:first-child {
-  -webkit-border-radius: 4px 0 0 0;
-  -moz-border-radius: 4px 0 0 0;
-  border-radius: 4px 0 0 0;
-}
-table tbody tr:first-child td:last-child {
-  -webkit-border-radius: 0 4px 0 0;
-  -moz-border-radius: 0 4px 0 0;
-  border-radius: 0 4px 0 0;
-}
-table tbody tr:last-child td:first-child {
-  -webkit-border-radius: 0 0 0 4px;
-  -moz-border-radius: 0 0 0 4px;
-  border-radius: 0 0 0 4px;
-}
-table tbody tr:last-child td:last-child {
-  -webkit-border-radius: 0 0 4px 0;
-  -moz-border-radius: 0 0 4px 0;
-  border-radius: 0 0 4px 0;
-}
-
 .bordered-table {
 
   border-collapse: separate;
@@ -1216,7 +1195,6 @@ table .headerSortUp:after {
 }
 table .blue {
   color: #049cdb;
-  border-bottom-color: #049cdb;
 }
 table .headerSortUp.blue, table .headerSortDown.blue {
   background-color: #ade6fe;

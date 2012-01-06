@@ -77,7 +77,7 @@ end
    
   def create
 
-    @stuff = Stuff.new(params[:stuff])
+    @stuff = Stuff.new(params[:upload])
     @stuff.container_id = Container.find_by_id_or_sha1(params[:container_id]).id        
     sha1=Digest::SHA1.hexdigest([@stuff.id.to_s,rand].join)
     @stuff.sha1=sha1
@@ -153,14 +153,14 @@ end
       left=157286400
     end
 
-    if(!@stuff.validate_storage_left(params[:stuff],left))
-       render :json => { :result => 'error'}, :content_type => 'text/html'
+    if(!@stuff.validate_storage_left(params[:upload],left))
+       render :json => {}
     else    
       if @stuff.save
-        reduce_storage(params[:stuff][:file].size)
-        render :json =>  [@stuff.to_jq_upload.to_json]
+        reduce_storage(params[:upload][:file_file_size])
+        render :json =>  {}
       else
-        render :json => { :result => 'error'}, :content_type => 'text/html'
+        render :json => {}
       end
     end
   end
