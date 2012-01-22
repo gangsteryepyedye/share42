@@ -6,52 +6,11 @@
 
 
 
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
-	<script src="//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
-<script type="text/javascript" src="https://js.stripe.com/v1/"></script>
-<script type="text/javascript">
-    // this identifies your website in the createToken call below
-    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
-     
-  function stripeResponseHandler(status, response) {
-                if (response.error) {
-                    // re-enable the submit button
-                    $('.submit-button').removeAttr("disabled");
-                    // show the errors on the form
-                    $(".payment-errors").html(response.error.message);
-                } else {
-                    var form$ = $(".payment-form");
-                    // token contains id, last4, and card type
-                    var token = response['id'];
-                    // insert the token into the form so it gets submitted to the server
-                    form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                    // and submit
-                    form$.get(0).submit();
-                }
-            }
+<%= javascript_include_tag 'jquery.min.js' %>
+<%= javascript_include_tag 'jquery-ui.js' %>
 
-  $(document).ready(function() {
-  $(".payment-form").submit(function(event) {
-    // disable the submit button to prevent repeated clicks
-    $('.submit-button').attr("disabled", "disabled");
-
-    var amount = 1000; //amount you want to charge in cents
-    Stripe.createToken({
-        number: $('.card-number').val(),
-        cvc: $('.card-cvc').val(),
-        exp_month: $('.card-expiry-month').val(),
-        exp_year: $('.card-expiry-year').val()
-    }, amount, stripeResponseHandler);
-
-    // prevent the form from submitting with the default action
-    return false;
-  });
-});
-</script>
 
 <%= javascript_include_tag "bootstrap-modal"%>
-<%= javascript_include_tag 'humane.min' %>
 
 <%= javascript_include_tag 'bootstrap-alerts' %>
 <%= javascript_include_tag "jquery.tagsinput.js" %>
@@ -78,7 +37,7 @@
 <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="#">
+          <a class="brand" href="/" style="text-decoration:none">
 				<img class="logo" width="14" height="18" title="File Tunnel" src="/assets/img_trans.gif">
 
 Senditu</a>
@@ -128,6 +87,21 @@ Senditu</a>
 	<%= yield %>
 
 
+<% if current_user %>
+
+
+<p>Capcity: <%= number_to_human_size(current_user.capacity) %></p>
+<p>Storage: <%= number_to_human_size(current_user.storage) %></p>
+<p>Download cap: <%= current_user.downloadcap %></p>
+<p>Max transfer size: <%= number_to_human_size(current_user.spf) %></p>
+<p> Remind me when the file reaches the download limit: <%= current_user.limitnotif %></p>
+<p>Remind me every time: <%= current_user.everytime %></p> 
+
+
+<% end %>
+
+
+
 
 <script type="text/javascript" charset="utf-8">
 
@@ -154,11 +128,25 @@ $('.recipients').tagsInput({
     
     
 </script>
-
+  <div class="footer">
+        <ul class="nav">
+            <li><a href="http://www.compete.com/about" class="at_footer_about">About</a></li>
+            <li><a href="http://www.compete.com/contact-us" class="at_footer_contact">Contact Us</a></li>
+            <li><a href="http://www.compete.com/developer" class="at_footer_devs">Support</a></li>            
+            <li><a href="http://www.compete.com/terms/" class="at_footer_tos">Terms Of Service</a></li>
+            <li class="last"><a href="http://www.compete.com/privacy/" class="at_footer_privacy">Privacy Policy</a></li>
+            <li class="last"><a href="http://www.competeinc.com" class="at_footer_inc">42Zen LLC</a></li>
+        </ul>
+    </div>
+    
 
 
 	</div>
+
   </div>
+
 </div>
+
+
 </body>
 </html>

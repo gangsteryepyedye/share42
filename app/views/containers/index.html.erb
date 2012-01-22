@@ -30,7 +30,35 @@
 
 </div>
 <% else %>
+
+<div id="loader-div">
+  <img src="/assets/big-ajax-loader.gif">
+</div>
+
+<div id="result-refinement">
+  <div id="sort-by">
+    <span id="sort-text">
+      Sort by:
+    </span>
+    <ul id="sort-button">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle sort_toggle">Sent date</a>
+              <ul class="dropdown-menu" style="margin-top:-21px;border-top:1px solid rgba(0, 0, 0, 0.2)">
+              <li><%= sortable "exptime","Expiration date" %></li>
+              <li><%= sortable "name","Container name" %></li>
+              <li><%= sortable "downloaded","Downloads" %></li>
+              <li><%= sortable "totalsize","Folder size" %></li>
+              <li><%= sortable "created_at","Sent date" %></li>
+            </ul>
+            </li>
+    </ul>
+  </div>
+
+</div>
+
+<div id="dynamic_folder_display">
  <%= render :partial => "container",  :locals =>{:containers=>@containers} %>
+</div>
 <% end %>
 </div>
 
@@ -55,7 +83,9 @@
 
 </script>
 
-
+<div id="loader-div">
+  <img src="/assets/big-ajax-loader.gif">
+</div>
 
 
 

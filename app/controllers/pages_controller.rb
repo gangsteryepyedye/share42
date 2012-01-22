@@ -9,6 +9,8 @@ class PagesController < ApplicationController
 
   
   def about
+
+
   end
 
   def account
@@ -18,6 +20,12 @@ class PagesController < ApplicationController
         downloads=downloads+i.downloaded
     end
     @downloads=downloads  
+
+    if !current_user.customer_id.nil? 
+      @payments = Stripe::Charge.all(:customer => current_user.customer_id).data
+    end  
+
+
   end
 
 end

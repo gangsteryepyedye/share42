@@ -224,7 +224,7 @@
                 $(this).find('.fileupload-progressbar').fadeOut();
                 $.notification({ message:"Success! We have uploaded your files. A notification is sent to recipient(s).", type:"notice" });
                             var link = $(".link").val();
-                            var sha1 =$("#container_id").val();
+                            var sha1 =$(".container_id").val();
                             $("#syf").html('Send More Files');
                             $(".percent").hide();   
                             $(".error").html('<div class="nNote nSuccess"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px"><label>You can add more file(s) to this folder or <a href="javascript:location.reload(true)">start a new file transfer.</a></label></p></div>');

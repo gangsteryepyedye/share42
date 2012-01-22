@@ -14,14 +14,34 @@ class UsersController < ApplicationController
 
 
   def create
+
+
+    # get the plan
+    plan = params[:planSelect]
+
+    if plan!=="free"
+      #get the Api key
+      Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
+      # get the credit card details submitted by the form
+      token = params[:stripeToken]
+    end
+
+    #create namespace
     @user = User.new(params[:user])
 
-    if(!params[:stripeToken].nil?)
-      createPremium
-      #do more things here  
-    else
-      
-      @user.free_init
+    #update account capscity based on params[:planSelect]
+
+    if plan=="free"
+      @user.free_init(true)
+    elsif plan=="personal"
+      @user.personal_init(true)
+    elsif plan=="premium"
+      @user.premium_init(true)
+    elsif plan=="plus"
+      @user.plus_init(true)
+    end
+
+
       if @user.save
         redirect_to '/containers', :notice => "Signed up!"
       else
@@ -29,35 +49,69 @@ class UsersController < ApplicationController
       end 
     
    
-    end
-
-
-
-   
   end
 
 
-  def createPremium
 
-   
-   
+  def upgrade
+
+    Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
+
     # get the credit card details submitted by the form
     token = params[:stripeToken]
 
-    # set your secret key: remember to change this to your live secret key in production
-    # see your keys here https://manage.stripe.com/account
-    Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
+    # get the plan
+    plan = params[:plan]
 
+
+
+  if current_user.customer_id.nil?
     # create the charge on Stripe's servers - this will charge the user's card
-    charge = Stripe::Charge.create(
-      :amount => 599, # amount in cents, again
-      :currency => "usd",
+     customer = Stripe::Customer.create(
       :card => token,
-      :description => "premium charge"
+      :plan => plan,
+      :email => current_user.email,
+      :description=>plan
     )
 
+    #save customer id for later identification
+    current_user.customer_id=customer.id
+    current_user.save
+  else
+
+    customer=Stripe::Customer.retrieve(current_user.customer_id)
+    customer.update_subscription(:prorate=>true, :plan=>plan)
 
   end
+
+
+
+    if plan=="personal"
+        #pass a false value to make sure the storage is not cleared to zero
+        current_user.personal_init(false)
+    elsif plan=="premium"
+        current_user.premium_init(false)
+    elsif plan="plus"
+        current_user.plus_init(false)
+    end
+    
+  
+
+  
+    if current_user.save
+        respond_to do |format|
+          format.html{@plan=plan.capitalize}
+        end 
+    else
+        respond_to do |format|
+          format.html{@plan=plan.capitalize}
+        end 
+    end
+
+end
+
+
+
 
   def update_password
     @user=current_user

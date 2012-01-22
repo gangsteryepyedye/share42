@@ -1,0 +1,5 @@
+$("#dynamic_folder_display").html("<%= escape_javascript(render :partial => 'container',  :locals =>{:containers=>@containers}) %>")
+$(".sort_toggle").html("<%= escape_javascript(@sort_by_name) %>")
+$("#dynamic_folder_display").css("opacity","1");
+$("#loader-div").hide();
+

@@ -86,48 +86,54 @@ class User < ActiveRecord::Base
 
 
 
-
-  def free_init
+  #initiate settings for a single user account
+  def free_init(first_time)
       self.capacity=1073741824 
-      self.priviledge=1
+      self.priviledge="1"
       self.spf=157286400
-      self.downloadcap=2147483648 
-      self.storage=0
+      self.downloadcap=20
+      if first_time==true
+        self.storage=0
+      end  
   end
 
-  def personal_init
+  #initiate/change settings for a personal account based on the value of 'first time' boolean variable
+  def personal_init(first_time)
       self.capacity=5368709120 
-      self.priviledge=3
-      self.spf=5368709120
-      self.downloadcap=53687091200 
-      self.storage=0
+      self.priviledge="3"
+      self.spf=2147483648     
+      self.downloadcap=100
+      if first_time==true
+        self.storage=0
+      end  
   end
 
-  def premium_init
+
+  #initiate settings for a premium account based on the value of 'first time' boolean variable
+  def premium_init(first_time)
       self.capacity=21474836480 
-      self.priviledge=4
-      self.spf=5368709120
-      self.downloadcap=0
-      self.storage=0
-      self.storage=0
+      self.priviledge="4"
+      self.spf=4294967296
+      self.downloadcap=1000
+      if first_time==true
+        self.storage=0
+      end  
   end
 
-  def plus_init
+  #initiate settings for a plus account based on the value of 'first time'...
+  def plus_init(first_time)
       self.capacity=107374182400 
-      self.priviledge=5
-      self.spf=5368709120
-      self.downloadcap=0 
-      self.storage=0
+      self.priviledge="5"
+      self.spf=4294967296
+      self.downloadcap=1000
+      if first_time==true
+        self.storage=0
+      end
   end
 
   def instant_init
 
   end
-
-
-
-
-
 
 
 

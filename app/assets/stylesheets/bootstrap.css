@@ -181,7 +181,6 @@ textarea {
  * Basic and global styles for generating a grid system, structural layout, and page templates
  * ------------------------------------------------------------------------------------------- */
 html, body {
-    background:#E4F7FF url('/assets/grain.png') repeat;
 
 }
 body {
@@ -1391,7 +1390,7 @@ height:41px;
 .nav .menu-dropdown,
 .topbar div > ul .dropdown-menu,
 .nav .dropdown-menu {
-  background-color: #333;
+  background-color: #0076ED;
 }
 .topbar div > ul .menu-dropdown a.menu,
 .nav .menu-dropdown a.menu,
@@ -1668,7 +1667,7 @@ a.menu:after, .dropdown-toggle:after {
 }
 .hero-unit {
   float:left;
-  padding: 60px 0px 30px 0px;
+  padding: 105px 0px 30px 0px;
   margin-left:1px;
   width:380px;
   position:relative;
@@ -1683,15 +1682,58 @@ a.menu:after, .dropdown-toggle:after {
   color:#3AD;
 }
 .hero-unit p {
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 27px;
-  color:#666;
+font-size: 20px;
+font-weight: bold;
+color: #666;
+display: block;
+margin: 0;  
+margin-top:15px;
+line-height: 25px;
 }
-footer {
-  margin-top: 17px;
-  padding-top: 17px;
-  border-top: 1px solid #eee;
+
+
+.footer {
+    clear:both;
+    font-size:1.1em;
+    margin: 0 auto 3em;
+    padding: 1em 0;
+    width:930px;
+    height:50px;
+    padding-top:0px;
+    margin-top:0px;
+    padding-bottom:0px;
+    margin-bottom:0px;
+}
+    .footer p,
+    .footer ul {
+        font-size:1em;
+        margin:1em 0;
+    }
+    .footer .copyright {
+        float:left;
+    }
+    .footer .nav{
+      margin-left:130px;
+    }
+
+        .footer .nav li {
+            padding:0;
+            float:left;
+        }
+
+            .footer .nav a,
+            .footer .nav a:visited,
+            .footer .nav a:active {
+                text-decoration:none;
+                margin: 0 0.5em;
+            }
+            .footer .nav a:hover {
+                color: #00438a;
+                text-decoration:underline;
+
+            }
+.footer .copyright {
+float: left;
 }
 .page-header {
   padding: 20px 20px 0px 0px;
@@ -1899,7 +1941,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 .close {
   float: right;
-  color: #0069D6;
+  color: #ffffff;
   font-size: 18px;
   font-weight: bold;
   line-height: 13.5px;
@@ -1910,7 +1952,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   opacity: 0.60;
 }
 .close:hover {
-  color: #0069D6;
+  color: #ffffff;
   text-decoration: none;
   filter: alpha(opacity=80);
   -khtml-opacity: 0.8;

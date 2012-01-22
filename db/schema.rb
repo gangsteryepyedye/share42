@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111227065610) do
+ActiveRecord::Schema.define(:version => 20120116025123) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20111227065610) do
     t.string   "sender"
     t.string   "subject"
     t.text     "message"
+    t.boolean  "zipped",      :default => false
+    t.integer  "total_size",  :default => 0
   end
 
   create_table "emails", :force => true do |t|
@@ -79,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20111227065610) do
     t.text     "list"
     t.boolean  "everytime",     :default => false
     t.boolean  "limitnotif",    :default => true
+    t.string   "customer_id"
   end
 
 end

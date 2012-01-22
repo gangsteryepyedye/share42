@@ -2,19 +2,16 @@ development:
   bucket:  filetunnel
   access_key_id: AKIAICDXU5SXRWQA5RQA
   secret_access_key: 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
-  max_file_size: 10485760
   acl: public-read
     
 test:
   bucket:  filetunnel
   access_key_id: AKIAICDXU5SXRWQA5RQA
   secret_access_key: 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
-  max_file_size: 10485760
   acl: public-read
   
 production:
   bucket:  filetunnel
   access_key_id: AKIAICDXU5SXRWQA5RQA
   secret_access_key: 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
-  max_file_size: 10485760
   acl: public-read

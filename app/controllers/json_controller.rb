@@ -3,6 +3,17 @@ class JsonController < ApplicationController
   respond_to :json
 
 
+
+
+  def compressed
+
+    @container=Container.find_by_id_or_sha(params[:id])
+    @container.compressed=true
+    @container.save   
+
+  end
+
+
   def password_match
     
     @container=Container.find_by_id_or_sha1(params[:id].to_i)

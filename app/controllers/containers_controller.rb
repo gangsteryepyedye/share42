@@ -7,50 +7,55 @@ class ContainersController < ApplicationController
 
 
 
+
   def download_all
-
-
-
-
+    container_id=params[:id]
+    email=params[:email]
     #check if the user hits the download limit
 
+    @container=Container.find_by_id_or_sha1(container_id)   
 
+    zip_name=@container.stuffs.first.file_file_name.to_s+".zip"
 
+    AWS::S3::Base.establish_connection!(
+      :access_key_id => "AKIAICDXU5SXRWQA5RQA",
+      :secret_access_key => "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"
+    )
+    filename="zip/#{@container.sha1}/#{zip_name}"
 
-
-      @container=Container.find_by_id_or_sha1(params[:id])   
-
-      file_name = @container.stuffs.first.file_file_name+".zip"
-      signature=Digest::SHA1.hexdigest(Time.now.to_s+file_name)
-      t = Tempfile.new("#{signature}my-temp-filename.zip")
-      Zip::ZipOutputStream.open(t.path) do |z|
-        @container.stuffs.each do |file|
-          title = file.file_file_name
-          z.put_next_entry(title)
-          z.print IO.read(file.file.to_file)
-        end
-      end
-      send_file t.path, :type => 'application/zip',
-                             :disposition => 'attachment',
-                             :filename => file_name
-      t.close
-    
+    s3obj = nil
+  
+    s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
+ 
+    if s3obj.nil?
+        respond_to do |format|
+      @message="We are still zipping up your files"
+      @type="notice"
+        format.js{
+          render :action=>"notice"
+        }
+      end 
+    else
 
       @container.downloaded=@container.downloaded+1
       @container.save
-      
+        
+
+       if (!email.nil?) 
+          query=url_unescape(email)
+        
+        @email=@container.emails.where("name =?",query).first
+          if(!@email.nil?)
+            @email.downloads=@email.downloads+1
+            @email.save
+          end
+        end   
+
+        redirect_to s3obj.url
+
+    end
 
 
-
-      if (!params[:email].nil?) 
-        query=url_unescape(params[:email])
-      
-      @email=@container.emails.where("name =?",query).first
-        if(!@email.nil?)
-          @email.downloads=@email.downloads+1
-          @email.save
-        end
-      end          
 
   end
 
@@ -111,8 +116,10 @@ class ContainersController < ApplicationController
     @container=Container.find_by_id_or_sha1(params[:id])   
     @files=@container.stuffs
     @url=request.url
-    @link=Container.shorten(@url).short_url
     
+    #@link=Container.shorten(@url).short_url
+    
+    @link="http://www.xcdm.com"
 
 
 
@@ -142,13 +149,14 @@ class ContainersController < ApplicationController
     @container = current_user.containers.new  
     @containers = current_user.containers.where("empty =?",false).find(:all, :order=>'created_at desc',:limit=>6)
     sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
-    @container.sha1=sha1
+    @container.sha1=sha1.to_s
     @container.save
     @stuff = @container.stuffs.new    
     #remember to clean the unused Container here   
     #need to change the url later
     @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
     @link=Container.shorten(@tiny_id).short_url
+  
 
   end
 
@@ -158,7 +166,7 @@ class ContainersController < ApplicationController
       @container = Container.new    
       #remember to clean the unused Container here   
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
-      @container.sha1=sha1
+      @container.sha1=sha1.to_s
       @container.save
       @stuff = @container.stuffs.new    
       @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
@@ -172,7 +180,7 @@ class ContainersController < ApplicationController
     if(!current_user)
       @container = Container.new    
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
-      @container.sha1=sha1
+      @container.sha1=sha1.to_s
       @container.save
       @stuff = @container.stuffs.new    
       @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
@@ -180,7 +188,7 @@ class ContainersController < ApplicationController
     else
       @container = current_user.containers.new  
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
-      @container.sha1=sha1
+      @container.sha1=sha1.to_s
       @container.save
       @stuff = @container.stuffs.new    
       #remember to clean the unused Container here   
@@ -196,7 +204,21 @@ class ContainersController < ApplicationController
 
   def send_notification
 
+
+
     @container = Container.find_by_id_or_sha1(params[:id])
+
+    stuff_list=[]
+
+    @container.stuffs.each do |s|
+      stuff_list<<s.id    
+    end   
+
+
+
+    Resque.enqueue(Compression,@container.sha1,stuff_list,@container.stuffs.first.file_file_name)
+
+
     emails=@container.emails
 
     name_list=[]
@@ -221,16 +243,37 @@ class ContainersController < ApplicationController
     end 
   end
 
+  helper_method :sort_column, :sort_direction
+
 
 
   def index
-    @containers = current_user.containers.where("empty =?",false)  
+    @containers = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction)  
     downloads=0
     for i in @containers
         downloads=downloads+i.downloaded
     end
     @downloads=downloads
-  end
+    
+    sort=params[:sort]
+
+    if sort=="exptime"
+        @sort_by_name="Expiration date"
+    elsif sort=="name"
+        @sort_by_name="Container name"
+    elsif sort=="downloaded"
+        @sort_by_name="Downloads"
+    elsif sort=="totalsize"
+        @sort_by_name="Folder size"
+    elsif sort=="created_at"  
+        @sort_by_name="Sent date"
+    end
+
+    respond_to do |format|
+      format.html
+      format.js{render :action=>"update_index"}
+    end
+end
 
 
 
@@ -246,10 +289,69 @@ class ContainersController < ApplicationController
         else
           respond_to do |format|      
             format.html 
-            format.js  
+            format.js 
           end
         end  
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  module Compression
+
+      require 'drb'
+
+      @queue = :compression_queue
+
+
+      def self.perform(container_id,stuff_list,file_file_name)
+
+        
+        #outsourcing work to India!
+        DRb.start_service()
+        obj = DRbObject.new(nil,"druby://ec2-107-21-77-151.compute-1.amazonaws.com:9000")
+        obj.compress(container_id,stuff_list,file_file_name)
+
+
+      end
+
+
+
+
+  end
+
+
+  private
+
+
+  def sort_column
+    Container.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"
+  end
+
+
+
+
+
+
+
+
 
 
 end

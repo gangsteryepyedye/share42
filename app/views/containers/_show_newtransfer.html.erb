@@ -16,7 +16,7 @@
   </div>
 
   
-     <input name="container_id" id="container_id" type="hidden" value=<%= @container.sha1 %> />
+     <input name="container_id" class="container_id" type="hidden" value=<%= @container.sha1 %> />
      <input name="emails" class="emails" type="hidden" value=""/>
      <input name="link" class="link" type="hidden" value=<%= @link %> />
      
@@ -42,14 +42,14 @@
 <% if current_user %>
             
             <div class="input">
-              <input name="sender" size="30" type="hidden" value=<%= current_user.email %>>
+              <input name="sender" class="sender" size="30" type="hidden" value=<%= current_user.email %>>
             </div>
 <% else %>
     <label for="xlInput3">Sender:<span style="color:#676767;font-size: 12px;
 font-family: Arial;
 font-weight: normal;"> (Required) - We'll never spam you</span></label>
             <div class="input">
-              <input class="xlarge span3" id="xlInput3" name="sender" size="30" type="text" placeholder="Your Email Address" >
+              <input class="xlarge span3 sender" id="xlInput3" name="sender" size="30" type="text" placeholder="Your Email Address" >
             </div>
 <% end %>
 
@@ -249,14 +249,14 @@ font-weight: normal;" > Free</span>
 
                 <div id="overall_percentage">
                   <div class="progress-bar green stripes" id="overall-progress-bar" style="
-                  width: 350px;height: 28px;padding-right:0px;float: left;">
+                  width: 400px;height: 28px;padding-right:0px;float: left;">
                   <span style="width: 10%"></span>
                   </div>
                 <div id="count" style="font-size: 22px;
 font-weight: bold;
 text-align: center;
 color: #777;
-padding-top: 6px;
+padding-top: 3px;
 float: left;
 margin-left: 20px;
 display:none">
@@ -273,7 +273,12 @@ display:none">
 
 </div> 
 
-
+    <span class="help-block" style="text-align:center;">
+    <br>  
+    <p>
+                By clicking on the "Send!" button, you agree to Senditu's <a href="/pages/tos" target="_blank">Terms of Service</a> 
+    </p>
+              </span>
    <div id="input_button_container">
 
 <%=raw s3_swf_upload_tag(
@@ -289,12 +294,12 @@ display:none">
 :onQueueClear => "queueClearHandler(queue);",
 :onUploadingStart => "uploadingStartHandler();",
 :onUploadingFinish => "uploadingFinishHandler();",
-:onSignatureIOError => "alert('There was an error');",
-:onSignatureXMLError => "alert('There was an error');",
-:onSignatureSecurityError => "alert('There was an error');",
-:onUploadError => "alert('There was an error');",
-:onUploadIOError => "alert('There was an error');",
-:onUploadSecurityError => "alert('There was an error');",
+:onSignatureIOError => "alert('Error:Connection was lost, please try again.');",
+:onSignatureXMLError => "alert('Error:Connection was lost, please try again.');",
+:onSignatureSecurityError => "alert('Error:Connection was lost, please try again.');",
+:onUploadError => "alert('Error:Connection was lost, please try again.');",
+:onUploadIOError => "alert('Error:Connection was lost, please try again.');",
+:onUploadSecurityError => "alert('Error:Connection was lost, please try again.');",
 :onUploadProgress => "progressHandler(progress_event);",
 :onUploadComplete => "uploadCompleteHandler(upload_options,event);",
 :buttonWidth=>"130",
@@ -307,8 +312,6 @@ display:none">
    </div>
 
 
-
-</div>
 
 
 

@@ -20,15 +20,12 @@
 <% else %>
 <ul class="well2">
         <li>
-
-
-
-              <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]}, :class=>"minibutton", :style=>"text-decoration:none"%>
+    <div class="clearfix"><a href="#" class="minibutton" disabled="disabled" style="text-decoration: none;float:left;">Folder Link</a>
+<input id="" name="" type="text" value=<%= @link %> spellcheck="false" class="copied"></div>
 
         </li>
-        <li>
-    <div class="clearfix" style="margin-left:10px;"><a href="#" class="minibutton" disabled="disabled" style="text-decoration: none;float:left;">Folder Link</a>
-<input id="" name="" type="text" value=<%= @link %> spellcheck="false" class="copied"></div>
+        <li> 
+        <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]}, :class=>"minibutton zip", :style=>"text-decoration:none;margin-left:10px;"%>
 
         </li>
         <li>

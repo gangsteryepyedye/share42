@@ -20,14 +20,15 @@
 <ul class="well2">
         <li>
 
+    <div class="clearfix"><a href="#" class="minibutton" disabled="disabled" style="text-decoration: none;float:left;">Folder Link</a>
+<input id="" name="" type="text" value=<%= @link %> spellcheck="false" class="copied"></div>
 
-
-              <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]}, :class=>"minibutton", :style=>"text-decoration:none"%>
-
+          
         </li>
         <li>
-    <div class="clearfix" style="margin-left:10px;"><a href="#" class="minibutton" disabled="disabled" style="text-decoration: none;float:left;">Folder Link</a>
-<input id="" name="" type="text" value=<%= @link %> spellcheck="false" class="copied"></div>
+
+    <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]}, :class=>"minibutton zip", :style=>"text-decoration:none;margin-left:10px;"%>
+
 
         </li>
 <li>
@@ -52,19 +53,18 @@
                  <table class="viewpane-content bordered-table">
         <thead>
             <tr id="header">
-                <th></th>
                 <th>NAME</th>
                 <th>SIZE</th>
                 <th style="color: #DD4B39;">ACTION</th>
             </tr>
-        </thead>    
+        </thead>
         <tbody>
             <% for f in @container.stuffs %>
             <tr>
-              <td width="4%">
-                <img alt="file" height="16" src="/assets/file_icon.png" width="16">
-              </td>
+        
               <td>
+              <img alt="file" height="16" src="/assets/file_icon.png" width="16">
+
               <%= f.file_file_name %>
               </td>
               <td>

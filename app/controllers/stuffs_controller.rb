@@ -20,7 +20,6 @@ def download
     @container.save
   
   
-  
     if (!params[:email].nil?) 
          query=url_unescape(params[:email])
 
@@ -35,7 +34,7 @@ def download
     :access_key_id => "AKIAICDXU5SXRWQA5RQA",
     :secret_access_key => "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"
     )
-    filename=CGI::unescape(@stuff.file.to_s.scan(/nel\/([^"]*)\?/).first.first)
+    filename=@stuff.file.path[1..-1]
 
     s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
     file_type = s3obj.about["content-type"]
@@ -77,16 +76,19 @@ end
    
   def create
 
-    @stuff = Stuff.new(params[:upload])
+    @stuff = Stuff.new(params[:stuff])
     @stuff.container_id = Container.find_by_id_or_sha1(params[:container_id]).id        
     sha1=Digest::SHA1.hexdigest([@stuff.id.to_s,rand].join)
-    @stuff.sha1=sha1
+    @stuff.sha1=sha1.to_s
   
 
 
     @container=Container.find_by_id_or_sha1(params[:container_id])
     @container.empty=false
+    @container.total_size=@container.total_size+params[:stuff][:file_file_size].to_i
     
+    
+        
     if current_user
       if current_user.priviledge=="1"
         @container.exptime=Time.now+14.days
@@ -137,15 +139,7 @@ end
 
     end
    
-
-
-
    @container.save
-
-
-
-
-
 
     if current_user
       left=current_user.capacity-current_user.storage
@@ -153,16 +147,14 @@ end
       left=157286400
     end
 
-    if(!@stuff.validate_storage_left(params[:upload],left))
-       render :json => {}
-    else    
+   
       if @stuff.save
-        reduce_storage(params[:upload][:file_file_size])
+        reduce_storage(params[:stuff][:file_file_size])
         render :json =>  {}
       else
         render :json => {}
       end
-    end
+    
   end
 
 
@@ -181,7 +173,7 @@ end
   def reduce_storage(amount)  
 
     if(current_user)
-      current_user.storage = current_user.storage+amount
+      current_user.storage = current_user.storage+amount.to_i
       current_user.save
     else
 

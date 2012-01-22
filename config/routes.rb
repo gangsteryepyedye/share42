@@ -2,7 +2,8 @@ Filetunnel::Application.routes.draw do
  
 
  
- 
+  mount Resque::Server, :at => "/resque"  
+
   resources :s3_uploads
 
   get "pages/pricing"
@@ -10,6 +11,7 @@ Filetunnel::Application.routes.draw do
   get "pages/about"
   get "pages/test"
   get "pages/undefined"
+  get "pages/tos"
 
   get "sessions/new"
 
@@ -25,20 +27,25 @@ Filetunnel::Application.routes.draw do
       get 'download_all'
       get 'remove'
       get 'remove_folder'
+      get 'compression_check'
     end
   end
+
 
   get "show_newtransfer" => "containers#show_newtransfer"
   get "partial_update" => "containers#partial_update"
   get "show_container" => "containers#show_container"  
   get "new_transfer" => "containers#new_transfer"
   get "send_notification" => "containers#send_notification"
+  
 
   resources :json
   get "priviledge" => "json#user_info"
   get "storage" => "json#storage"
   get "password_match" => "json#password_match"
+  get "compressed" => "json#compressed"
 
+  get "test" => "containers#test"
 
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
@@ -52,11 +59,11 @@ Filetunnel::Application.routes.draw do
        put 'update_password'
        put 'update_email'
        put 'update_notifications'
+       put 'upgrade'
     end
   end
 
   resources :sessions
-  
   
   
 

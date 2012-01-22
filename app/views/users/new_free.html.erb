@@ -3,9 +3,9 @@
 	<div class="signup_content">
 
 <div class="callout-container">
-<h1>Thanks for choosing filetunnel!</h1>
+<h1>Thanks for choosing senditu!</h1>
 <p class="about">
-<strong>Filetunnel</strong> is the securest and fastest way to send files of any size. And you're just <strong>30 seconds</strong> away from your new Filetunnel account</p>
+<strong>Senditu</strong> is the securest and fastest way to send files of any size. And you're just <strong>30 seconds</strong> away from your new Senditu account</p>
 
 
 
@@ -16,7 +16,10 @@
 
 
  <%= form_for @user do |f| %>
-  
+
+
+
+  <input type="hidden" name="planSelect" value="free" >  
   <span class="payment-errors"></span>
 
   <% if @user.errors.any? %>

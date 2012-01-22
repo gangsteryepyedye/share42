@@ -1,22 +1,73 @@
- 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+<script type="text/javascript">
+    // this identifies your website in the createToken call below
+    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
+     
+  function stripeResponseHandler(status, response) {
+                if (response.error) {
+                	var message_text = response.error.message;
+                    $.notification({ message:message_text, type:"error" });
+                } else {
+                    var form = $(".payment-form");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form.get(0).submit();
+                }
+            }
+ function stripeResponseHandler2(status, response) {
+                if (response.error) {
+                	var message_text = response.error.message;
+                    $.notification({ message:message_text, type:"error" });
+                } else {
+                    var form = $(".payment-form-switch");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form.get(0).submit();
+                }
+    }
 
-jQuery.ajaxSetup({ 
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-})
+  $(document).ready(function() {
+  $(".payment-form").submit(function(event) {
 
-jQuery.fn.submitWithAjax = function() {
-  this.submit(function() {
-    $.post(this.action, $(this).serialize(), null, "script");
+
+
+    // disable the submit button to prevent repeated clicks
+    $('.submit-button').attr("disabled", "disabled");
+
+    var amount = 1000; //amount you want to charge in cents
+    Stripe.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry-month').val(),
+        exp_year: $('.card-expiry-year').val()
+    }, amount, stripeResponseHandler);
+
+    // prevent the form from submitting with the default action
     return false;
-  })
-  return this;
-};
+  });
 
-$(document).ready(function() {
-  $(".edit_user").submitWithAjax();
-})
+   $(".payment-form-switch").submit(function(event) {
+    // disable the submit button to prevent repeated clicks
+    $('.submit-button').attr("disabled", "disabled");
 
+    var amount = 1000; //amount you want to charge in cents
+    Stripe.createToken({
+        number: $('.card-number-switch').val(),
+        cvc: $('.card-cvc-switch').val(),
+        exp_month: $('.card-expiry-month-switch').val(),
+        exp_year: $('.card-expiry-year-switch').val()
+    }, amount, stripeResponseHandler2);
+
+    // prevent the form from submitting with the default action
+    return false;
+  });
+});
 </script>
 
 
@@ -43,7 +94,8 @@ $(document).ready(function() {
 
 	<nav class="sidebar">
 			<ul class="sidebar_tab" data-tabs="sidebar_tab">
-				<li class="active"><a href="#plans">Plans & Billing</a></li>			
+				<li class="active"><a href="#plans">Plans</a></li>
+				<li class=""><a href="#billing_history">Payment History</a></li>						
 				<li class=""><a href="#change_password">Change Password</a></li>			
 				<li class=""><a href="#change_email">Change Email</a></li>			
 				<li class=""><a href="#notifications">Notifications</a></li>			
@@ -52,6 +104,9 @@ $(document).ready(function() {
 
 
 <div class="tab-content">
+
+
+
 <% if current_user.priviledge=="1" %>
 	<div class="active" id="plans">
 	<table class="plan_table">
@@ -96,7 +151,7 @@ $(document).ready(function() {
 					Never
 				</td>
 				<td>
-							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+							<a class="minibutton plus_upgrade" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
 				</td>
 			</tr>
 			<tr>
@@ -116,7 +171,7 @@ $(document).ready(function() {
 					Never
 				</td>
 				<td>
-							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+							<a href="#" class="minibutton premium_upgrade" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
 				</td>
 			</tr>
 			<tr>
@@ -136,29 +191,10 @@ $(document).ready(function() {
 					Never
 				</td>
 				<td>
-							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+							<a href="#" class="minibutton personal_upgrade" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					Instant ($1.99/time)
-				</td>
-				<td>
-					2GB
-				</td>
-				<td>
-					100	
-				</td>
-				<td>
-					2GB
-				</td>					
-				<td>
-					14 Days
-				</td>
-				<td>
-							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
-				</td>
-			</tr>
+			
 			<tr>
 				<td>
 					Free
@@ -186,6 +222,9 @@ $(document).ready(function() {
 
 	</div>
 <% elsif current_user.priviledge=="2" %>
+
+
+<% elsif current_user.priviledge=="3" %>
 <div class="active" id="plans">
 	<table class="plan_table">
 		
@@ -229,7 +268,7 @@ $(document).ready(function() {
 					Never
 				</td>
 				<td>
-							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+							<a href="#" class="minibutton plus_switch" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
 				</td>
 			</tr>
 			<tr>
@@ -249,7 +288,7 @@ $(document).ready(function() {
 					Never
 				</td>
 				<td>
-							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+							<a href="#" class="minibutton premium_switch" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
 				</td>
 			</tr>
 			<tr>
@@ -269,27 +308,246 @@ $(document).ready(function() {
 					Never
 				</td>
 				<td>
-							<a href="#" class="minibutton" style="padding-top:0px;text-decoration:none">Upgrade</a>
+							<p style="color:#d8d8d8d;">Your plan</p>
 				</td>
 			</tr>
+
 			<tr>
 				<td>
-					Instant ($1.99/time)
+					Free
 				</td>
 				<td>
-					2GB
+					1GB
 				</td>
 				<td>
-					100	
+					20
 				</td>
 				<td>
-					2GB
+					150MB
 				</td>					
 				<td>
 					14 Days
 				</td>
 				<td>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+<% elsif current_user.priviledge=="4" %>
+<div class="active" id="plans">
+	<table class="plan_table">
+		
+		<tbody>
+			<tr>
+				
+				<th>
+					Plan	
+				</th>
+				<th>
+					Storage	
+				</th>
+				<th>
+					Downloads(per file)	
+				</th>
+				<th>
+					Max transfer size(per file)
+				</th>
+				<th>
+					Expiration
+				</th>
+				<th>
+					Action
+				</th>
+			</tr>
+
+			<tr>
+				<td>
+					Plus ($19.99/month)
+				</td>
+				<td>
+					100GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton plus_switch" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Premium ($9.99/month)
+				</td>
+				<td>
+					20GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
 							<p style="color:#d8d8d8d;">Your plan</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Personal ($4.99/month)
+				</td>
+				<td>
+					5GB
+				</td>
+				<td>
+					100
+				</td>
+				<td>
+					2GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton personal_switch" style="height:19px;text-decoration:none;padding-top:0px;">Switch</a>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					Free
+				</td>
+				<td>
+					1GB
+				</td>
+				<td>
+					20
+				</td>
+				<td>
+					150MB
+				</td>					
+				<td>
+					14 Days
+				</td>
+				<td>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+	</div>
+	
+
+<% elsif current_user.priviledge=="5" %>
+
+<div class="active" id="plans">
+	<table class="plan_table">
+		
+		<tbody>
+			<tr>
+				
+				<th>
+					Plan	
+				</th>
+				<th>
+					Storage	
+				</th>
+				<th>
+					Downloads(per file)	
+				</th>
+				<th>
+					Max transfer size(per file)
+				</th>
+				<th>
+					Expiration
+				</th>
+				<th>
+					Action
+				</th>
+			</tr>
+
+			<tr>
+				<td>
+					Plus ($19.99/month)
+				</td>
+				<td>
+					100GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+						<p style="color:#d8d8d8d;">Your plan</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Premium ($9.99/month)
+				</td>
+				<td>
+					20GB
+				</td>
+				<td>
+					Unlimited
+				</td>
+				<td>
+					4GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton premium_switch" style="height:19px;text-decoration:none;padding-top:0px;">Switch</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Personal ($4.99/month)
+				</td>
+				<td>
+					5GB
+				</td>
+				<td>
+					100
+				</td>
+				<td>
+					2GB
+				</td>					
+				<td>
+					Never
+				</td>
+				<td>
+							<a href="#" class="minibutton personal_switch" style="height:19px;text-decoration:none;padding-top:0px;">Switch</a>
 				</td>
 			</tr>
 			<tr>
@@ -317,18 +575,66 @@ $(document).ready(function() {
 
 
 	</div>
-
-<% elsif current_user.priviledge=="3" %>
-
-<% elsif current_user.priviledge=="4" %>
-
-
-<% elsif current_user.priviledge=="5" %>
-
-
+	
 <% end %>
 
+	<div id="billing_history">
 
+
+
+		
+		<div class="credit-card">
+			<div style="float:left">
+			<h3>Past Payments</h3>
+			</div>
+			<div id="iwantmymoneyback">
+				<a href="#">Refund</a>
+			</div>
+		</div>
+
+
+		<% if current_user.customer_id.nil? %>
+		<p>No payment record yet</p>
+		<% else %>
+		<table>
+			<tbody>
+
+
+				<tr>
+					<th width="75%">
+						Amount
+					</th>
+					<th width="25%">
+						Date
+					</th>
+				</tr>
+
+
+				<% for p in @payments %>
+
+				<tr>
+					<td>
+						$<%= ((p.amount.to_f)/100).round(2) %>
+					</td>
+					<td>
+						<%= Time.at(p.created) %>	
+					</td>
+				</tr>
+				<% end %>
+
+
+
+
+			</tbody>
+		</table>
+		<% end %>
+
+
+
+
+
+
+	</div>
 
 	<div id="change_password">
 		
@@ -446,6 +752,188 @@ $(document).ready(function() {
   </section>
   </section>
 
+<div id="modal-from-dom1" class="modal hide fade in">
+            <div class="modal-header">
+              <a href="#" class="close">×</a>
+              <h3>Credit Card Information</h3>
+            </div>
+            <div class="modal-body">
+		  <p>We'll immediately switch your account to the <span class="plan_show"></span>plan. To verify your identiy, please fill in your credit card information below (there is no additional cost). The cost will be adjusted at the end of the month (?).
+		  <br></p>
+ <div class="separate"></div>
+
+
+
+	<%= form_for current_user, :url=>upgrade_user_path(current_user), :remote=>true, :html=>{:class=>'payment-form-switch'} do |f| %>
+
+
+
+				<br>
+				<br>
+
+
+     		    <input name="plan" class="plan" type="hidden" value=""/>
+
+	            <div class="clearfix">
+	              <label for="xlInput3">Card Number</label>
+	              <div class="input">
+	                <input type="text" size="20" autocomplete="off" class="card-number-switch xlarge span5" id="xlInput3" />
+	               </div>
+	            </div>
+	             <div class="clearfix">
+	              <label for="xlInput3">CVC</label>
+	              <div class="input">
+	                <input type="text" size="4" autocomplete="off" class="card-cvc-switch xlarge span2" id="xlInput3"/>
+	            </div>
+	            </div>
+
+	             <div class="clearfix">
+	              <label for="xlInput3">Expiration</label>
+	              <div class="input">
+	                
+	                <input type="text" size="2" class="card-expiry-month-switch span2" placeholder="MM"/>
+	                <span> / </span>
+	                <input type="text" size="4" class="card-expiry-year-switch span3" placeholder="YYYY"/>
+	             </div>
+	            </div>
+
+	            <div class="clearfix" style="margin-bottom:0px;">
+		            <label for="xlInput3" style="color:#999">We accept</label>
+		            <div class="input">
+		            	<ul class="cards">
+		            		<li>
+		            			<span class="visa card">Visa</span>
+		            		</li>
+		            		<li>
+		            			<span class="american_express card">Express</span>
+		            		</li>
+		            		<li>
+		            			<span class="master card">Master</span>
+		            		</li>
+		            		<li>
+		            			<span class="discover card">Discover</span>
+		            		</li>
+		            		<li>
+		            			<span class="jcb card">Jcb</span>
+		            		</li>
+		            	</ul>
+		            </div>
+	             </div>
+
+
+<% end %>
+			<div class="separate"></div>
+			<div style="width:95%;padding:0 100px;margin-top:20px;">
+				<p>Please review the terms of service, and privacy policy.</p>
+			</div>
+   	          
+
+            </div>
+
+
+
+
+            <div class="modal-footer">
+              <a href="#" class="btn secondary" onClick="$('.payment-form-switch').submit()">Switch Plan</a>
+            </div>
+</div>
+
+
+
+
+
+<div id="modal-from-dom" class="modal hide fade in">
+            <div class="modal-header">
+              <a href="#" class="close">×</a>
+              <h3>Credit Card Information</h3>
+            </div>
+            <div class="modal-body">
+            <p>Thank you for becoming a paying customer! Once we successfully charge your credit card, we'll immediately upgrade your account to the 
+            <span class="plan_show"></span>plan.
+            <br>
+
+              </p>
+
+            
+	            <div class="separate"></div>
+
+
+
+
+
+	<%= form_for current_user, :url=>upgrade_user_path(current_user), :remote=>true, :html=>{:class=>'payment-form'} do |f| %>
+
+
+
+				<br>
+				<br>
+
+
+     		    <input name="plan" class="plan" type="hidden" value=""/>
+
+	            <div class="clearfix">
+	              <label for="xlInput3">Card Number</label>
+	              <div class="input">
+	                <input type="text" size="20" autocomplete="off" class="card-number xlarge span5" id="xlInput3" />
+	               </div>
+	            </div>
+	             <div class="clearfix">
+	              <label for="xlInput3">CVC</label>
+	              <div class="input">
+	                <input type="text" size="4" autocomplete="off" class="card-cvc xlarge span2" id="xlInput3"/>
+	            </div>
+	            </div>
+
+	             <div class="clearfix">
+	              <label for="xlInput3">Expiration</label>
+	              <div class="input">
+	                
+	                <input type="text" size="2" class="card-expiry-month span2" placeholder="MM"/>
+	                <span> / </span>
+	                <input type="text" size="4" class="card-expiry-year span3" placeholder="YYYY"/>
+	             </div>
+	            </div>
+
+	            <div class="clearfix" style="margin-bottom:0px;">
+		            <label for="xlInput3" style="color:#999">We accept</label>
+		            <div class="input">
+		            	<ul class="cards">
+		            		<li>
+		            			<span class="visa card">Visa</span>
+		            		</li>
+		            		<li>
+		            			<span class="american_express card">Express</span>
+		            		</li>
+		            		<li>
+		            			<span class="master card">Master</span>
+		            		</li>
+		            		<li>
+		            			<span class="discover card">Discover</span>
+		            		</li>
+		            		<li>
+		            			<span class="jcb card">Jcb</span>
+		            		</li>
+		            	</ul>
+		            </div>
+	             </div>
+
+
+<% end %>
+			<div class="separate"></div>
+			<div style="width:95%;padding:0 15px;margin-top:20px;">
+				<p>Please review the terms of service, and privacy policy. 14-Day Money Back Guarantee</p>
+			</div>
+   	          
+
+            </div>
+
+
+
+
+            <div class="modal-footer">
+              <a href="#" class="btn secondary" onClick="$('.payment-form').submit()">Process Credit Card</a>
+            </div>
+</div>
 
 
 <script type="text/javascript" charset="utf-8">
@@ -454,8 +942,9 @@ $(document).ready(function() {
    $(function () {
       $(".class").find('> .active').removeClass('active');
       $("#account").addClass('active');
-      $("#newtransfer a").css("padding-left","0px");
+            $("#newtransfer a").css("padding-left","0px");
 
     });
 
 </script>
+ 

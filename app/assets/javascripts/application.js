@@ -6,6 +6,10 @@
 //Error message 
 
 
+var startTime, endTime;
+
+
+
 var queueBytesLoaded = 0;
 var queueBytesTotal = 0;
 var myQueue = null;
@@ -62,8 +66,6 @@ var tooMany = function(){
 
 
 var overLimitCheck = function(fileNumber,totalSize,maxNumber,maxSize){
-    
-
 
             if (maxSize < totalSize) {
                 tooBig();
@@ -77,10 +79,11 @@ var overLimitCheck = function(fileNumber,totalSize,maxNumber,maxSize){
                 tooBig();
             }
 
-            if ((checkSpace() > totalSize) && (maxNumber > total)) {
+            if ((checkSpace() > totalSize) && (maxNumber > fileNumber)) {
                 $(".error").html('');
                 $.g_config.error = false;
             }
+
 
 
 };
@@ -113,9 +116,6 @@ var queueChangeHandler = function(queue){
 
     if(fileSize==0||fileSize==null||fileSize==NaN){
         $("#upload_info").html("");
-        $(".capacity_show").show();
-
-
 
         $.g_config.totalNumber=0;
     }
@@ -139,6 +139,7 @@ var uploadingStartHandler = function(){
     queueBytesTotal = 0;
     queueBytesLoaded = 0;
 
+    $(".head h4").html("Sending File(s)...");
     $("#upload_info").hide();
     $("#upload_control_panel").hide();
     $("#overall_percentage .progress-bar").show();
@@ -156,8 +157,56 @@ var uploadingFinishHandler = function(){
     $("#upload_control_panel").show();
     $("#overall_percentage .progress-bar").hide();
     $("#overall_percentage #count").hide();
+    $("#upload_control_panel").hide();
     $("#upload_col2").html("Size");
     $("#upload_col3").html("Action");
+
+      $(".head h4").html("Transfer history");
+      $("#input_button_container").hide();
+      $(".upload_footer").hide();
+      $(".widget").css({"margin-bottom":"40px","border-bottom":"1px solid #D5D5D5"});
+
+
+
+
+
+  $.notification({ message:"Success! We have uploaded your files. A notification is sent to recipient(s).", type:"notice" });
+                            var link = $(".link").val();
+                            var sha1 =$(".container_id").val();
+                            $("#syf").html('Send More Files');
+                            $(".percent").hide();   
+                            $(".error").html('<div class="nNote nSuccess" style="border:1px solid #D5D5D5"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px;padding-left:10px;"><label style="margin-left: 6px;">&nbsp;You can <a href="javascript:location.reload(true)">click here to send another file.</a></label></p></div>');
+                            $('a#copy').zclip({
+                                    path:'/assets/ZeroClipboard.swf',
+                                    copy:$('a.copied').text()
+                            });
+                          
+                            $(".beforesend").hide();
+                                         
+                            $.get('/send_notification?id='+sha1, function(data) {
+                                return true
+                            });
+
+
+
+                            $.g_config.totalSize=0; 
+        
+                             $.ajax({
+                                  url: '/partial_update',
+                                  data: data,
+                                  beforeSend: function() {
+                                    $(".recent_activity").css("opacity","0.4"); 
+                                    $("#loader-div").css({"margin-top":"40px","margin-left":"150px"})   
+                                    $("#loader-div").show();   
+                                  },
+                                   success: function( data ) {
+                                    $('.recent_activity').html(data);
+                                    $(".recent_activity").css("opacity","1");    
+                                    $("#loader-div").hide();   
+                                  },
+                             });
+
+
 
 };
 
@@ -235,6 +284,12 @@ var progressHandler = function(progress_event){
     $("#overall_percentage .progress-bar span").css({"width":overall_percentage});
     $("#overall_percentage #count").html(overall_percentage);
 
+    if(overall_percentage=="100%"){
+             $(".beforesend").hide();
+             $(".error").html('<div style="height:31px;float:left;padding-top:11px;margin-bottom:30px;width:100%"><div id="loader" style="height:31px;float:left;margin-right:20px"><img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px"></div><h2 style="margin-left:30px;color:#777">Processing your request...please wait</h2></div>');
+             $("#loader").html('<img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px">');
+    }
+
 
 };
 
@@ -247,18 +302,23 @@ var uploadCompleteHandler = function(upload_options,event){
           global: false,
           type: 'POST',
           data: ({
-                'authenticity_token' : '<%= form_authenticity_token %>',
-                'upload' : {
+//                'authenticity_token' : '<%= form_authenticity_token %>',
+                'container_id' : $(".container_id").val(),
+                'email' : $(".recipients").val(),
+                'sender' : $(".sender").val(),
+                'subject' : $(".subject-field1").val(),
+                'message' : $(".subject-field2").val(),
+                'container_password' : $("#container_password").val(),
+                'stuff' : {
                     'file_file_name' : upload_options.FileName,
                     'file_file_size' : upload_options.FileSize,
-                    'file_content_type' : upload_options.ContentType
+                    'file_content_type' : upload_options.ContentType,
+                    'notif' :  $("#stuff_notif").val()
                 }
         }),
           dataType: 'script'
        }
     )
-
-
 
     queueBytesLoaded += parseInt(upload_options.FileSize);
     addFileToDoneList(upload_options.FileName,upload_options.FileSize);
@@ -330,9 +390,8 @@ $(function () {
 
 $(function () {
 
+   
 
-
-    $("table.viewpane-content").tablesorter({ sortList: [[0,0]] });
 
     $('a#copy').zclip({
         path: '/assets/ZeroClipboard.swf',
@@ -378,17 +437,8 @@ $(function () {
 
     });
 
-    humane.timeout = (5000);
-    humane.waitForMove = (true);
 
 
-
-
-    $("#premiumCheck").change(function () {
-        if (this.checked) {
-            $("#premiumSignup").modal('show');
-        }
-    });
 
     if(!($.browser.webkit)){
         $(".select_folder").hide();
@@ -422,6 +472,75 @@ $(function () {
 
 
     $('.topbar').dropdown();
+
+    $('#result-refinement').dropdown();
+
+
+    $(".free_upgrade").bind("click",function(){
+        
+    });
+
+    $("#modal-from-dom").modal({
+              backdrop: true
+            });
+     $("#modal-from-dom1").modal({
+              backdrop: true
+            });
+
+
+    $(".personal_switch").bind("click",function(){
+        $(".plan").val("personal");
+        $(".plan_show").html("<strong>Personal </strong>");
+        $("#modal-from-dom1").modal("show");
+    });
+
+    $(".premium_switch").bind("click",function(){
+        $(".plan").val("premium");
+        $(".plan_show").html("<strong>Premium </strong>");
+        $("#modal-from-dom1").modal("show");
+    });
+
+    $(".plus_switch").bind("click",function(){
+        $(".plan").val("plus");
+        $(".plan_show").html("<strong>Plus </strong>");
+        $("#modal-from-dom1").modal("show");     
+    });
+
+
+
+
+
+    $(".personal_upgrade").bind("click",function(){
+        $(".plan").val("personal");
+        $(".plan_show").html("<strong>Personal </strong>");
+        $("#modal-from-dom").modal("show");
+    });
+
+    $(".premium_upgrade").bind("click",function(){
+        $(".plan").val("premium");
+        $(".plan_show").html("<strong>Premium </strong>");
+        $("#modal-from-dom").modal("show");
+    });
+
+    $(".plus_upgrade").bind("click",function(){
+        $(".plan").val("plus");
+        $(".plan_show").html("<strong>Plus </strong>");
+        $("#modal-from-dom").modal("show");     
+    });
+
+
+
+
+    $("#sort-by a").bind("ajax:beforeSend", function(evt, xhr, settings){
+        $("#dynamic_folder_display").css("opacity","0.4");
+        $("#loader-div").show();
+    })
+
+
+
+
+
+
 
 
 
@@ -497,22 +616,6 @@ function passwordEnable() {
 }
 
 
-
-function divpoll() {
-
-
-
-
-    if ($("#file_todo_list li").length == 0) {
-        $(".drag-drop-show").html('<h2 style="margin-left:65px;margin-top:50px;color:#B7CFDF;font-size:200%;">Drag &amp; Drop Files Here</h2>')
-        $("#file_lists").css('background', '#F2F7FA');
-        $(".progress").hide();
-        //$(".percent").hide();
-    } 
-}
-
-
-//setInterval('divpoll()', 300);
 
 
 

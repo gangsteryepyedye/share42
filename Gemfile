@@ -27,7 +27,8 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem "googl"
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 's3_swf_upload', :git => 'git://github.com/nathancolgate/s3-swf-upload-plugin'
-
+gem "amazon-ec2", :require => "AWS"
+gem 'resque', :require => 'resque/server'  
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
