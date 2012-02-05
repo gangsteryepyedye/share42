@@ -5,18 +5,53 @@ class JsonController < ApplicationController
 
 
 
-  def compressed
 
-    @container=Container.find_by_id_or_sha(params[:id])
-    @container.compressed=true
-    @container.save   
 
+  def before_download_check
+    @container=Container.find_by_id_or_sha1(params[:id])
+
+    
+
+    if @container.user_id.nil?
+      @downloadcap=30
+    else
+      @user = User.find(@container.user_id)
+      @downloadcap=@user.downloadcap
+    end
+
+    if @container.downloaded+1 > @downloadcap
+        
+
+       @tiny_id = "http://127.0.0.1:3000/containers/"+@container.sha1
+       @link=Container.shorten(@tiny_id).short_url 
+
+       if (!@user.nil?)
+        if @user.limitnotif==true
+            Notifier.limit_notify(@user.email,@link).deliver
+        end
+       else
+          Notifier.limit_notify(@container.sender,@link).deliver
+       end
+
+       respond_with({
+          :status => "You have reached the download limit for this folder."
+        })           
+
+    elsif @container.zipped==false
+      respond_with({
+          :status => "We are still busy zipping up files for this folder, please come back later or download individual files."
+      })
+    else
+      respond_with({
+         :status => "pass"
+      })  
+    end
   end
 
 
   def password_match
     
-    @container=Container.find_by_id_or_sha1(params[:id].to_i)
+    @container=Container.find_by_id_or_sha1(params[:id])
 
     if (!@container.nil?)
       if(params[:password]==@container.password)

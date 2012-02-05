@@ -53,7 +53,11 @@ font-weight: normal;"> (Required) - We'll never spam you</span></label>
             </div>
 <% end %>
 
+
+
+
   </div>
+
 
       
     <div class="clearfix">  
@@ -63,6 +67,8 @@ font-weight: normal;">(separate emails with commas or tabs)<span></label>
     <div class="input recipientInput">
     <input class="xlarge recipients" id="xlInput" name="email" size="30" type="text" style="width:100%">
    </div> 
+
+
   </div>
 
 
@@ -112,7 +118,7 @@ font-weight: normal;"> (Optional)</span>
 
 	
             <label for="xlInput3">
- 			Options
+ 			Additional Options
      	<span>
 		
 	</span>	
@@ -138,11 +144,11 @@ font-weight: normal;"> Only $5.99</span>
 
 
                 <li>
+
+                <% if current_user %>
                   <label>
-                    <input type="checkbox" name="optionsCheckboxes" value="option2" onClick="passwordToggle()">
-                    <span> Protect Download (Password)</span> <span style="color:#676767;font-size: 12px;
-font-family: Arial;
-font-weight: normal;"> Free</span>
+                    <input type="checkbox" name="optionsCheckboxes" value="option2" onClick="passwordToggle()" >
+                    <span> Protect Download (Password)</span> 
                   </label>
               <div class="password-block">
                   <div class="clearfix">
@@ -156,23 +162,42 @@ font-weight: normal;"> Free</span>
              
               </div>
 
+              <% else %>
+                  <label>
+ <input type="checkbox" name="optionsCheckboxes" value="option2" disabled="">
+                    <span> Protect Download (Password)</span> <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> For Registered Users</span>
+                  </label>
+              <% end %>
+
                 </li>
                
                  
                 <li>
+
+                <% if current_user%>
                   <label>
                     <%= f.check_box :notif %>
 
-                    <span>Notify Upon Download</span><span style="color:#676767;font-size: 12px;
-font-family: Arial;
-font-weight: normal;" > Free</span>
-
+                    <span>Notify Upon Download</span>
   
 
                   </label>
+
+                <% else %>
+                <label>
+
+             <input type="checkbox" disabled="">
+                                <span> Notify Upon Download</span> <span style="color:#676767;font-size: 12px;
+            font-family: Arial;
+            font-weight: normal;"> For Registered Users</span>
+                </label>
+                <% end %>
                 </li>  
 
-                 <li>
+          <% if !current_user||current_user.priviledge=="1" %>      
+            <li>
                 <label class="disabled">
                     <input type="checkbox" name="optionsCheckboxes" value="option2" checked="yes" disabled="">
                     <span>Expire in 14 days</span>
@@ -180,8 +205,9 @@ font-weight: normal;" > Free</span>
               <span class="help-block">
                 <strong>Note:</strong> Files will expire in 14 Days. Upgrade to have unlimited storage.
               </span>
-
             </li>    
+            <% end %>
+
 
               </ul>
 
@@ -228,7 +254,7 @@ font-weight: normal;" > Free</span>
 <div class="capacity_show">
 
 
-<h4>(Up to 150MB | <a href="#">Upgrade</a> to send larger files)</h4>
+<%= upgrade_suggestion %>
 
 </div>
                 </div>
@@ -245,12 +271,13 @@ font-weight: normal;" > Free</span>
                     </li>
                   </ul>
                 </div>
+                
 
 
                 <div id="overall_percentage">
                   <div class="progress-bar green stripes" id="overall-progress-bar" style="
-                  width: 400px;height: 28px;padding-right:0px;float: left;">
-                  <span style="width: 10%"></span>
+                  width: 250px;height: 28px;padding-right:0px;float: left;">
+                  <span style="width: 0%"></span>
                   </div>
                 <div id="count" style="font-size: 22px;
 font-weight: bold;
@@ -260,8 +287,13 @@ padding-top: 3px;
 float: left;
 margin-left: 20px;
 display:none">
-                  15%
+                  0 %
                 </div>
+                <ul id="cancel_upload">
+                  <li>
+                      <button class="minimal cancel_upload_button" style="width:80px;margin-left:70px;" onclick="s3_swf_1_object.stopUploading();return false;">Cancel</button>
+                  </li>
+                </ul>
               </div>
 
 

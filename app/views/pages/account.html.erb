@@ -1,80 +1,13 @@
 <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
 <script type="text/javascript">
-    // this identifies your website in the createToken call below
-    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
-     
-  function stripeResponseHandler(status, response) {
-                if (response.error) {
-                	var message_text = response.error.message;
-                    $.notification({ message:message_text, type:"error" });
-                } else {
-                    var form = $(".payment-form");
-                    // token contains id, last4, and card type
-                    var token = response['id'];
-                    // insert the token into the form so it gets submitted to the server
-                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                    // and submit
-                    form.get(0).submit();
-                }
-            }
- function stripeResponseHandler2(status, response) {
-                if (response.error) {
-                	var message_text = response.error.message;
-                    $.notification({ message:message_text, type:"error" });
-                } else {
-                    var form = $(".payment-form-switch");
-                    // token contains id, last4, and card type
-                    var token = response['id'];
-                    // insert the token into the form so it gets submitted to the server
-                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                    // and submit
-                    form.get(0).submit();
-                }
-    }
 
-  $(document).ready(function() {
-  $(".payment-form").submit(function(event) {
-
-
-
-    // disable the submit button to prevent repeated clicks
-    $('.submit-button').attr("disabled", "disabled");
-
-    var amount = 1000; //amount you want to charge in cents
-    Stripe.createToken({
-        number: $('.card-number').val(),
-        cvc: $('.card-cvc').val(),
-        exp_month: $('.card-expiry-month').val(),
-        exp_year: $('.card-expiry-year').val()
-    }, amount, stripeResponseHandler);
-
-    // prevent the form from submitting with the default action
-    return false;
-  });
-
-   $(".payment-form-switch").submit(function(event) {
-    // disable the submit button to prevent repeated clicks
-    $('.submit-button').attr("disabled", "disabled");
-
-    var amount = 1000; //amount you want to charge in cents
-    Stripe.createToken({
-        number: $('.card-number-switch').val(),
-        cvc: $('.card-cvc-switch').val(),
-        exp_month: $('.card-expiry-month-switch').val(),
-        exp_year: $('.card-expiry-year-switch').val()
-    }, amount, stripeResponseHandler2);
-
-    // prevent the form from submitting with the default action
-    return false;
-  });
-});
 </script>
 
 
 
  <%= render :partial =>"/containers/header" %>
 
-<div class="stats" >
+<div class="stats" style="display:block" >
 
 
             <ul>
@@ -136,7 +69,7 @@
 
 			<tr>
 				<td>
-					Plus ($19.99/month)
+					Plus ($20/month)
 				</td>
 				<td>
 					100GB
@@ -145,7 +78,7 @@
 					Unlimited
 				</td>
 				<td>
-					4GB
+					5GB
 				</td>					
 				<td>
 					Never
@@ -156,7 +89,7 @@
 			</tr>
 			<tr>
 				<td>
-					Premium ($9.99/month)
+					Premium ($10/month)
 				</td>
 				<td>
 					20GB
@@ -165,7 +98,7 @@
 					Unlimited
 				</td>
 				<td>
-					4GB
+					5GB
 				</td>					
 				<td>
 					Never
@@ -176,7 +109,7 @@
 			</tr>
 			<tr>
 				<td>
-					Personal ($4.99/month)
+					Personal ($5/month)
 				</td>
 				<td>
 					5GB
@@ -253,7 +186,7 @@
 
 			<tr>
 				<td>
-					Plus ($19.99/month)
+					Plus ($20/month)
 				</td>
 				<td>
 					100GB
@@ -273,7 +206,7 @@
 			</tr>
 			<tr>
 				<td>
-					Premium ($9.99/month)
+					Premium ($10/month)
 				</td>
 				<td>
 					20GB
@@ -293,7 +226,7 @@
 			</tr>
 			<tr>
 				<td>
-					Personal ($4.99/month)
+					Personal ($5/month)
 				</td>
 				<td>
 					5GB
@@ -376,7 +309,7 @@
 
 			<tr>
 				<td>
-					Plus ($19.99/month)
+					Plus ($20/month)
 				</td>
 				<td>
 					100GB
@@ -396,7 +329,7 @@
 			</tr>
 			<tr>
 				<td>
-					Premium ($9.99/month)
+					Premium ($10/month)
 				</td>
 				<td>
 					20GB
@@ -416,7 +349,7 @@
 			</tr>
 			<tr>
 				<td>
-					Personal ($4.99/month)
+					Personal ($5/month)
 				</td>
 				<td>
 					5GB
@@ -492,7 +425,7 @@
 
 			<tr>
 				<td>
-					Plus ($19.99/month)
+					Plus ($20/month)
 				</td>
 				<td>
 					100GB
@@ -512,7 +445,7 @@
 			</tr>
 			<tr>
 				<td>
-					Premium ($9.99/month)
+					Premium ($10/month)
 				</td>
 				<td>
 					20GB
@@ -532,7 +465,7 @@
 			</tr>
 			<tr>
 				<td>
-					Personal ($4.99/month)
+					Personal ($5/month)
 				</td>
 				<td>
 					5GB

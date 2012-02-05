@@ -19,13 +19,17 @@
 <%= javascript_include_tag "bootstrap-tabs" %> 
 <%= javascript_include_tag "jquery.zclip.min" %>
 <%= javascript_include_tag "jquery.tablesorter.min" %>
+<%= javascript_include_tag "jquery.scroll.min" %>
+
+
 <%= stylesheet_link_tag 'jquery-ui-1.8.16.custom' %>
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
 
 
   <%= stylesheet_link_tag "application" %>
   <%= stylesheet_link_tag "base" %>
   <%= javascript_include_tag "application" %>	
-	
+
 
   <%= csrf_meta_tags %>
 </head>
@@ -41,11 +45,12 @@
 				<img class="logo" width="14" height="18" title="File Tunnel" src="/assets/img_trans.gif">
 
 Senditu</a>
-          <ul class="nav">
-            <li><a href="#about">Plans & Pricing</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
          
+         <ul class="nav">
+            <li><a href="#about">Tour</a></li>
+            <li><a href="/pages/pricing">Plans & Sign Up</a></li>
+          </ul>
+          
          <% if current_user %>
 
     	<ul class="nav secondary-nav">
@@ -54,7 +59,6 @@ Senditu</a>
               <ul class="dropdown-menu">
                 <li><a href="#">Secondary link</a></li>
                 <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
                 <li><%= link_to "Log out", log_out_path %></li>
               </ul>
             </li>
@@ -62,12 +66,21 @@ Senditu</a>
     		   	
     	
     	<% else %>		
-			<%= form_tag sessions_path, :class=>"pull-right" do %>
-            	 <%= text_field_tag :email, params[:email], :class=>"input-medium", :placeholder=>"Email", :style=>"border:none" %>
-            	 <input id="password" name="password" type="password" class="input-small" placeholder="Password" style="border:none">
-            	 <button class="btn" type="submit">Sign in</button>
-       		<% end %>
+
+      <%= form_tag sessions_path, :class=>"pull-right" do %>
+               <%= text_field_tag :email, params[:email], :class=>"input-medium", :placeholder=>"Email", :style=>"border:none" %>
+               <input id="password" name="password" type="password" class="input-small" placeholder="Password" style="border:none">
+               <button class="btn" type="submit">Sign in</button>
+          <% end %>
+
+
+
+
+
         <% end %>
+
+
+
         
         	
     </div>
@@ -88,15 +101,6 @@ Senditu</a>
 
 
 <% if current_user %>
-
-
-<p>Capcity: <%= number_to_human_size(current_user.capacity) %></p>
-<p>Storage: <%= number_to_human_size(current_user.storage) %></p>
-<p>Download cap: <%= current_user.downloadcap %></p>
-<p>Max transfer size: <%= number_to_human_size(current_user.spf) %></p>
-<p> Remind me when the file reaches the download limit: <%= current_user.limitnotif %></p>
-<p>Remind me every time: <%= current_user.everytime %></p> 
-
 
 <% end %>
 
@@ -128,16 +132,24 @@ $('.recipients').tagsInput({
     
     
 </script>
+
   <div class="footer">
-        <ul class="nav">
-            <li><a href="http://www.compete.com/about" class="at_footer_about">About</a></li>
-            <li><a href="http://www.compete.com/contact-us" class="at_footer_contact">Contact Us</a></li>
+      <div style="float:left;margin-left:220px;">
+        <ul class="left_nav">
+            <li><a href="/pages/about" class="at_footer_about">About</a></li>
+            <li><a href="/pages/contact_us" class="at_footer_contact">Contact Us</a></li>
             <li><a href="http://www.compete.com/developer" class="at_footer_devs">Support</a></li>            
-            <li><a href="http://www.compete.com/terms/" class="at_footer_tos">Terms Of Service</a></li>
-            <li class="last"><a href="http://www.compete.com/privacy/" class="at_footer_privacy">Privacy Policy</a></li>
-            <li class="last"><a href="http://www.competeinc.com" class="at_footer_inc">42Zen LLC</a></li>
+            <li><a href="/pages/tos/" class="at_footer_tos">Terms Of Service</a></li>
+            <li><a href="/pages/privacy/" class="at_footer_privacy">Privacy Policy</a></li>
+
         </ul>
+      </div>
+      <div style="float:left;">
+        <p style="float:left;width: 100%;">© Copyright 2012 42Zen, LLC</p>
+      </div>
     </div>
+</div>
+
     
 
 

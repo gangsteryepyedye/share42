@@ -12,19 +12,16 @@ class UsersController < ApplicationController
   end
 
 
-
   def create
 
 
     # get the plan
     plan = params[:planSelect]
 
-    if plan!=="free"
-      #get the Api key
-      Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
-      # get the credit card details submitted by the form
-      token = params[:stripeToken]
-    end
+    #get the Api key
+    Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
+    # get the credit card details submitted by the form
+    token = params[:stripeToken]
 
     #create namespace
     @user = User.new(params[:user])
@@ -45,11 +42,19 @@ class UsersController < ApplicationController
       if @user.save
         redirect_to '/containers', :notice => "Signed up!"
       else
-        render :action => "new_free"
+        if plan.nil?
+          render :action => "new"
+        else
+          render :action => "new_free"
+        end
       end 
     
    
   end
+
+
+
+
 
 
 
@@ -91,7 +96,7 @@ class UsersController < ApplicationController
         current_user.personal_init(false)
     elsif plan=="premium"
         current_user.premium_init(false)
-    elsif plan="plus"
+    elsif plan=="plus"
         current_user.plus_init(false)
     end
     

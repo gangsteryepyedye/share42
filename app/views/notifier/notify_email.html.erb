@@ -373,7 +373,7 @@
                                                             <div mc:edit="std_content00">
                                                                
                                                                 <h4 class="h4">Hi! <%= @sender %> just sent you <%= @count %> file(s) using Senditu.com</h4>
-                                                                <a href=<%= @link %> ></a>	
+                                                                <a href=<%= @link %> >Download these files</a>	
                                                     
 
                                                                 <ul >
@@ -384,11 +384,11 @@
 	                                                                <% end %>
                                                                 </ul>
 
-                                                                <% if (!@sub.nil?) %>
+                                                                <% if (!@sub.empty?) %>
                                                                 <strong>Subject:</strong><%= @sub %>
                                                                 <br />
                                                                 <% end %>
-                                                                <% if (!@message.nil?) %>
+                                                                <% if (!@message.empty?) %>
                                                                 <strong>Message:</strong><%= @message %>                                                                 <br />
                                                                 <br />
                                                               	<% end %>

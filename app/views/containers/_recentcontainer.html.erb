@@ -4,7 +4,6 @@
             <tr id="header">
                 <th>NAME</th>
                 <th>SENT ON</th>
-                <th>FILES</th>
                 <th>SIZE</th>
               
        
@@ -19,11 +18,7 @@
 <td>
 <%= container.created_at.strftime("%Y-%m-%d") %>
 </td>
-<td>
 
-<%= container.stuffs.count %>
-
-</td>
 <td>
 
 <%= get_size(container) %>

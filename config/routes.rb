@@ -12,6 +12,10 @@ Filetunnel::Application.routes.draw do
   get "pages/test"
   get "pages/undefined"
   get "pages/tos"
+  get "pages/privacy"
+  get "pages/contact_us"
+  get "pages/vendors"
+  get "pages/tour"
 
   get "sessions/new"
 
@@ -27,7 +31,6 @@ Filetunnel::Application.routes.draw do
       get 'download_all'
       get 'remove'
       get 'remove_folder'
-      get 'compression_check'
     end
   end
 
@@ -43,7 +46,7 @@ Filetunnel::Application.routes.draw do
   get "priviledge" => "json#user_info"
   get "storage" => "json#storage"
   get "password_match" => "json#password_match"
-  get "compressed" => "json#compressed"
+  get "compression_check" => "json#before_download_check"
 
   get "test" => "containers#test"
 

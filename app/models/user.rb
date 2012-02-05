@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
       self.capacity=1073741824 
       self.priviledge="1"
       self.spf=157286400
-      self.downloadcap=20
+      self.downloadcap=30
       if first_time==true
         self.storage=0
       end  
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
   def premium_init(first_time)
       self.capacity=21474836480 
       self.priviledge="4"
-      self.spf=4294967296
+      self.spf=5368709120
       self.downloadcap=1000
       if first_time==true
         self.storage=0
@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
   def plus_init(first_time)
       self.capacity=107374182400 
       self.priviledge="5"
-      self.spf=4294967296
+      self.spf=5368709120
       self.downloadcap=1000
       if first_time==true
         self.storage=0

@@ -25,9 +25,19 @@ def download
 
         @email=@container.emails.where("name =?",query).first
           if(!@email.nil?)
-            @email.downloads=@email.downloads+1
-            @email.save
-        end
+              @email.downloads=@email.downloads+1
+              @email.save
+              @tiny_id = "http://127.0.0.1:3000/containers/"+@container.sha1
+              @link=Container.shorten(@tiny_id).short_url
+              if @container.user_id.nil?
+                 Notifier.download_notify(@email.name,@container.sender,@link).deliver
+              else
+                @user=User.find(@container.user_id)
+                if (@user.everytime==true||(@user.everytime==false&&@email.downloads==1))                  
+                  Notifier.download_notify(@email.name,@user.email,@link).deliver
+                end
+              end
+            end
     end        
 
     AWS::S3::Base.establish_connection!(
@@ -76,19 +86,33 @@ end
    
   def create
 
+    #initialize file holder (stuff)
     @stuff = Stuff.new(params[:stuff])
+    
+    #initialize flag
+    @pass = true    
+
+    #get sha1 for this file
     @stuff.container_id = Container.find_by_id_or_sha1(params[:container_id]).id        
     sha1=Digest::SHA1.hexdigest([@stuff.id.to_s,rand].join)
     @stuff.sha1=sha1.to_s
   
-
-
+    #get the container the file belongs to
     @container=Container.find_by_id_or_sha1(params[:container_id])
+    
+
+    #mark the container as not empty
     @container.empty=false
+
+
+    #mark the container as not expired
+    @container.expires = 0
+
+    #increase the total size of the folder
     @container.total_size=@container.total_size+params[:stuff][:file_file_size].to_i
     
     
-        
+    #assign expiration time to each file
     if current_user
       if current_user.priviledge=="1"
         @container.exptime=Time.now+14.days
@@ -97,7 +121,19 @@ end
         @container.exptime=Time.now+14.days
     end
     
-      
+    #get the allowed space
+
+    if current_user
+      space_allowed = current_user.capacity - current_user.storage
+    else
+      space_allowed = 157286400
+    end
+
+    #check to see if there is enough space left
+    if space_allowed < params[:stuff][:file_file_size].to_i
+      @pass = false
+    end 
+       
 
     if (@container.emails.empty?)
              #get sender's name
@@ -121,7 +157,7 @@ end
       end
 
 
-      if(@stuff.notif==true)
+      if(params[:stuff][:notif]==true)
         @container.notif=true
       else
         @container.notif=false
@@ -141,14 +177,11 @@ end
    
    @container.save
 
-    if current_user
-      left=current_user.capacity-current_user.storage
-    else
-      left=157286400
-    end
+   
 
    
-      if @stuff.save
+      if @pass == true
+        @stuff.save
         reduce_storage(params[:stuff][:file_file_size])
         render :json =>  {}
       else

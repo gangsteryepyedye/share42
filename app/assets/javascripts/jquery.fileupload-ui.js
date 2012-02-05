@@ -221,28 +221,7 @@
             },
             // Callback for uploads stop, equivalent to the global ajaxStop event:
             stop: function () {
-                $(this).find('.fileupload-progressbar').fadeOut();
-                $.notification({ message:"Success! We have uploaded your files. A notification is sent to recipient(s).", type:"notice" });
-                            var link = $(".link").val();
-                            var sha1 =$(".container_id").val();
-                            $("#syf").html('Send More Files');
-                            $(".percent").hide();   
-                            $(".error").html('<div class="nNote nSuccess"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px"><label>You can add more file(s) to this folder or <a href="javascript:location.reload(true)">start a new file transfer.</a></label></p></div>');
-                            $('a#copy').zclip({
-                                    path:'/assets/ZeroClipboard.swf',
-                                    copy:$('a.copied').text()
-                            });
-                          
-                            $(".beforesend").hide();
-                            $(".filesize").html("0 KB");   
-                                         
-                            $.get('/send_notification?id='+sha1, function(data) {
-                                return true
-                            });
-                            $.g_config.totalSize=0; 
-                            $.get('/partial_update', function(data) {
-                                    $('.recent_activity').html(data);
-              });
+              
             },
             // Callback for file deletion:
             destroy: function (e, data) {

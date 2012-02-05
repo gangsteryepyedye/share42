@@ -2,70 +2,56 @@
 
 
 
-    <table class="viewpane-content bordered-table" id="main_table">
-    <thead>
-            <tr id="header">
-                <th>NAME</th>
-                <th>RECIPIENT(S)</th>
-                <th>FILE(S)</th>
-                <th>SIZE</th>
-                <th>DOWNLOAD(S)</th>
-                <th>SENT ON</th>
-                <th>EXPIRE IN</th>
-                <th style="color: #DD4B39;text-align:left">ACTION</th>
-            </tr>
-    </thead>
-    <tbody>            
+    <table class="viewpane-content bordered-table" id="main_table" style="border-top:1px solid #E6F1F6">
+    <tbody class="scrollable fff months">            
 <% for container in @containers %>
 
 <tr class="rest">
 
 
 <td>
+<div class="index_first_td_top">
+
+<div class="index_first_td_top_left">
 <img alt="directory" height="16" src="/assets/folder_icon.png" width="16">
+<%= link_to truncate(container.name,:length=>60), container %>
+</div>
 
-<%= link_to container.name, container %>
-
-
-</td>
-<td>
-<%= container.emails.count %>
-</td>
-<td>
-
-<%= container.stuffs.count %>
-
-</td>
-<td>
-
-<%= get_size(container) %>
-
-</td>
-<td>
-
-<%= container.downloaded %>
-
-</td>
-<td>
-
-<%= container.created_at.strftime("%Y-%m-%d") %>
-
-</td>
-<td>
-
-<%= expiration_day(container) %>
-
-
-
-</td>
-<td>
+<div class="index_first_td_top_right">
 <% if !expired(container) %>
-    <%= link_to "Expire", {:controller=>"containers",:action=>"remove",:id=>container.sha1},:style=>"margin-top:1px",:confirm=>"Expire this folder? All the files contained will be removed."%>
+    <%= link_to "Remove", {:controller=>"containers",:action=>"remove",:id=>container.sha1},:class=>"action_button danger action_icon trash",:confirm=>"Remove this folder? All the files contained will be removed."%>
 <% else %>
-    <%= link_to "Remove", {:controller=>"containers",:action=>"remove_folder",:id=>container.sha1},:style=>"margin-top:1px" %>
+    <%= link_to "Remove", {:controller=>"containers",:action=>"remove_folder",:id=>container.sha1} %>
 <% end %>
 
 
+</div>
+
+
+</div>
+<div class="index_first_td_bottom">
+<div class="index_first_td_bottom_left">
+
+    <% container.emails.each_with_index do |e,index| %>
+    
+     <% if index==(container.emails.count-1) %>    
+        <%= e.name %>
+     <% else %>
+        <%= e.name %>;
+     <% end %>
+    <% end %>
+</div>
+<div class="index_first_td_bottom_right">
+<%= container.stuffs.count %>
+Files, <%= get_size(container) %>, <%= container.downloaded %> Downloads, 
+Expires in: 14 Days 
+</div>
+
+
+
+
+
+</div>
 
 
 </td>

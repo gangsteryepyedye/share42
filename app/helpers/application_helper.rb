@@ -20,4 +20,10 @@ module ApplicationHelper
 	end
 
 
+	def read_filtered(option,title)
+		link_to title, {:filter=>option}, :remote=>true
+	end
+		
+
+
 end

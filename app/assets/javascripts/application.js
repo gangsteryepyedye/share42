@@ -21,7 +21,7 @@ String.prototype.trunc = function(n){
 
 var availableNumber = function(){
     var response = $.ajax({
-                url: "http://127.0.0.1:3000/priviledge",
+                url: "/priviledge",
                 dataType: "json",
                 type: "GET",
                 processData: true,
@@ -37,7 +37,7 @@ var availableNumber = function(){
 
 var availableSpace = function(){
     var response = $.ajax({
-                url: "http://127.0.0.1:3000/priviledge",
+                url: "/priviledge",
                 dataType: "json",
                 type: "GET",
                 processData: true,
@@ -52,32 +52,41 @@ var availableSpace = function(){
 
 };
 
+var spaceLimit = function(){
+    $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over Transfer Size Limit <a id="upgrade_link" href="/pages/pricing">Upgrade</a></p></div>');
+    $.g_config.error = true;
+};
+
+
 var tooBig = function(){
-       $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over transfer size limit</p></div>');
-                $.g_config.error = true;
+       $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over Transfer size Limit <a id="upgrade_link" href="/pages/pricing">Upgrade</a></p></div></p></div>');
+       $.g_config.error = true;
 };
 
 var tooMany = function(){
-       $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over file number limit</p></div>');
-                $.g_config.error = true;
+       $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over File Number Per Transfer limit</p></div>');
+       $.g_config.error = true;
 }
 
 
 
 
 var overLimitCheck = function(fileNumber,totalSize,maxNumber,maxSize){
+            
+            if (checkSpace() < totalSize) {
+                spaceLimit();
+                return false;
 
-            if (maxSize < totalSize) {
-                tooBig();
             }
+            
 
             if (maxNumber < fileNumber){
                 tooMany();
+                return false;
+
             }
   
-            if (checkSpace() < totalSize) {
-                tooBig();
-            }
+      
 
             if ((checkSpace() > totalSize) && (maxNumber > fileNumber)) {
                 $(".error").html('');
@@ -103,11 +112,18 @@ var queueChangeHandler = function(queue){
 
     var fileNumber=0;
     var fileSize=0;
+    var spaceCheckNeeded=true;
 
     // Add the new
     for (i=0;i<queue.files.length;i++)
     {
         fileNumber++;
+        
+        if (queue.files[i].size > $.g_config.maxSize) {
+                tooBig();
+                spaceCheckNeeded=false;
+        }
+
         fileSize=fileSize+queue.files[i].size;
         addFileToTodoList(queue.files[i].name, queue.files[i].size, i);
     }
@@ -116,34 +132,40 @@ var queueChangeHandler = function(queue){
 
     if(fileSize==0||fileSize==null||fileSize==NaN){
         $("#upload_info").html("");
-
         $.g_config.totalNumber=0;
+        $.g_config.totalSize=0;
     }
     else if (fileNumber==1){
         $("#upload_info").html("Total: 1 file, "+readableBytes(fileSize));
         $.g_config.totalNumber=1;
+        $.g_config.totalSize=fileSize;
     }
     else{
         $("#upload_info").html("Total: "+fileNumber+" files, "+readableBytes(fileSize));
         $.g_config.totalNumber=fileNumber;
+        $.g_config.totalSize=fileSize;
     }
 
                   
-
-    overLimitCheck(fileNumber,fileSize,$.g_config.maxNumber,$.g_config.maxSize);
-
+    if(spaceCheckNeeded==true){
+        overLimitCheck($.g_config.totalNumber,$.g_config.totalSize,$.g_config.maxNumber,$.g_config.maxSize);
+    }
 
 };
 
 var uploadingStartHandler = function(){
     queueBytesTotal = 0;
     queueBytesLoaded = 0;
+    var date = new Date();
+    startTime = date.getTime()/1000;
+
 
     $(".head h4").html("Sending File(s)...");
     $("#upload_info").hide();
     $("#upload_control_panel").hide();
     $("#overall_percentage .progress-bar").show();
     $("#overall_percentage #count").show();
+    $("#cancel_upload").show();
 
     for (i=0;i<myQueue.files.length;i++)
     {
@@ -157,6 +179,7 @@ var uploadingFinishHandler = function(){
     $("#upload_control_panel").show();
     $("#overall_percentage .progress-bar").hide();
     $("#overall_percentage #count").hide();
+    $("#cancel_upload").hide();
     $("#upload_control_panel").hide();
     $("#upload_col2").html("Size");
     $("#upload_col3").html("Action");
@@ -164,7 +187,9 @@ var uploadingFinishHandler = function(){
       $(".head h4").html("Transfer history");
       $("#input_button_container").hide();
       $(".upload_footer").hide();
+      $(".help-block").hide();
       $(".widget").css({"margin-bottom":"40px","border-bottom":"1px solid #D5D5D5"});
+    $(".head h4").css("margin-left","170px");
 
 
 
@@ -256,14 +281,36 @@ var addFileToTodoList = function(file_name, file_size, index){
 };
 
 
-
+var formatBytes = function (bytes) {
+            if (bytes >= 1000000000) {
+                return (bytes / 1000000000).toFixed(2) + ' GB/s';
+            }
+            if (bytes >= 1000000) {
+                return (bytes / 1000000).toFixed(2) + ' MB/s';
+            }
+            if (bytes >= 1000) {
+                return (bytes / 1000).toFixed(2) + ' KB/s';
+            }
+            return bytes + ' B/s';
+};
 
 
 var progressHandler = function(progress_event){
+    var date = new Date();
+    endTime=date.getTime() / 1000;
+
+    var diff = endTime - startTime;
+
     var current_percentage = Math.floor((parseInt(progress_event.bytesLoaded)/parseInt(progress_event.bytesTotal))*100)+'%';
+   
+    var upload_speed = formatBytes(parseInt(progress_event.bytesLoaded)/diff);
+
+    $(".head h4").html("Sending File(s)... "+upload_speed);
+    $(".head h4").css("margin-left","130px");
+
 
     //change td width, hide delete button
-    $("#file_todo_list").children().first().children().last().html("");
+    $("#file_todo_list").children().first().children().last().html('');
     $("#file_todo_list").children().first().children().first().next().css({"width":"300px"});   
     
 
@@ -286,9 +333,11 @@ var progressHandler = function(progress_event){
 
     if(overall_percentage=="100%"){
              $(".beforesend").hide();
+             $(".content").css("margin-top","116px");
              $(".error").html('<div style="height:31px;float:left;padding-top:11px;margin-bottom:30px;width:100%"><div id="loader" style="height:31px;float:left;margin-right:20px"><img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px"></div><h2 style="margin-left:30px;color:#777">Processing your request...please wait</h2></div>');
              $("#loader").html('<img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px">');
     }
+
 
 
 };
@@ -345,6 +394,99 @@ var readableBytes = function(bytes) {
 
 
 $(function () {
+
+    //user payment processing(upgrade)
+    $(".payment-form").submit(function(event) {
+
+
+
+            // disable the submit button to prevent repeated clicks
+            $('.submit-button').attr("disabled", "disabled");
+
+            var amount = 1000; //amount you want to charge in cents
+            Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val()
+            }, amount, stripeResponseHandler);
+
+            // prevent the form from submitting with the default action
+            return false;
+  });
+
+   $(".payment-form-switch").submit(function(event) {
+            // disable the submit button to prevent repeated clicks
+            $('.submit-button').attr("disabled", "disabled");
+
+            var amount = 1000; //amount you want to charge in cents
+            Stripe.createToken({
+                number: $('.card-number-switch').val(),
+                cvc: $('.card-cvc-switch').val(),
+                exp_month: $('.card-expiry-month-switch').val(),
+                exp_year: $('.card-expiry-year-switch').val()
+            }, amount, stripeResponseHandler2);
+
+            // prevent the form from submitting with the default action
+            return false;
+  });
+
+
+
+
+
+  $(".zip").click(function(event){
+     
+    var id=$("#folder_sha1").val();
+
+    var response = $.ajax({
+        url: "/compression_check?id="+id,
+        dataType: "json",
+        type: "GET",
+        processData: true,
+        contentType: "application/json",
+        async: false,
+    });
+    var response_object = eval('(' + response.responseText + ')');
+
+    if (response_object.status=='pass'){
+        return true;
+    }
+    else{
+      event.preventDefault();  
+      $.notification({ message:response_object.status, type:"notice" });
+      return false;
+    } 
+
+  });
+
+  $(".single_file").click(function(event){
+       var id=$("#folder_sha1").val();
+
+    var response = $.ajax({
+        url: "/compression_check?id="+id,
+        dataType: "json",
+        type: "GET",
+        processData: true,
+        contentType: "application/json",
+        async: false,
+    });
+    var response_object = eval('(' + response.responseText + ')');
+
+    if (response_object.status=='pass'||response_object.status=='We are still busy zipping up files for this folder, please come back later or download individual files.'){
+        return true;
+    }
+    else{
+      event.preventDefault();  
+      $.notification({ message:response_object.status, type:"notice" });
+      return false;
+    } 
+
+
+  });
+
+
+
     $.notification = function (options) {
         $(".jbar").html("");
         var opts = $.extend({}, {
@@ -391,6 +533,7 @@ $(function () {
 $(function () {
 
    
+    $('.scrollable').scrollbar(); 
 
 
     $('a#copy').zclip({
@@ -399,7 +542,7 @@ $(function () {
     });
 
     var response = $.ajax({
-                url: "http://127.0.0.1:3000/priviledge",
+                url: "/priviledge",
                 dataType: "json",
                 type: "GET",
                 processData: true,
@@ -456,17 +599,18 @@ $(function () {
 
 
     $(".expand1").click(
-
-    function () {
-        $(".subject-field1").toggle();
-    }
-);
+        function () {
+            $(".subject-field1").toggle();
+        }
+    );
 
     $(".expand2").click(
 
     function () {
         $(".subject-field2").toggle();
+
     });
+
 
 
 
@@ -475,10 +619,26 @@ $(function () {
 
     $('#result-refinement').dropdown();
 
+    $("#show_hide_stats").bind("click",function(){
+        $(".stats").toggle();   
+        if($(".stats").is(":visible")){
+            $("#show_hide_stats").html("&nbspHide");
+        }
+        else{
+            $("#show_hide_stats").html("&nbspShow");            
+        }
+           
+    });
+
 
     $(".free_upgrade").bind("click",function(){
         
     });
+
+    $(".cancel_upload_button").bind("click",function(){
+        alert("Uploading cancelled, please refresh the page to start over.");
+    });
+
 
     $("#modal-from-dom").modal({
               backdrop: true
@@ -486,6 +646,23 @@ $(function () {
      $("#modal-from-dom1").modal({
               backdrop: true
             });
+
+
+
+    var plan=getURLParam("plan");
+
+    if(plan == 'plus'){
+        $("#planSelect").val("plus");
+    }
+    else if(plan == "premium"){
+        $("#planSelect").val("premium");
+    }
+    else{
+        $("#planSelect").val("personal");
+    }
+
+
+
 
 
     $(".personal_switch").bind("click",function(){
@@ -537,7 +714,10 @@ $(function () {
     })
 
 
-
+     $(".nav-list a").bind("ajax:beforeSend", function(evt, xhr, settings){
+        $("#dynamic_folder_display").css("opacity","0.4");
+        $("#loader-div").show();
+    })
 
 
 
@@ -546,6 +726,25 @@ $(function () {
 
 
 });
+
+function getURLParam(strParamName){
+  var strReturn = "";
+  var strHref = window.location.href;
+  if ( strHref.indexOf("?") > -1 ){
+    var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+    var aQueryString = strQueryString.split("&");
+    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+      if ( 
+aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
+        var aParam = aQueryString[iParam].split("=");
+        strReturn = aParam[1];
+        break;
+      }
+    }
+  }
+  return unescape(strReturn);
+}
+
 
 
 
@@ -570,7 +769,7 @@ function validateForm() {
             s3_swf_1_object.startUploading();
             return true;
         } else if ($.g_config.error == true) {
-            $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over transfer size/number limit</p></div>');
+            $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over transfer limit</p></div>');
         } else {
             return false
         }
@@ -599,18 +798,19 @@ function validatePassword() {
 
 function passwordToggle() {
     $('.password-block').toggle();
+    $("#container_password").val('');
 }
 
 function passwordEnable() {
     if (!($("#passwordCheckBox").is(':checked'))) {
         $("#container_password_confirm").val("");
         $("#container_password").val("");
-        $("#container_password_confirm").prop('disabled', true);
-        $("#container_password").prop('disabled', true);
+        $("#container_password_confirm").attr('disabled', true);
+        $("#container_password").attr('disabled', true);
     } else {
 
-        $("#container_password_confirm").prop('disabled', false);
-        $("#container_password").prop('disabled', false);
+        $("#container_password_confirm").attr('disabled', false);
+        $("#container_password").attr('disabled', false);
     }
 
 }
@@ -635,7 +835,7 @@ function folderUpdate() {
 
 function checkSpace() {
     var response = $.ajax({
-        url: "http://127.0.0.1:3000/storage",
+        url: "/storage",
         dataType: "json",
         type: "GET",
         processData: true,
@@ -646,6 +846,8 @@ function checkSpace() {
 
     return response_object.availablespace
 }
+
+
 
 function getUrlVars() {
     var vars = [],
@@ -661,7 +863,7 @@ function getUrlVars() {
 
 function folderPassword() {
     var pwd = $("#folder_password").val();
-    var container_id = $("#container_id").val();
+    var container_id = $("#folder_sha1").val();
 
     var response = $.ajax({
         url: "/password_match",
@@ -687,3 +889,38 @@ function folderPassword() {
     }
 
 }
+
+
+
+    // this identifies your website in the createToken call below
+    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
+     
+  function stripeResponseHandler(status, response) {
+                if (response.error) {
+                    var message_text = response.error.message;
+                    $.notification({ message:message_text, type:"error" });
+                } else {
+                    var form = $(".payment-form");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form.get(0).submit();
+                }
+            }
+ function stripeResponseHandler2(status, response) {
+                if (response.error) {
+                    var message_text = response.error.message;
+                    $.notification({ message:message_text, type:"error" });
+                } else {
+                    var form = $(".payment-form-switch");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form.get(0).submit();
+                }
+    }
+

@@ -1,11 +1,22 @@
 
 
+
+<style type="text/css" media="screen">
+
+html, body {
+background: #E8ECDC url(/assets/bg.png) repeat fixed;
+}
+
+
+
+</style>
+
 	<div class="signup_content">
 
 <div class="callout-container">
 <h1>Thanks for choosing senditu!</h1>
 <p class="about">
-<strong>Senditu</strong> is the securest and fastest way to send files of any size. And you're just <strong>30 seconds</strong> away from your new Senditu account</p>
+<strong>Senditu</strong> is the best way to send big files from anywhere. You're just <strong>30 seconds</strong> away from your new Senditu account</p>
 
 
 
@@ -15,7 +26,8 @@
 <div class="signup_left">
 
 
- <%= form_for @user do |f| %>
+
+  <%= form_for @user  do |f| %>
 
 
 
@@ -24,7 +36,6 @@
 
   <% if @user.errors.any? %>
     <div class="alert-message block-message warning">
-      <h2>Oops</h2>
       <ul>
         <% for message in @user.errors.full_messages %>
           <li><%= message %></li>
@@ -44,13 +55,6 @@
 
 
 
-
-
-
-
-
-
-<h2 style="color:grey">The basics:</h2>  	
 
   <div class="clearfix">	
     <label for="xlInput">Email</label>
@@ -105,7 +109,7 @@
 	<ul>
 		<li>Storage space:<strong>1GB</strong></li>
 		<li>Maximum Tranfer Size: <strong>150MB</strong></li>
-		<li>Maximum Downloads: <strong>2GB</strong></li>
+		<li>Maximum Downloads: <strong>30 Per File</strong></li>
 		<li>Files expire in: <strong>14days</strong></li>
 
 

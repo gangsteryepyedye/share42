@@ -5,56 +5,77 @@ class ContainersController < ApplicationController
 
 
 
+  #To-Do: 1. Test before_download check
+  #       2. Create downloading notifier 
+
+
+
+
+  def compression_ready
+    
+    @container=Container.find_by_id_or_sha1(params[:id])
+    if params[:password]=="238357"
+      @container.zipped=true
+      @container.save   
+    end
+      
+  end
+
+
+  
+
 
 
 
   def download_all
-    container_id=params[:id]
-    email=params[:email]
-    #check if the user hits the download limit
+      require 'aws/s3'
 
-    @container=Container.find_by_id_or_sha1(container_id)   
+      container_id=params[:id]
+      email=params[:email]
+    
 
-    zip_name=@container.stuffs.first.file_file_name.to_s+".zip"
+      @container=Container.find_by_id_or_sha1(container_id)   
 
-    AWS::S3::Base.establish_connection!(
-      :access_key_id => "AKIAICDXU5SXRWQA5RQA",
-      :secret_access_key => "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"
-    )
-    filename="zip/#{@container.sha1}/#{zip_name}"
+      #get the zip name
+      zip_name=@container.stuffs.first.file_file_name.to_s+".zip"
 
-    s3obj = nil
-  
-    s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
- 
-    if s3obj.nil?
-        respond_to do |format|
-      @message="We are still zipping up your files"
-      @type="notice"
-        format.js{
-          render :action=>"notice"
-        }
-      end 
-    else
+      AWS::S3::Base.establish_connection!(
+        :access_key_id => "AKIAICDXU5SXRWQA5RQA",
+        :secret_access_key => "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"
+      )
+      filename="zip/#{@container.sha1}/#{zip_name}"
 
-      @container.downloaded=@container.downloaded+1
-      @container.save
-        
+      s3obj = nil
+    
+      s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
+   
+   
 
-       if (!email.nil?) 
-          query=url_unescape(email)
-        
-        @email=@container.emails.where("name =?",query).first
-          if(!@email.nil?)
-            @email.downloads=@email.downloads+1
-            @email.save
-          end
-        end   
+        @container.downloaded=@container.downloaded+1
 
-        redirect_to s3obj.url
+        @container.save
+          
 
-    end
+         if (!email.nil?) 
+            query=url_unescape(email)
+            @email=@container.emails.where("name =?",query).first
+            if(!@email.nil?)
+              @email.downloads=@email.downloads+1
+              @email.save
+              @tiny_id = "http://127.0.0.1:3000/containers/"+@container.sha1
+              @link=Container.shorten(@tiny_id).short_url
+              if @container.user_id.nil?
+                 Notifier.download_notify(@email.name,@container.sender,@link).deliver
+              else
+                @user=User.find(@container.user_id)
+                if (@user.everytime==true||(@user.everytime==false&&@email.downloads==1))                  
+                  Notifier.download_notify(@email.name,@user.email,@link).deliver
+                end
+              end
+            end
+          end   
 
+          redirect_to s3obj.url
 
 
   end
@@ -63,14 +84,38 @@ class ContainersController < ApplicationController
 
 
   def remove
+
+
+      #destroy zip
+      AWS::S3::Base.establish_connection!(
+        :access_key_id => "AKIAICDXU5SXRWQA5RQA",
+        :secret_access_key => "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"
+      )
+      
+
       @container=Container.find_by_id_or_sha1(params[:id])   
+
+      zip_name=@container.stuffs.first.file_file_name.to_s+".zip"
+      
+      filename="zip/#{@container.sha1}/#{zip_name}"
+
+      s3obj = nil
+    
+      s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
+
+      s3obj.delete();
+
+
+
+
       for stuff in @container.stuffs
         current_user.storage=current_user.storage-stuff.file_file_size
         stuff.destroy
       end
       
       current_user.save
-      @container.exptime=Time.now
+      @container.exptime = Time.now
+      @container.expires = 1
       @container.save
       redirect_to '/containers'
   end
@@ -117,9 +162,9 @@ class ContainersController < ApplicationController
     @files=@container.stuffs
     @url=request.url
     
-    #@link=Container.shorten(@url).short_url
+    @link=Container.shorten(@url).short_url
     
-    @link="http://www.xcdm.com"
+    
 
 
 
@@ -167,6 +212,7 @@ class ContainersController < ApplicationController
       #remember to clean the unused Container here   
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
       @container.sha1=sha1.to_s
+      @container.downloadcap=30
       @container.save
       @stuff = @container.stuffs.new    
       @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
@@ -181,6 +227,7 @@ class ContainersController < ApplicationController
       @container = Container.new    
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
       @container.sha1=sha1.to_s
+      @container.downloadcap=30
       @container.save
       @stuff = @container.stuffs.new    
       @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
@@ -189,6 +236,7 @@ class ContainersController < ApplicationController
       @container = current_user.containers.new  
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
       @container.sha1=sha1.to_s
+      @container.downloadcap=current_user.downloadcap
       @container.save
       @stuff = @container.stuffs.new    
       #remember to clean the unused Container here   
@@ -248,24 +296,64 @@ class ContainersController < ApplicationController
 
 
   def index
-    @containers = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction)  
+
+
+
+
+    sort=params[:sort]
+current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("expires =?",1) 
+    filter =  params[:filter]
+
+
+    state = $redis.get("user_"+current_user.id.to_s)
+
+    @sent_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction)
+    @removed_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("expires =?",1) 
+    
+    if filter.nil?
+      if state == "removed"
+        if sort.nil?
+          @containers = @sent_items
+        else
+          @containers = @removed_items
+        end
+      elsif state == "normal"
+        @containers = @sent_items 
+      end
+
+    elsif filter == "normal"
+      @containers = @sent_items
+      $redis.set("user_"+current_user.id.to_s,"normal")
+    elsif filter == "removed"
+      @containers = @removed_items
+      $redis.set("user_"+current_user.id.to_s,"removed")
+    end
+
+    @state = $redis.get("user_"+current_user.id.to_s)
+
+
     downloads=0
     for i in @containers
         downloads=downloads+i.downloaded
     end
     @downloads=downloads
     
-    sort=params[:sort]
+
+
+
+
 
     if sort=="exptime"
         @sort_by_name="Expiration date"
     elsif sort=="name"
-        @sort_by_name="Container name"
+        @sort_by_name="Folder name"
     elsif sort=="downloaded"
         @sort_by_name="Downloads"
-    elsif sort=="totalsize"
+    elsif sort=="total_size"
         @sort_by_name="Folder size"
     elsif sort=="created_at"  
+        @sort_by_name="Sent date"
+    else
         @sort_by_name="Sent date"
     end
 
@@ -279,7 +367,7 @@ end
 
   def show_container
   
-        @container=Container.find_by_id_or_sha1(params[:id].to_i)   
+        @container=Container.find_by_id_or_sha1(params[:id])   
         @link=Container.shorten("http://127.0.0.1:3000/containers/"+@container.sha1).short_url
         if(params[:password]==@container.password)      
           respond_to do |format|      
@@ -316,19 +404,18 @@ end
       @queue = :compression_queue
 
 
-      def self.perform(container_id,stuff_list,file_file_name)
-
-        
-        #outsourcing work to India!
+      def self.perform(container_id,stuff_list,file_file_name)       
+        #outsourcing work to India lol!
         DRb.start_service()
         obj = DRbObject.new(nil,"druby://ec2-107-21-77-151.compute-1.amazonaws.com:9000")
-        obj.compress(container_id,stuff_list,file_file_name)
-
+        
+        if obj.compress(container_id,stuff_list,file_file_name)
+          @container=Container.find_by_id_or_sha1(container_id)
+          @container.zipped=true
+          @container.save
+        end
 
       end
-
-
-
 
   end
 

@@ -2,7 +2,7 @@
 
 
 <ul class="breadcrumb">
-        <li><a href="/containers">Home</a> <span class="divider">/</span></li>
+        <li><a href="/">Home</a> <span class="divider">/</span></li>
         
         <% if @container.name.nil? %>
         <li class="active"><%= @container.stuffs.first.file_file_name %></li>
@@ -12,6 +12,8 @@
     
 
       </ul>
+
+
 <% if expired(@container) %>         
 
 <div class="tiptip" style="height:20px;width:600px;">
@@ -25,7 +27,7 @@
 
         </li>
         <li> 
-        <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]}, :class=>"minibutton zip", :style=>"text-decoration:none;margin-left:10px;"%>
+      <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]},:class=>"minibutton zip", :style=>"text-decoration:none;margin-left:10px;"%>
 
         </li>
         <li>
@@ -74,13 +76,13 @@
               <td>
               <img alt="file" height="16" src="/assets/file_icon.png" width="16">
 
-              <%= f.file_file_name %>
+              <%= truncate(f.file_file_name,:length=>80) %>
               </td>
               <td>
               <%= number_to_human_size(f.file_file_size) %>
               </td>
               <td>
-              <%= link_to "Download", :controller=>"stuffs", :action=>"download", :id=>f.sha1, :email => params[:email] %>
+              <%= link_to "Download", {:controller=>"stuffs", :action=>"download", :id=>f.sha1, :email => params[:email]},:class=>"single_file" %>
               </td>
             </tr>
             <% end %>
@@ -97,11 +99,19 @@
         <thead>
           <tr>
             <th>                
-Email</th>
+Recipient</th>
             <th>Download(s)</th>
           </tr>
         </thead>
         <tbody>
+           <tr>
+            <td style="height:28px"><img alt="directory" height="16" src="/assets/user.png" width="16">
+Total (including anonymous)<br></td>
+            <td><%= container.downloaded %></td>
+          </tr>
+
+
+
        <% for e in @container.emails %>
           <tr>
             <td style="height:28px"><img alt="directory" height="16" src="/assets/user.png" width="16">

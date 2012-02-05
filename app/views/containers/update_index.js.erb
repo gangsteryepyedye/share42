@@ -3,3 +3,23 @@ $(".sort_toggle").html("<%= escape_javascript(@sort_by_name) %>")
 $("#dynamic_folder_display").css("opacity","1");
 $("#loader-div").hide();
 
+var state = "<%= escape_javascript(@state) %>"
+
+if(state == "removed"){
+   var row = $(".nav-list").find('> .active')
+   row.removeClass('active');
+   row.find('i').removeClass('icon-white');
+   $("#removed_items").addClass('active');	
+   $("#removed_items i").addClass('icon-white');	
+
+}
+else if(state == "normal"){
+      var row = $(".nav-list").find('> .active')
+   row.removeClass('active');
+   row.find('i').removeClass('icon-white');
+   $("#sent_items").addClass('active');	
+   $("#sent_items i").addClass('icon-white');	
+}
+
+
+

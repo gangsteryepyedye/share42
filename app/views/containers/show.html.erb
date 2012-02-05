@@ -33,7 +33,7 @@
           <br>
           <br>
           <input autocomplete="disabled" class="text" id="folder_password" name="password" style="width: 21em;" tabindex="2" type="password" value="">
-          <input id="container_id" name="container_id" type="hidden" value=<%= @container.id %> />
+         <input id="folder_sha1" type="hidden" value=<%= @container.sha1 %> />
 
           <input type="submit" name="submit" class="btn" id="submit_btn" value="Go" style="margin-top:20px;" onClick="folderPassword();return false;"/>  
 
@@ -42,11 +42,18 @@
   
 </div>
 
+
+
+
+
+
 <% elsif current_user %>
 
+ <input id="folder_sha1" type="hidden" value=<%= @container.sha1 %> />
  <%= render :partial => "container_main",  :locals =>{:container=>@container} %> 
 
 <% else %>
+ <input id="folder_sha1" type="hidden" value=<%= @container.sha1 %> />
 
  <%= render :partial => "container_main_visit",  :locals =>{:container=>@container} %> 
 
@@ -62,7 +69,6 @@
 
 
   </section>
-  </div>
   </section>
 
 

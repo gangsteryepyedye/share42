@@ -9,13 +9,13 @@
 
             <ul>
 
-                <li><a href="#" class="count" style="padding-left:0px"><%= return_available_space(current_user) %></a><br><span>Availabe/Total space</span></li>
+                <li><a href="#" class="count" style="padding-left:0px"><%= return_available_space(current_user) %></a><br><span>Unused/Total space</span></li>
                 <li><a href="#" class="count" ><%= @containers.count %></a><br><span>Folders/Transfers</span></li>
                 
                 <li><a href="#" class="count" title=""><%= number_to_human_size(current_user.storage) %></a><br><span>Space used</span></li>
                  <li><a href="#" class="count" title=""><%= @downloads %></a><br><span>Total Downloads</span></li>
 
-                <li style="width:120px;"><a href="#" class="count"><%= return_plans(current_user) %></a><span>My Plan<a>Upgrade</a></span></li>
+                <li style="width:120px;"><a href="#" class="count"><%= return_plans(current_user) %></a><span>My Plan<a href="/pages/account">Upgrade</a></span></li>
 
             </ul>
 </div>
@@ -45,26 +45,51 @@
               <a href="#" class="dropdown-toggle sort_toggle">Sent date</a>
               <ul class="dropdown-menu" style="margin-top:-21px;border-top:1px solid rgba(0, 0, 0, 0.2)">
               <li><%= sortable "exptime","Expiration date" %></li>
-              <li><%= sortable "name","Container name" %></li>
+              <li><%= sortable "name","Folder name" %></li>
               <li><%= sortable "downloaded","Downloads" %></li>
-              <li><%= sortable "totalsize","Folder size" %></li>
+              <li><%= sortable "total_size","Folder size" %></li>
               <li><%= sortable "created_at","Sent date" %></li>
             </ul>
             </li>
     </ul>
+
   </div>
+  <div style="float:right;margin-right:13px;">
+  <span id="sort-text">
+      Stats:
+  </span>
+  <a href="#" id="show_hide_stats" style="text-decoration:none">&nbspShow</a>
+  </div>
+
+
 
 </div>
 
+
+
+<div class="span3" style="width:220px;margin-left:0px;">
+<ul class="nav-list">
+          <li class="nav-header">Jin,Xin</li>
+          <li class="active" id="sent_items"><a href="/containers?filter=normal" data-remote="true"><i class="icon-white icon-envelope"></i> Sent Items&nbsp (<%= @sent_items.count %>) </a></li>
+          <li><a href="#"><i class="icon-heart"></i> Personal Files</a></li>
+          <li id="removed_items"><a href="/containers?filter=removed" data-remote="true"><i class="icon-trash"></i> Trash Bin&nbsp (<%= @removed_items.count %>)</a></li>
+          
+        </ul>
+
+</div>
+
+<div class="span13" style="margin-left:0px;float:right">
 <div id="dynamic_folder_display">
  <%= render :partial => "container",  :locals =>{:containers=>@containers} %>
 </div>
+</div>
+
+
 <% end %>
 </div>
 
 
   </section>
-  </div>
   </section>
 
 
