@@ -8,16 +8,11 @@ class ApplicationController < ActionController::Base
 
 
 def current_user
-  @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  @current_user ||= User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
 end
   
 
-#assuming container controller always takes action faster than user_info method
-def current_temp
-  @remote_ip = request.remote_ip.to_s
-  @current_temp = Tempuser.where("ip =?",@remote_ip).first
-end
- 
+
 def url_escape(string)
 string.gsub(/([^ a-zA-Z0-9_.-]+)/n) do
 '%' + $1.unpack('H2' * $1.size).join('%').upcase

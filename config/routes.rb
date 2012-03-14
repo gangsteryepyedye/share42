@@ -2,10 +2,13 @@ Filetunnel::Application.routes.draw do
  
 
  
+  get "password_resets/new"
+
   mount Resque::Server, :at => "/resque"  
 
   resources :s3_uploads
-
+  resources :password_resets
+  
   get "pages/pricing"
   get "pages/account"
   get "pages/about"
@@ -16,6 +19,8 @@ Filetunnel::Application.routes.draw do
   get "pages/contact_us"
   get "pages/vendors"
   get "pages/tour"
+  get "pages/features"
+
 
   get "sessions/new"
 
@@ -67,7 +72,7 @@ Filetunnel::Application.routes.draw do
   end
 
   resources :sessions
-  
+  resources :email_supports
   
 
   

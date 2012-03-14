@@ -23,13 +23,12 @@ function validateEmail(elementValue){
 
 
 (function($) {
-
 	var delimiter = new Array();
 	var tags_callbacks = new Array();
 	
 	$.fn.addTag = function(value,options) {
 
-		
+			
 
 
 			var options = jQuery.extend({focus:false,callback:true},options);
@@ -38,6 +37,7 @@ function validateEmail(elementValue){
 
 					 var total = 0;
   			$(".tag").each(function(index) {
+
     		total=total+($(this).width());
     		if(total>=200&&($("#xlInput_tagsinput").height()==30))
     		{
@@ -75,7 +75,7 @@ function validateEmail(elementValue){
                         $('<a>', {
                             href  : '#',
                             title : 'Removing tag',
-                            text  : 'x'
+                            text  : 'X'
                         }).click(function () {
                             return $('#' + id).removeTag(escape(value));
                         })
@@ -176,7 +176,7 @@ function validateEmail(elementValue){
       'delimiter':',',
       'unique':true,
       removeWithBackspace:true,
-      placeholderColor:'#666666'
+      placeholderColor:'#999'
     },options);
 
 		this.each(function() { 

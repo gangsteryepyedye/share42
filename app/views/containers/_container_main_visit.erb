@@ -25,12 +25,16 @@
 
           
         </li>
+
+       <% if @container.is_single!=true %>
+
         <li>
 
     <%= link_to "Download ZIP", {:controller=>"containers", :action=>"download_all",:id=>@container.sha1,:email => params[:email]},:class=>"minibutton zip", :style=>"text-decoration:none;margin-left:10px;"%>
 
 
         </li>
+        <% end %>
 <li>
 <a id="copy" href="#"><img alt="clipboard" height="16" src="/assets/clipboard.png" width="16" style="margin-top:3px">Copy Link</a>
 </li>

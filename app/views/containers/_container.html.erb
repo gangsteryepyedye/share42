@@ -1,9 +1,16 @@
 
 
+<% if @containers.count==0 %>         
 
+<div class="tiptip" style="height:20px;width:700px;margin-left: 35px;margin-top: 5px;">
+          <p>No transfers to show</p>
+   
 
-    <table class="viewpane-content bordered-table" id="main_table" style="border-top:1px solid #E6F1F6">
-    <tbody class="scrollable fff months">            
+</div>
+<% else %>
+
+    <table class="viewpane-content bordered-table" id="main_table" style="border-top:1px solid #E6F1F6;">
+    <tbody>            
 <% for container in @containers %>
 
 <tr class="rest">
@@ -15,13 +22,20 @@
 <div class="index_first_td_top_left">
 <img alt="directory" height="16" src="/assets/folder_icon.png" width="16">
 <%= link_to truncate(container.name,:length=>60), container %>
+
+<% if !(container.password.nil?||container.password.empty?) %>
+<span class="label" style="margin-left:5px;">Private</span>
+<% end %>
+
+
+
 </div>
 
 <div class="index_first_td_top_right">
 <% if !expired(container) %>
     <%= link_to "Remove", {:controller=>"containers",:action=>"remove",:id=>container.sha1},:class=>"action_button danger action_icon trash",:confirm=>"Remove this folder? All the files contained will be removed."%>
 <% else %>
-    <%= link_to "Remove", {:controller=>"containers",:action=>"remove_folder",:id=>container.sha1} %>
+    <%= link_to "Delete", {:controller=>"containers",:action=>"remove_folder",:id=>container.sha1},:class=>"action_button danger action_icon trash" %>
 <% end %>
 
 
@@ -29,6 +43,11 @@
 
 
 </div>
+
+
+
+
+
 <div class="index_first_td_bottom">
 <div class="index_first_td_bottom_left">
 
@@ -42,9 +61,9 @@
     <% end %>
 </div>
 <div class="index_first_td_bottom_right">
+<%= container.created_at.to_formatted_s(:long) %>,
 <%= container.stuffs.count %>
-Files, <%= get_size(container) %>, <%= container.downloaded %> Downloads, 
-Expires in: 14 Days 
+Files, <%= get_size(container) %>, <%= container.downloaded %> Downloads
 </div>
 
 
@@ -53,6 +72,21 @@ Expires in: 14 Days
 
 </div>
 
+
+
+
+<% if @state=="search" %>
+<div class="extra" style="color:#999;padding-top:4px;padding-bottom:7px;padding-left:20px;">
+Relevant files: 
+<% for f in container[:files] %>
+  <%= f %>
+  &nbsp
+
+<% end %>
+
+
+</div>
+<% end %>
 
 </td>
 
@@ -75,3 +109,6 @@ Expires in: 14 Days
           </div> 
 
 -->
+
+
+<% end %>

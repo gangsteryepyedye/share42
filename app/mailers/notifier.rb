@@ -4,9 +4,20 @@ class Notifier < ActionMailer::Base
 
 
 
+  def plan_support(sender,message)
+
+    @message=message
+    @sender=sender
+
+    mail(:to=>"238357@gmail.com",:subject=>"Question regarding the plan") 
+
+  end
+
+
+
   def limit_notify(recipient,link)
 
-    @subject = "Hi, One of your folders on Senditu has reached its download limit"    
+    @subject = "Hi, One of your folders on 42Share has reached its download limit"    
 
     subject=@subject
 
@@ -24,13 +35,13 @@ class Notifier < ActionMailer::Base
 
   def download_notify(email,recipient,link)
     
-    if email.nil?
+    if email.nil?||email.empty?
       @sender="An anonymous user"
     else
       @sender=email
     end
 
-    subject="File Download Notification from Senditu.com"
+    subject="File Download Notification from 42Share.com"
     @link=link
     @recipient = recipient
     
@@ -44,15 +55,15 @@ class Notifier < ActionMailer::Base
 
   def notify(subject,message,sender,recipient,namelist,link)
      
-    if subject.nil?
-      @subject="Senditu.com - You have a file(s) waiting"
+    if subject.nil?||subject.empty?
+      @subject="You have a file(s) waiting"
     else
       @subject=subject
     end
     
     @message = message
 
-    if sender.nil?
+    if sender.nil?||sender.empty?
       @sender ="Someone"
     else
       @sender=sender
@@ -64,7 +75,7 @@ class Notifier < ActionMailer::Base
     @link = link.to_s+"?email="+@recipient.to_s
 
     mail(:to => recipient,
-       	:subject => subject) do |format|
+       	:subject => @subject) do |format|
     	  	format.html { render 'notify_email' }
     end
 
@@ -72,7 +83,10 @@ class Notifier < ActionMailer::Base
   end
 
 
-
+  def password_reset(user)
+    @user = user
+    mail :to => user.email, :subject => "Password Reset"
+  end
 
 
 

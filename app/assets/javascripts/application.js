@@ -333,7 +333,7 @@ var progressHandler = function(progress_event){
 
     if(overall_percentage=="100%"){
              $(".beforesend").hide();
-             $(".content").css("margin-top","116px");
+             $(".content").css("margin-top","160px");
              $(".error").html('<div style="height:31px;float:left;padding-top:11px;margin-bottom:30px;width:100%"><div id="loader" style="height:31px;float:left;margin-right:20px"><img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px"></div><h2 style="margin-left:30px;color:#777">Processing your request...please wait</h2></div>');
              $("#loader").html('<img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px">');
     }
@@ -432,7 +432,10 @@ $(function () {
   });
 
 
-
+  $("#xlInput_tag").focus(function(){
+    $(this).css("width","178px");
+});
+ 
 
 
   $(".zip").click(function(event){
@@ -532,6 +535,42 @@ $(function () {
 
 $(function () {
 
+
+   $("#showcase").awShowcase(
+    {
+        content_width:          1000,
+        content_height:         400,
+        fit_to_parent:          false,
+        auto:                   false,
+        continuous:             false,
+        loading:                true,
+        tooltip_width:          200,
+        tooltip_icon_width:     32,
+        tooltip_icon_height:    32,
+        tooltip_offsetx:        18,
+        tooltip_offsety:        0,
+        arrows:                 true,
+        buttons:                false,
+        btn_numbers:            false,
+        keybord_keys:           true,
+        mousetrace:             false, /* Trace x and y coordinates for the mouse */
+        pauseonover:            true,
+        stoponclick:            false,
+        transition:             'hslide', /* hslide/vslide/fade */
+        transition_delay:       0,
+        transition_speed:       500,
+        show_caption:           'onload', /* onload/onhover/show */
+        thumbnails:             false,
+        thumbnails_position:    'outside-last', /* outside-last/outside-first/inside-last/inside-first */
+        thumbnails_direction:   'vertical', /* vertical/horizontal */
+        thumbnails_slidex:      1, /* 0 = auto / 1 = slide one thumbnail / 2 = slide two thumbnails / etc. */
+        dynamic_height:         false, /* For dynamic height to work in webkit you need to set the width and height of images in the source. Usually works to only set the dimension of the first slide in the showcase. */
+        speed_change:           true, /* Set to true to prevent users from swithing more then one slide at once. */
+        viewline:               false, /* If set to true content_width, thumbnails, transition and dynamic_height will be disabled. As for dynamic height you need to set the width and height of images in the source. */
+        custom_function:        null /* Define a custom function that runs on content change */
+    });
+
+
    
     $('.scrollable').scrollbar(); 
 
@@ -583,33 +622,41 @@ $(function () {
 
 
 
-    if(!($.browser.webkit)){
-        $(".select_folder").hide();
-        $(".select_files").css({"margin-left":"50px"});
-        $(".select_files").addClass("large");
-    }
 
-    $(".select_files").bind('click',function(){
-       $(".select_files_target").click();
+    $(".signin-toggle").bind("click",function(){
+        $("#sign_in_block").toggle();
     });
 
-    $(".select_folder").bind('click',function(){
-       $(".select_folder_target").click();
-    });
+    $(".expand1").each(function() {
 
-
-    $(".expand1").click(
-        function () {
+        
+        var tis = $(this), state = false;
+        
+        tis.click(function() {
+            state = !state;
             $(".subject-field1").toggle();
-        }
-    );
+            $(".subject-field2").toggle();
 
-    $(".expand2").click(
+            tis.toggleClass('active',state);
 
-    function () {
-        $(".subject-field2").toggle();
+        });
+    });
+
+
+
+
+    $(".expand3").each(function() {
+
+        var tis = $(this), state = false;
+
+        tis.click(function() {
+            state = !state;   
+            $(".subject-field3").toggle();
+            tis.toggleClass('active',state);
+        });
 
     });
+
 
 
 
@@ -705,7 +752,10 @@ $(function () {
         $("#modal-from-dom").modal("show");     
     });
 
-
+    $("#search-form").bind("ajax:beforeSend", function(evt, xhr, settings){
+        $("#dynamic_folder_display").css("opacity","0.4");
+        $("#loader-div").show();
+    })
 
 
     $("#sort-by a").bind("ajax:beforeSend", function(evt, xhr, settings){
@@ -720,8 +770,29 @@ $(function () {
     })
 
 
+    $('#flash').delay(500).fadeIn('normal', function() {
+      $(this).delay(2500).fadeOut();
+    });
 
 
+    //footerslide tour
+    var open = false;
+    $('.slide_button').click(function() {
+        if(open === false) {
+            var browser_height = $(window).height();
+            var content_height = browser_height*0.95;
+
+
+            $("#footerSlideContent").focus();
+            $('#footerSlideContent').animate({ height: content_height }, 'fast');
+            $(this).css('backgroundPosition', 'bottom left');
+            open = true;
+        } else {
+            $('#footerSlideContent').animate({ height: '0px' });
+            $(this).css('backgroundPosition', 'top left');
+            open = false;
+        }
+    });
 
 
 
@@ -749,15 +820,11 @@ aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
 
 
 function validateForm() {
-    var email = document.forms["main-form"]["sender"].value;
     var files = $(".template-upload").length;
 
     validatePassword();
 
-    if (email == "" || (!validateEmail(email))) {
-        $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>A valid sender\'s email address is required</p></div>');
-        return false;
-    } else if ($('.tagsinput').find(".tag").length == 0) {
+    if ($('.tagsinput').find(".tag").length == 0) {
         $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please provide at least one email recipient to send your file(s)</p></div>');
         return false;
     } else if ($.g_config.totalNumber==0) {
@@ -885,7 +952,7 @@ function folderPassword() {
             $('#folder_display').html(data);
         });
     } else {
-        alert("Incorrec t password");
+        alert("Incorrect password");
     }
 
 }
@@ -899,7 +966,9 @@ function folderPassword() {
                 if (response.error) {
                     var message_text = response.error.message;
                     $.notification({ message:message_text, type:"error" });
-                } else {
+                    $(".submit-button").attr("disabled",false);
+
+                        } else {
                     var form = $(".payment-form");
                     // token contains id, last4, and card type
                     var token = response['id'];
@@ -913,6 +982,8 @@ function folderPassword() {
                 if (response.error) {
                     var message_text = response.error.message;
                     $.notification({ message:message_text, type:"error" });
+                    $(".submit-button").attr("disabled",false);
+
                 } else {
                     var form = $(".payment-form-switch");
                     // token contains id, last4, and card type

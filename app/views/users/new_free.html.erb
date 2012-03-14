@@ -14,20 +14,19 @@ background: #E8ECDC url(/assets/bg.png) repeat fixed;
 	<div class="signup_content">
 
 <div class="callout-container">
-<h1>Thanks for choosing senditu!</h1>
+<h1>Thanks for choosing 42Share!</h1>
 <p class="about">
-<strong>Senditu</strong> is the best way to send big files from anywhere. You're just <strong>30 seconds</strong> away from your new Senditu account</p>
+<strong>42Share</strong> is the best way to send big files from anywhere. You're just <strong>30 seconds</strong> away from your new 42Share account</p>
 
 
 
 
 </div>
-
 <div class="signup_left">
 
 
 
-  <%= form_for @user  do |f| %>
+  <%= form_for @user, :html=>{:style=>"margin-bottom:0px;"}  do |f| %>
 
 
 
@@ -86,7 +85,7 @@ background: #E8ECDC url(/assets/bg.png) repeat fixed;
     
     
     
-   <div style="padding-left:150px;"> 
+   <div style="padding-left:150px;padding-top:5px;"> 
         <input type="submit" class="btn primary submit-button" value="Create my account">
   <div>
   
@@ -107,15 +106,14 @@ background: #E8ECDC url(/assets/bg.png) repeat fixed;
 	<div class="free_summary">
 	<h2>Plan summary:</h2>
 	<ul>
-		<li>Storage space:<strong>1GB</strong></li>
-		<li>Maximum Tranfer Size: <strong>150MB</strong></li>
-		<li>Maximum Downloads: <strong>30 Per File</strong></li>
-		<li>Files expire in: <strong>14days</strong></li>
+		<li>Free online storage: <strong>10 GB</strong></li>
+		<li>Maximum tranfer size: <strong>1 GB</strong></li>    
+    <li>Transfers: <strong>Unlimited</strong></li>
+	  <li>Downloads: <strong>Unlimited</strong></li>
+    <li>Inactive files are removed in 30 days</strong></li>
 
 
-
-
-	<ul>
+  <ul>
 	</div>
 	
 

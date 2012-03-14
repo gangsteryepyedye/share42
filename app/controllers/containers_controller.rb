@@ -2,7 +2,7 @@ class ContainersController < ApplicationController
 
   require 'zip/zip'
   require 'zip/zipfilesystem'
-
+  require 'resque_scheduler'
 
 
   #To-Do: 1. Test before_download check
@@ -20,11 +20,6 @@ class ContainersController < ApplicationController
     end
       
   end
-
-
-  
-
-
 
 
   def download_all
@@ -85,41 +80,30 @@ class ContainersController < ApplicationController
 
   def remove
 
-
-      #destroy zip
-      AWS::S3::Base.establish_connection!(
-        :access_key_id => "AKIAICDXU5SXRWQA5RQA",
-        :secret_access_key => "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"
-      )
-      
-
       @container=Container.find_by_id_or_sha1(params[:id])   
-
-      zip_name=@container.stuffs.first.file_file_name.to_s+".zip"
-      
-      filename="zip/#{@container.sha1}/#{zip_name}"
-
-      s3obj = nil
-    
-      s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
-
-      s3obj.delete();
-
-
-
+      zip_name = @container.stuffs.first.file_file_name.to_s+".zip"
+      @user=User.find(current_user.id)
 
       for stuff in @container.stuffs
-        current_user.storage=current_user.storage-stuff.file_file_size
+        @user.storage = @user.storage-stuff.file_file_size
         stuff.destroy
       end
       
-      current_user.save
+      @user.save
       @container.exptime = Time.now
-      @container.expires = 1
+      @container.state = "removed"
       @container.save
+
+      if @container.is_single!=true
+        Resque.enqueue_in(10.minutes,Deletion,params[:id],current_user.id,zip_name)
+      end
+      
       redirect_to '/containers'
   end
 
+
+
+  #remove folder along with all the files
   def remove_folder
 
     @container=Container.find_by_id_or_sha1(params[:id])
@@ -263,9 +247,12 @@ class ContainersController < ApplicationController
     end   
 
 
-
-    Resque.enqueue(Compression,@container.sha1,stuff_list,@container.stuffs.first.file_file_name)
-
+    if stuff_list.count!=1
+      Resque.enqueue(Compression,@container.sha1,stuff_list,@container.stuffs.first.file_file_name)
+    else
+      @container.is_single=true
+      @container.save
+    end
 
     emails=@container.emails
 
@@ -301,14 +288,41 @@ class ContainersController < ApplicationController
 
 
     sort=params[:sort]
-current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("expires =?",1) 
     filter =  params[:filter]
-
+    search = params[:search]
 
     state = $redis.get("user_"+current_user.id.to_s)
 
-    @sent_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction)
-    @removed_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("expires =?",1) 
+
+    if filter=="search"
+      @relevant_items=[]
+      for c in current_user.containers.where("empty =?",false).where("state !=?","removed")
+        temp_item = c
+        file_names = []
+        for f in c.stuffs
+          if f.file_file_name.downcase.include?(search.downcase)
+            file_names << f.file_file_name
+          end
+        end
+        temp_item[:files]=file_names
+        if !(file_names.empty?)
+          @relevant_items << temp_item
+        end
+      end
+
+
+    end
+
+
+
+    @sent_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state !=?","removed")
+
+    @removed_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state =?","removed") 
+    @personal_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state =?","personal") 
+
+
+
+
     
     if filter.nil?
       if state == "removed"
@@ -319,6 +333,11 @@ current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direc
         end
       elsif state == "normal"
         @containers = @sent_items 
+      elsif state == "personal"
+        @containers = @personal_items 
+      elsif state == "search" 
+        $redis.set("user_"+current_user.id.to_s,"normal")        
+        @containers = @sent_items    
       end
 
     elsif filter == "normal"
@@ -327,16 +346,17 @@ current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direc
     elsif filter == "removed"
       @containers = @removed_items
       $redis.set("user_"+current_user.id.to_s,"removed")
+    elsif filter == "personal"
+      @containers = @personal_items
+      $redis.set("user_"+current_user.id.to_s,"personal") 
+    elsif filter == "search"  
+      @containers = @relevant_items
+      $redis.set("user_"+current_user.id.to_s,"search")             
     end
 
     @state = $redis.get("user_"+current_user.id.to_s)
 
 
-    downloads=0
-    for i in @containers
-        downloads=downloads+i.downloaded
-    end
-    @downloads=downloads
     
 
 
@@ -346,15 +366,15 @@ current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direc
     if sort=="exptime"
         @sort_by_name="Expiration date"
     elsif sort=="name"
-        @sort_by_name="Folder name"
+        @sort_by_name="Name"
     elsif sort=="downloaded"
         @sort_by_name="Downloads"
     elsif sort=="total_size"
-        @sort_by_name="Folder size"
+        @sort_by_name="Size"
     elsif sort=="created_at"  
-        @sort_by_name="Sent date"
+        @sort_by_name="Created"
     else
-        @sort_by_name="Sent date"
+        @sort_by_name="Created"
     end
 
     respond_to do |format|
@@ -418,6 +438,63 @@ end
       end
 
   end
+
+  module Deletion
+
+      require 'aws/s3'
+
+    @queue = :delete_queue
+
+
+    def self.perform(container_id,user_id,zip_name)
+      
+
+
+      @container=Container.find_by_id_or_sha1(container_id)   
+      @user=User.find(user_id)
+
+      for stuff in @container.stuffs
+        @user.storage = @user.storage-stuff.file_file_size
+        stuff.destroy
+      end
+      
+      @user.save
+      @container.exptime = Time.now
+      @container.state = "removed"
+      @container.save
+
+      #destroy zip
+      AWS::S3::Base.establish_connection!(
+        :access_key_id => "AKIAICDXU5SXRWQA5RQA",
+        :secret_access_key => "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"
+      )
+      
+
+      
+      filename="zip/#{@container.sha1}/#{zip_name}"
+
+      s3obj = nil
+    
+      s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
+
+      s3obj.delete();
+
+
+
+
+   
+
+
+
+    end
+
+
+ 
+  end
+
+
+
+
 
 
   private

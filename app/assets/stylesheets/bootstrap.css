@@ -11,6 +11,8 @@
 /* Reset.less
  * Props to Eric Meyer (meyerweb.com) for his CSS reset file. We're using an adapted version here	that cuts out some of the reset HTML elements we will never need here (i.e., dfn, samp, etc).
  * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+
 html, body {
   margin: 0;
   padding: 0;
@@ -192,7 +194,15 @@ body {
   color: #404040;
   
 }
-.container {
+.top_container{
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  zoom: 1;
+  background-size:1000px 1000px;
+}
+
+.container{
   width: 1000px;
   margin-left: auto;
   margin-right: auto;
@@ -200,6 +210,12 @@ body {
   background-size:1000px 1000px;
 
 }
+
+
+
+
+
+
 .container:before, .container:after {
   display: table;
   content: "";
@@ -713,11 +729,7 @@ input, textarea {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 input:focus, textarea:focus {
-  outline: 0;
-  border-color: rgba(82, 168, 236, 0.8);
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  
 }
 input[type=file]:focus, input[type=checkbox]:focus, select:focus {
   -webkit-box-shadow: none;
@@ -898,6 +910,15 @@ textarea[readonly] {
   border-color: #ddd;
   cursor: not-allowed;
 }
+
+
+
+.form_action{
+  margin-top:15px;text-align:right
+}
+
+
+
 .actions {
   background: #f5f5f5;
   margin-top: 18px;
@@ -1728,7 +1749,7 @@ a.menu:after, .dropdown-toggle:after {
 }
 .hero-unit {
   float:left;
-  padding: 105px 0px 30px 0px;
+  padding: 115px 0px 30px 0px;
   margin-left:1px;
   width:380px;
   position:relative;
@@ -1760,7 +1781,7 @@ line-height: 25px;
     padding: 1em 0;
     width:100%;
     height:10px;
-    padding-top:18px;
+    padding-top:30px;
     margin-top:0px;
     padding-bottom:0px;
     margin-bottom:0px;
@@ -2152,7 +2173,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .well {
   background-color: #f5f5f5;
   margin-bottom: 20px;
-  padding: 19px;
+  padding: 10px;
+  padding-right:12px;
   min-height: 20px;
   border: 1px solid #eee;
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -2466,30 +2488,50 @@ border-image: initial;
 .fade.in {
   opacity: 1;
 }
+
+
 .label {
-  padding: 1px 3px 2px;
-  background-color: #bfbfbf;
-  font-size: 9.75px;
+  padding: 2px 4px 3px;
+  font-size: 11.049999999999999px;
   font-weight: bold;
   color: #ffffff;
-  text-transform: uppercase;
-  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #999999;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-.label.important {
-  background-color: #c43c35;
+.label:hover {
+  color: #ffffff;
+  text-decoration: none;
 }
-.label.warning {
+.label-important {
+  background-color: #b94a48;
+}
+.label-important:hover {
+  background-color: #953b39;
+}
+.label-warning {
   background-color: #f89406;
 }
-.label.success {
-  background-color: #46a546;
+.label-warning:hover {
+  background-color: #c67605;
 }
-.label.notice {
-  background-color: #62cffc;
+.label-success {
+  background-color: #468847;
 }
+.label-success:hover {
+  background-color: #356635;
+}
+.label-info {
+  background-color: #3a87ad;
+}
+.label-info:hover {
+  background-color: #2d6987;
+}
+
+
+
 .media-grid {
   margin-left: -20px;
   margin-bottom: 0;
@@ -2977,3 +3019,136 @@ margin-bottom: 5px;
 .icon-resize-horizontal {
   background-position: -456px -118px;
 }
+
+
+.label-info {
+background-color: #3A87AD;
+}
+
+
+.subnav {
+  margin:auto;
+  width: 100%;
+  margin-top:50px;
+  height: 36px;
+  background-color: #eeeeee; /* Old browsers */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  background-image: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%); /* FF3.6+ */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* Chrome 10+,Safari 5.1+ */
+  background-image: -ms-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* IE10+ */
+  background-image: -o-linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* Opera 11.10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+  background-image: linear-gradient(top, #f5f5f5 0%,#eeeeee 100%); /* W3C */
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+.subnav .nav {
+  padding-left:230px;
+  margin-bottom: 0;
+}
+.subnav .nav > li > a {
+  margin: 0;
+  padding-top:    11px;
+  padding-bottom: 11px;
+  border-left: 1px solid #f5f5f5;
+  border-right: 1px solid #e5e5e5;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+.subnav .nav > .active > a,
+.subnav .nav > .active > a:hover {
+  padding-left: 13px;
+  color: #777;
+  background-color: #e9e9e9;
+  border-right-color: #ddd;
+  border-left: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+     -moz-box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+          box-shadow: inset 0 3px 5px rgba(0,0,0,.05);
+}
+.subnav .nav > .active > a .caret,
+.subnav .nav > .active > a:hover .caret {
+  border-top-color: #777;
+}
+.subnav .nav > li:first-child > a,
+.subnav .nav > li:first-child > a:hover {
+  border-left: 0;
+  padding-left: 12px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.subnav .dropdown-menu {
+  -webkit-border-radius: 0 0 4px 4px;
+     -moz-border-radius: 0 0 4px 4px;
+          border-radius: 0 0 4px 4px;
+}
+
+/* Fixed subnav on scroll, but only for 980px and up (sorry IE!) */
+@media (min-width: 980px) {
+  .subnav-fixed {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    border-color: #d5d5d5;
+    border-width: 0 0 1px; /* drop the border on the fixed edges */
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+       -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+            box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+  }
+  .subnav-fixed .nav {
+    width: 938px;
+    margin: 0 auto;
+    padding: 0 1px;
+  }
+  .subnav .nav > li:first-child > a,
+  .subnav .nav > li:first-child > a:hover {
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+  }
+
+   .subnav .nav a{
+     
+     line-height: 13px;
+   }
+
+
+   .subnav .nav a:hover{
+     color: #005580;
+     text-decoration: none;
+     background-color: #EEE;
+   }
+
+    .subnav .nav i{
+      margin-top:1px;
+   }
+
+}
+
+
+.toggle{
+  cursor: pointer;
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background:url("/assets/disclosure.png") 10px 1px;
+}
+
+
+
+#toggle_zone .active{
+  background-position: 0px 1px;
+}
+
+

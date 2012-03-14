@@ -4,10 +4,7 @@ class Stuff < ActiveRecord::Base
   
 
   after_create :move_upload_from_temp_to_final_resting_place
-  #add current user later
-   validates_attachment_size :file, :less_than=>200.megabyte
 
-  
   has_attached_file :file,
      :storage => :s3,
      :s3_credentials => "#{Rails.root}/config/s3.yml",
@@ -19,16 +16,22 @@ class Stuff < ActiveRecord::Base
 def move_upload_from_temp_to_final_resting_place
   # Rename the image on s3 (more of a move)
   AWS::S3::Base.establish_connection!(:access_key_id => 'AKIAICDXU5SXRWQA5RQA',:secret_access_key => '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')
-  new_name = self.file.path
-  old_name = "/#{self.file_file_name}"
-  (1..5).each do |try|
-    begin
-      # Copy the file
-      AWS::S3::S3Object.rename(old_name, new_name, 'filetunnel', :copy_acl => :true)
-      break
-    rescue Exception => e
-      sleep 1
+  
+  if self.legal==true
+    new_name = self.file.path
+    old_name = "/#{self.file_file_name}"
+    (1..5).each do |try|
+      begin
+        # Copy the file
+        AWS::S3::S3Object.rename(old_name, new_name, 'filetunnel', :copy_acl => :true)
+        break
+      rescue Exception => e
+        sleep 1
+      end
     end
+  else
+
+
   end
 
 end

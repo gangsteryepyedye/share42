@@ -5,16 +5,16 @@ module ContainersHelper
 	def upgrade_suggestion
 
 		if !current_user
-			html='<h4>(Up to 150MB | <a href="/pages/pricing">Upgrade</a> to send larger files)</h4>'
+			html='<h4>(Up to 1 GB | <a href="/pages/pricing">Upgrade</a> to send larger files)</h4>'
 		else
 			if current_user.priviledge == "1"
-				html='<h4>(Up to 150MB | <a href="/pages/account">Upgrade</a> to send larger files)</h4>'
+				html='<h4>(Up to 2GB | <a href="/pages/account">Upgrade</a> to send larger files)</h4>'
 			elsif current_user.priviledge == "3"
 				html='<h4>(Up to 2GB | <a href="/pages/account">Upgrade</a> to send larger files)</h4>'
 			elsif current_user.priviledge == "4"
-				html='<h4>(You can send up to 4GB files per transfer)</h4>'
+				html=''
 			elsif current_user.priviledge == "5"
-				html='<h4>(You can send up to 4GB files per transfer)</h4>'
+				html=''
 			end
 		end
 

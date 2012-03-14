@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Send Large Files Free, Online File Sharing, Transfer Big Files Free, Managed File Transfer | Senditu</title>
+  <title>Send Large Files Free, Online File Sharing, Transfer Big Files Free, Managed File Transfer | 42Share</title>
 
 
 
@@ -20,7 +20,9 @@
 <%= javascript_include_tag "jquery.zclip.min" %>
 <%= javascript_include_tag "jquery.tablesorter.min" %>
 <%= javascript_include_tag "jquery.scroll.min" %>
+<%= javascript_include_tag "jquery.aw-showcase" %>
 
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 
 <%= stylesheet_link_tag 'jquery-ui-1.8.16.custom' %>
   <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
@@ -34,26 +36,33 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	
+<noscript>
+    <div class="error message">
+        We're sorry but our site <strong>requires</strong> JavaScript.
+    </div>    
+</noscript>	
 	
 <div id="overlay">
 	
 <div class="topbar">
       <div class="fill">
-        <div class="container">
-          <a class="brand" href="/" style="text-decoration:none">
-				<img class="logo" width="14" height="18" title="File Tunnel" src="/assets/img_trans.gif">
+        <div class="top_container">
+          <a class="brand" href="/" style="text-decoration:none;font-family: 'Lobster', cursive;">
+			
 
-Senditu</a>
+42Share</a>
          
          <ul class="nav">
-            <li><a href="#about">Tour</a></li>
-            <li><a href="/pages/pricing">Plans & Sign Up</a></li>
+            <li><a href="/pages/pricing">Signup and Pricing</a></li>
           </ul>
           
          <% if current_user %>
 
+
+
+
     	<ul class="nav secondary-nav">
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle"><%= current_user.email %></a>
               <ul class="dropdown-menu">
@@ -67,11 +76,18 @@ Senditu</a>
     	
     	<% else %>		
 
-      <%= form_tag sessions_path, :class=>"pull-right" do %>
-               <%= text_field_tag :email, params[:email], :class=>"input-medium", :placeholder=>"Email", :style=>"border:none" %>
-               <input id="password" name="password" type="password" class="input-small" placeholder="Password" style="border:none">
-               <button class="btn" type="submit">Sign in</button>
-          <% end %>
+
+
+      <ul class="nav secondary-nav">
+
+            <li class="dropdown">
+              <a href="#" class="signin-toggle"><i class="icon-lock icon-white" style="margin-top:1px;margin-right:4px;"></i>Log in</a>
+             
+            </li>
+          </ul>
+            
+
+
 
 
 
@@ -89,12 +105,42 @@ Senditu</a>
 
 
  	<br>
- 	<br>
-
+  <br>
 
 <div class="container">
 	
 	
+
+
+
+<% if !current_user %>
+<div id="sign_in_block">
+      <%= form_tag sessions_path, :class=>"form-stacked" do %>
+           <fieldset>
+            <div class="clearfix">
+               <label for="xlInput3">Email</label>
+               <%= text_field_tag :email, params[:email] %>
+            </div>
+            <div class="clearfix">
+               <label for="xlInput3">Password</label>
+               <input id="password" name="password" type="password">
+            </div>
+
+            <div class="clearfix">
+              <label class="checkbox">
+                 <input type="checkbox">&nbsp&nbspRemember me
+              </label>
+            </div>
+               <a href="/pages/pricing">Create an account</a>
+               <button class="btn" type="submit" style="margin-left:38px">Sign in</button>
+            </fieldset>
+          <% end %>
+
+
+</div>
+
+
+<% end %>
   		
   		
 	<%= yield %>
@@ -154,10 +200,6 @@ $('.recipients').tagsInput({
 
 
 	</div>
-
-  </div>
-
-</div>
 
 
 </body>

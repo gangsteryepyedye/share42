@@ -74,12 +74,25 @@ class JsonController < ApplicationController
 
   def storage
     if(current_user)
+
+      space_left = current_user.capacity - current_user.storage
+
+      if current_user.spf > space_left
+        availablespace = space_left
+      else
+        availablespace = current_user.spf
+      end
+
+
       respond_with({
-        :availablespace => current_user.capacity - current_user.storage
+        :availablespace => availablespace
       })
+
+
+
     else
       respond_with({
-        :availablespace => 157286400
+        :availablespace => 1073741824
       })
     end
   end
@@ -95,7 +108,7 @@ class JsonController < ApplicationController
     else 
         respond_with({
             :maxfilenumber => 50,
-            :maxfilesize => 157286400
+            :maxfilesize => 1073741824
         })          
     end
        

@@ -67,26 +67,7 @@
 				</th>
 			</tr>
 
-			<tr>
-				<td>
-					Plus ($20/month)
-				</td>
-				<td>
-					100GB
-				</td>
-				<td>
-					Unlimited
-				</td>
-				<td>
-					5GB
-				</td>					
-				<td>
-					Never
-				</td>
-				<td>
-							<a class="minibutton plus_upgrade" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
-				</td>
-			</tr>
+
 			<tr>
 				<td>
 					Premium ($10/month)
@@ -184,26 +165,6 @@
 				</th>
 			</tr>
 
-			<tr>
-				<td>
-					Plus ($20/month)
-				</td>
-				<td>
-					100GB
-				</td>
-				<td>
-					Unlimited
-				</td>
-				<td>
-					4GB
-				</td>					
-				<td>
-					Never
-				</td>
-				<td>
-							<a href="#" class="minibutton plus_switch" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
-				</td>
-			</tr>
 			<tr>
 				<td>
 					Premium ($10/month)
@@ -307,26 +268,7 @@
 				</th>
 			</tr>
 
-			<tr>
-				<td>
-					Plus ($20/month)
-				</td>
-				<td>
-					100GB
-				</td>
-				<td>
-					Unlimited
-				</td>
-				<td>
-					4GB
-				</td>					
-				<td>
-					Never
-				</td>
-				<td>
-							<a href="#" class="minibutton plus_switch" style="height:19px;text-decoration:none;padding-top:0px;">Upgrade</a>
-				</td>
-			</tr>
+		
 			<tr>
 				<td>
 					Premium ($10/month)
@@ -395,120 +337,6 @@
 	</div>
 	
 
-<% elsif current_user.priviledge=="5" %>
-
-<div class="active" id="plans">
-	<table class="plan_table">
-		
-		<tbody>
-			<tr>
-				
-				<th>
-					Plan	
-				</th>
-				<th>
-					Storage	
-				</th>
-				<th>
-					Downloads(per file)	
-				</th>
-				<th>
-					Max transfer size(per file)
-				</th>
-				<th>
-					Expiration
-				</th>
-				<th>
-					Action
-				</th>
-			</tr>
-
-			<tr>
-				<td>
-					Plus ($20/month)
-				</td>
-				<td>
-					100GB
-				</td>
-				<td>
-					Unlimited
-				</td>
-				<td>
-					4GB
-				</td>					
-				<td>
-					Never
-				</td>
-				<td>
-						<p style="color:#d8d8d8d;">Your plan</p>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Premium ($10/month)
-				</td>
-				<td>
-					20GB
-				</td>
-				<td>
-					Unlimited
-				</td>
-				<td>
-					4GB
-				</td>					
-				<td>
-					Never
-				</td>
-				<td>
-							<a href="#" class="minibutton premium_switch" style="height:19px;text-decoration:none;padding-top:0px;">Switch</a>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Personal ($5/month)
-				</td>
-				<td>
-					5GB
-				</td>
-				<td>
-					100
-				</td>
-				<td>
-					2GB
-				</td>					
-				<td>
-					Never
-				</td>
-				<td>
-							<a href="#" class="minibutton personal_switch" style="height:19px;text-decoration:none;padding-top:0px;">Switch</a>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Free
-				</td>
-				<td>
-					1GB
-				</td>
-				<td>
-					20
-				</td>
-				<td>
-					150MB
-				</td>					
-				<td>
-					14 Days
-				</td>
-				<td>
-				</td>
-			</tr>
-
-		</tbody>
-	</table>
-
-
-	</div>
-	
 <% end %>
 
 	<div id="billing_history">
@@ -627,33 +455,7 @@
             <div class="input" style="margin-left:140px">
               <ul class="inputs-list">
                 
-                <% if current_user.everytime==false %>
-                <li>
-                  <label>
-                    <input type="radio" checked="" name="notification" value="first">
-                    <span>The first time each person downloads a file</span>
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="radio" name="notification" value="every">
-                    <span>Every time each person downloads a file</span>
-                  </label>
-                </li>
-               <% else %> 
-               <li>
-                  <label>
-                    <input type="radio" name="notification" value="first">
-                    <span>The first time each person downloads a file</span>
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="radio" checked="" name="notification" value="every">
-                    <span>Every time each person downloads a file</span>
-                  </label>
-                </li>
-                <% end %>	
+   
 
 
                 <li>
@@ -666,7 +468,7 @@
             </div>
 
             <div style="margin-top:5px;">
-    			<%= submit_tag "Update notifications", :class=>"btn medium", :style=>"margin-top:15px;margin-left:140px;" %>
+    			<%= submit_tag "Update setting", :class=>"btn medium", :style=>"margin-top:15px;margin-left:140px;" %>
        		</div>
 
 

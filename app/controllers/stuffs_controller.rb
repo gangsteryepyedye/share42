@@ -105,8 +105,6 @@ end
     @container.empty=false
 
 
-    #mark the container as not expired
-    @container.expires = 0
 
     #increase the total size of the folder
     @container.total_size=@container.total_size+params[:stuff][:file_file_size].to_i
@@ -126,7 +124,7 @@ end
     if current_user
       space_allowed = current_user.capacity - current_user.storage
     else
-      space_allowed = 157286400
+      space_allowed = 1073741824
     end
 
     #check to see if there is enough space left
@@ -143,6 +141,8 @@ end
           #get message if there is any
           message=params[:message]
           #send the email  
+        
+
           @container.sender=sender
           @container.subject=subject
           @container.message=message
@@ -153,6 +153,16 @@ end
              #add the email to collection
           a=@container.emails.new(:name=>email)
           a.save
+          
+
+            if current_user
+              if current_user.email==email
+                @container.state="personal"
+              else
+                @container.state="normal"
+              end
+            end
+
           end
       end
 
@@ -181,10 +191,12 @@ end
 
    
       if @pass == true
+        @stuff.legal=true
         @stuff.save
         reduce_storage(params[:stuff][:file_file_size])
         render :json =>  {}
       else
+        @stuff.save
         render :json => {}
       end
     

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125111644) do
+ActiveRecord::Schema.define(:version => 20120308010412) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20120125111644) do
     t.integer  "tempuser_id"
     t.integer  "user_id"
     t.string   "password"
-    t.integer  "expires"
     t.boolean  "empty",       :default => true
     t.integer  "downloaded",  :default => 0
     t.string   "sha1"
@@ -33,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20120125111644) do
     t.integer  "total_size",  :default => 0
     t.boolean  "compressed"
     t.integer  "downloadcap"
+    t.string   "state"
+    t.boolean  "is_single"
   end
 
   create_table "emails", :force => true do |t|
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120125111644) do
     t.integer  "downloads"
     t.string   "sha1"
     t.boolean  "notif",             :default => true
+    t.boolean  "legal",             :default => false
   end
 
   create_table "tempusers", :force => true do |t|
@@ -81,9 +83,13 @@ ActiveRecord::Schema.define(:version => 20120125111644) do
     t.integer  "spf"
     t.integer  "downloadcap"
     t.text     "list"
-    t.boolean  "everytime",     :default => false
-    t.boolean  "limitnotif",    :default => true
+    t.boolean  "everytime",              :default => false
+    t.boolean  "limitnotif",             :default => true
     t.string   "customer_id"
+    t.string   "auth_token"
+    t.string   "password_rest_token"
+    t.datetime "password_reset_sent_at"
+    t.string   "password_reset_token"
   end
 
 end

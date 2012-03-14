@@ -13,19 +13,21 @@ background: #E8ECDC url(/assets/bg.png) repeat fixed;
 	<div class="signup_content">
 
 <div class="callout-container">
-<h1>Thanks for choosing senditu!</h1>
+<h1>Thanks for choosing 42Share!</h1>
 <p class="about">
-<strong>Senditu</strong> is the best way to send big files from anywhere. You're just <strong>30 seconds</strong> away from your new Senditu account</p>
+<strong>42Share</strong> is the best way to send big files from anywhere. You're just <strong>10 seconds</strong> away from your new 42Share account</p>
 
 
 
 
 </div>
 
+
+
 <div class="signup_left">
 
 
- <%= form_for @user,:html=>{:class=>"payment-form"} do |f| %>
+ <%= form_for @user,:html=>{:class=>"payment-form",:style=>"margin-bottom:0px;"} do |f| %>
   
   <span class="payment-errors"></span>
 
@@ -40,14 +42,13 @@ background: #E8ECDC url(/assets/bg.png) repeat fixed;
     </div>
   <% end %>
 
-
+<br>
 <div class="clearfix">
             <label for="planSelect">Your plan:</label>
             <div class="input">
               <select name="planSelect" id="planSelect">
-                <option value="personal">Personal ($5/month)</option>
-                <option value="premium">Premium ($10/month)</option>
-                <option value="plus">Plus ($20/month)</option>
+                <option value="personal">Personal ($10/month)</option>
+                <option value="premium">Premium ($20/month)</option>
               </select>
             </div>
 </div>
@@ -146,11 +147,12 @@ background: #E8ECDC url(/assets/bg.png) repeat fixed;
 	<div class="personal_summary">
 	<h2>Plan summary:</h2>
 	<ul>
-		<li>Storage space:<strong>5GB</strong></li>
-		<li>Maximum Tranfer Size: <strong>2GB</strong></li>
-		<li>Maximum Downloads: <strong>100 Per File</strong></li>
+		<li>Online storage:<strong>100 GB</strong></li>
+		<li>Maximum tranfer size: <strong>2GB</strong></li>
 		<li>Transfers: <strong>Unlimited</strong></li>
-		<li>Payment: <strong>$5/month</strong></li>
+    <li>Downloads: <strong>Unlimited</strong></li> 
+    <li>Storage: <strong>Permanent</strong></li>       
+		<li>Payment: <strong>$10/month</strong></li>
 
 
 
@@ -160,32 +162,19 @@ background: #E8ECDC url(/assets/bg.png) repeat fixed;
 	<div class="premium_summary">
 	<h2>Plan summary:</h2>
 	<ul>
-		<li>Storage space:<strong>20GB</strong></li>
-		<li>Maximum Tranfer Size: <strong>5GB</strong></li>
-		<li>Maximum Downloads: <strong>Unlimited</strong></li>
+		<li>Storage space:<strong>1000 GB</strong></li>
+		<li>Maximum tranfer Size: <strong>5GB</strong></li>
 		<li>Transfers: <strong>Unlimited</strong></li>
-		<li>Payment: <strong>$10/month</strong></li>
-
-
-
-	<ul>
-	</div>
-
-	<div class="plus_summary">
-	<h2>Plan summary:</h2>
-	<ul>
-		<li>Storage space:<strong>100GB</strong></li>
-		<li>Maximum Tranfer Size: <strong>5GB</strong></li>
-		<li>Maximum Downloads: <strong>Unlimited</strong></li>
-		<li>Transfers: <strong>Unlimited</strong></li>
+    <li>Downloads: <strong>Unlimited</strong></li>
+    <li>Storage: <strong>Permanent</strong></li>       
 		<li>Payment: <strong>$20/month</strong></li>
 
 
+
 	<ul>
 	</div>
 
-
-
+	
 
 
 

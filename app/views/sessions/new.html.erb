@@ -1,34 +1,56 @@
 <div class="custom-form">
 
 <% flash.each do |key, value| %>
-          <div class="flash alert-message warning <%= key %> "><%= value %></div>
+          <div class="flash alert-message notice <%= key %> "><%= value %></div>
 <% end %>
 
-<%= form_for(:session, :url => sessions_path) do |f| %>
+<div id="single_action_form">
+      <%= form_tag sessions_path, :class=>"form-stacked" do %>
+           <fieldset>
 
+            <h4 style="margin-bottom:10px;">Log in to 42Share
+            <a href="#" style="font-weight:normal">(Signup)</a>
 
+            </h4>
+            
+            <div class="clearfix">
 
-  <div class="clearfix">	
-    <label for="xlInput">Email</label>
-    <div class="input">
-    	<%= text_field_tag :email, params[:email], :class=>"xLarge", :id=>"xlInput" %>
-    </div>
-  </div>
+               <label for="xlInput3">Email</label>
+               <%= text_field_tag :email, params[:email], :style=>"width:270px" %>
+            </div>
+            <div class="clearfix">
+               <label for="xlInput3">Password</label>
+               <input id="password" name="password" type="password" style="width:270px">
+            </div>
 
- <div class="clearfix">	
-    <label for="xlInput">Passowrd</label>
-    <div class="input">
-    	<input id="password" name="password" type="password" class="xLarge" id="xlInput">
-    </div>
-  </div> 	
-  
-           
-		        
-  <div class="actions">
-        <input type="submit" class="btn primary" value="Submit">
-  </div>
-  
-  
-<% end %>
+            <div class="clearfix">
+              <label class="checkbox" style="text-align:right;">
+                   <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+&nbsp&nbspRemember me
+              </label>
+            </div>
+            <div style="text-align:right">
+               <%= link_to "Forgot password?", new_password_reset_path %>
+            </div>
+            <div style="margin-top:15px;text-align:right">
+               <button class="btn primary " type="submit" style="margin-left:38px">Sign in</button>
+            </div>
+            </fieldset>
+          <% end %>
+
 
 </div>
+
+</div>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+
+
+   $(function () {
+     $(".secondary-nav").hide();
+    });
+
+</script>

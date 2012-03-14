@@ -1,0 +1,42 @@
+
+
+
+
+
+<div class="custom-form">
+
+<div id="single_action_form">
+
+
+
+
+<%= form_for @user, :url => password_reset_path(params[:id]), :html=>{:class=>"form-stacked"}  do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="clearfix">
+  <label for="xlInput3">Password</label>
+    <%= f.password_field :password %>
+  </div>
+  <div class="clearfix">
+  <label for="xlInput3">Password Confirmation</label>
+    <%= f.password_field :password_confirmation %>
+  </div>
+              <div style="margin-top:15px;text-align:left">
+
+<button class="btn primary " type="submit">Update Password</button>
+</div>
+
+<% end %>
+
+</div>
+
+
+</div>

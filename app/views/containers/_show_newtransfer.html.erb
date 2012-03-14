@@ -37,6 +37,19 @@
 
 
    <div class="beforesend">
+    <div class="clearfix" style="margin-bottom:0px">  
+    <label for="xlInput3">Files Recipients: <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;">
+(Tip: You can also send files to your own email address)
+<span></label>
+    <div class="input recipientInput">
+    <input class="xlarge recipients" id="xlInput" name="email" size="30" type="text" style="width:100%;">
+   </div> 
+
+
+  </div>
+
    <div class="clearfix">
 
 <% if current_user %>
@@ -47,9 +60,9 @@
 <% else %>
     <label for="xlInput3">Sender:<span style="color:#676767;font-size: 12px;
 font-family: Arial;
-font-weight: normal;"> (Required) - We'll never spam you</span></label>
+font-weight: normal;"> (Optional)</span></label>
             <div class="input">
-              <input class="xlarge span3 sender" id="xlInput3" name="sender" size="30" type="text" placeholder="Your Email Address" >
+              <input class="xlarge span3 sender" id="xlInput3" name="sender" size="30" type="text" placeholder="Your Email Address" style="margin-bottom:2px;width:480px;">
             </div>
 <% end %>
 
@@ -60,72 +73,58 @@ font-weight: normal;"> (Required) - We'll never spam you</span></label>
 
 
       
-    <div class="clearfix">  
-    <label for="xlInput3">Files Recipients: <span style="color:#676767;font-size: 12px;
-font-family: Arial;
-font-weight: normal;">(separate emails with commas or tabs)<span></label>
-    <div class="input recipientInput">
-    <input class="xlarge recipients" id="xlInput" name="email" size="30" type="text" style="width:100%">
-   </div> 
+  
 
 
-  </div>
 
-
+<div id="toggle_zone">
 <div class="clearfix">
 			
 	
             <label for="xlInput3">
    		
-            	Subject<span style="color:#676767;font-size: 12px;
-font-family: Arial;
-font-weight: normal;"> (Optional)</span>
-         <span>
-			<a class="expand1" style="color:#395069">
-				expand
-			</a>
-			</span>
-
-</label>
-            <div class="input">
-              <input class="xlarge subject-field1" style="width:484px" id="xlInput3" name="subject" size="30" type="text" spellcheck="false">
-            </div>
-</div>
-
-	
-<div class="clearfix">
-
-	
-            <label for="xlInput3">
-       
             	Message<span style="color:#676767;font-size: 12px;
 font-family: Arial;
 font-weight: normal;"> (Optional)</span>
-     	<span>
-			<a class="expand2" style="color:#395069">
-				expand
+         <span>
+			<a class="expand1 toggle" style="color:#395069">
+
 			</a>
-	</span>	
+			</span>
+   
+
 
 </label>
+
+
             <div class="input message-field">
-            	<textarea class="xxlarge subject-field2" id="textarea2" name="message" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 484px; " spellcheck="false"  ></textarea>
+              <textarea class="xxlarge subject-field2" id="textarea2" name="message" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 480px; " spellcheck="false" placeholder="Message" ></textarea>
             </div>
+
+
 </div>
 
+	
+
+	
+        
 
 <div class="clearfix">
 
 	
-            <label for="xlInput3">
- 			Additional Options
-     	<span>
-		
+            <label for="xlInput3" style="margin-bottom:7px">
+Additional Options <span style="color:#676767;font-size: 12px;
+font-family: Arial;
+font-weight: normal;"> (Password, Notification)</span>
+       	<span>
+		      <a class="expand3 toggle" style="color:#395069">
+      </a>
+
 	</span>	
 
 </label>
 
-<div class="input" style="margin-left:30px;">
+<div class="input subject-field3" style="margin-left:30px;display:none">
 <ul class="inputs-list">
 
 
@@ -198,12 +197,9 @@ font-weight: normal;"> For Registered Users</span>
 
           <% if !current_user||current_user.priviledge=="1" %>      
             <li>
-                <label class="disabled">
-                    <input type="checkbox" name="optionsCheckboxes" value="option2" checked="yes" disabled="">
-                    <span>Expire in 14 days</span>
-                </label>
+            
               <span class="help-block">
-                <strong>Note:</strong> Files will expire in 14 Days. Upgrade to have unlimited storage.
+                <strong>Note:</strong> Files will expire for inactivity. Upgrade to have unlimited storage.
               </span>
             </li>    
             <% end %>
@@ -211,6 +207,7 @@ font-weight: normal;"> For Registered Users</span>
 
               </ul>
 
+</div>
 </div>
 </div>
 
@@ -308,7 +305,7 @@ display:none">
     <span class="help-block" style="text-align:center;">
     <br>  
     <p>
-                By clicking on the "Send!" button, you agree to Senditu's <a href="/pages/tos" target="_blank">Terms of Service</a> 
+                By clicking on the "Send!" button, you agree to 42Share's <a href="/pages/tos" target="_blank">Terms of Service</a> 
     </p>
               </span>
    <div id="input_button_container">

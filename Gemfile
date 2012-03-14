@@ -16,6 +16,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+
+gem "resque-scheduler"
 gem "mail"
 gem "aws-ses"
 gem 'aws-s3'

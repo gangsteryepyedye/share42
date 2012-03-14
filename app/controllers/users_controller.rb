@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
   
+      
+  def sign_in(user)
+    cookies[:auth_token] = user.auth_token
+    current_user = user
+  end
+
+
     
   def new
     @user = User.new
@@ -26,6 +33,22 @@ class UsersController < ApplicationController
     #create namespace
     @user = User.new(params[:user])
 
+
+
+    if plan!="free"
+      
+      #call Stripe API to put the user on its billing system
+      customer = Stripe::Customer.create(
+        :card => token,
+        :plan => plan,
+        :email => @user.email,
+        :description => plan
+      )
+
+      @user.customer_id = customer.id
+
+    end
+
     #update account capscity based on params[:planSelect]
 
     if plan=="free"
@@ -40,6 +63,8 @@ class UsersController < ApplicationController
 
 
       if @user.save
+        sign_in @user
+        $redis.set("user_"+@user.id.to_s,"normal")
         redirect_to '/containers', :notice => "Signed up!"
       else
         if plan.nil?
@@ -96,8 +121,6 @@ class UsersController < ApplicationController
         current_user.personal_init(false)
     elsif plan=="premium"
         current_user.premium_init(false)
-    elsif plan=="plus"
-        current_user.plus_init(false)
     end
     
   
