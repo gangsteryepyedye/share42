@@ -1337,7 +1337,7 @@ span.delete {width:16px;height:16px;display:block;cursor:pointer;background:url(
 ul#file_done_list li span.progress {width:100%;border-right:0;}
 
 
-div#overall {height:16px;position:relative;margin: 0px;width:100%; text-align: left;flo}
+div#overall {height:16px;position:relative;margin: 0px;width:100%; text-align: left;}
 div#overall span.progress {border: 1px solid #AED0EA;background: url(/assets/pbar.png) repeat-x;color: #fff;font-weight: bold;
 margin: 0px;
 height: 100%;
