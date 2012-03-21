@@ -44,6 +44,9 @@ gem "rspec-rails"
 gem "autotest"
 gem "autotest-rails"
 gem "ZenTest", "4.6.0"
+gem "thin"
+
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
