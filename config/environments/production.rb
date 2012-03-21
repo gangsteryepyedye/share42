@@ -61,4 +61,5 @@ Filetunnel::Application.configure do
 
   MAXFSIZE_PREMIUM=500000000 
   config.action_mailer.delivery_method = :ses
+  ENV["REDISTOGO_URL"] = 'redis://username:password@my.host:6789' 
 end
