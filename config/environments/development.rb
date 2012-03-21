@@ -32,5 +32,9 @@ config.action_mailer.default_url_options = { :host => "127.0.0.1:3001" }
   config.log_level = :warn
   MAXFSIZE_PREMIUM=500000000 
   config.action_mailer.delivery_method = :ses
+
+
+  ENV["REDISTOGO_URL"] = 'redis://username:password@my.host:6789' 
+
    
 end
