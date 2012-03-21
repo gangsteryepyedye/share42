@@ -25,7 +25,7 @@ group :assets do
 end
 
 
-gem "resque-scheduler", "~> 2.0.0"	
+gem 'resque-scheduler', require: 'resque_scheduler', git: 'git://github.com/bvandenbos/resque-scheduler'
 gem "mail"
 gem "aws-ses"
 gem 'aws-s3'
