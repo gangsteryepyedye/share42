@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
         else
           cookies[:auth_token] = user.auth_token
         end
-        redirect_to root_url, :notice => "Logged in!"
+        redirect_to '/new_transfer', :notice => "Logged in!"
       else
          flash.now[:error] = "Invalid email/password combination."
          render "new"

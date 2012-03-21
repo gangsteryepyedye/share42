@@ -65,7 +65,7 @@ class UsersController < ApplicationController
       if @user.save
         sign_in @user
         $redis.set("user_"+@user.id.to_s,"normal")
-        redirect_to '/containers', :notice => "Signed up!"
+        redirect_to '/new_transfer', :notice => "Signed up!"
       else
         if plan.nil?
           render :action => "new"

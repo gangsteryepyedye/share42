@@ -31,6 +31,7 @@
 			*/
 			body, #backgroundTable{
 				/*@editable*/ background-color:#FAFAFA;
+				color:#333;
 			}
 
 			/**
@@ -49,7 +50,7 @@
 			* @style heading 1
 			*/
 			h1, .h1{
-				/*@editable*/ color:#202020;
+				/*@editable*/ color:#777;
 				display:block;
 				/*@editable*/ font-family:Arial;
 				/*@editable*/ font-size:34px;
@@ -69,7 +70,7 @@
 			* @style heading 2
 			*/
 			h2, .h2{
-				/*@editable*/ color:#202020;
+				/*@editable*/ color:#777;
 				display:block;
 				/*@editable*/ font-family:Arial;
 				/*@editable*/ font-size:30px;
@@ -89,7 +90,7 @@
 			* @style heading 3
 			*/
 			h3, .h3{
-				/*@editable*/ color:#202020;
+				/*@editable*/ color:#777;
 				display:block;
 				/*@editable*/ font-family:Arial;
 				/*@editable*/ font-size:26px;
@@ -109,7 +110,7 @@
 			* @style heading 4
 			*/
 			h4, .h4{
-				/*@editable*/ color:#202020;
+				/*@editable*/ color:#444;
 				display:block;
 				/*@editable*/ font-family:Arial;
 				/*@editable*/ font-size:22px;
@@ -177,7 +178,7 @@
 			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
 			*/
 			.headerContent{
-				/*@editable*/ color:#202020;
+				/*@editable*/ color:#777;
 				/*@editable*/ font-family:Arial;
 				/*@editable*/ font-size:34px;
 				/*@editable*/ font-weight:bold;
@@ -329,6 +330,13 @@
 			#monkeyRewards img{
 				max-width:190px;
 			}
+			
+			ul{
+				list-style-type:none;
+				margin-left:-20px;
+			}
+
+
 		</style>
 	</head>
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
@@ -344,12 +352,7 @@
                                 	<!-- // Begin Module: Standard Preheader \ -->
                                     <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                     	<tr>
-                                        	<td valign="top">
-                                            	<div mc:edit="std_preheader_content">
-                                                	You have a file(s) to pick up.
-                                                </div>
-                                          
-                                        </tr>
+                                        
                                     </table>
                                 	<!-- // End Module: Standard Preheader \ -->
                                 
@@ -372,22 +375,19 @@
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
                                                                
-                                                                <h4 class="h4">Hi! <%= @sender %> just sent you <%= @count %> file(s) using 42Share.com</h4>
+                                                                <h4 class="h4"><%= @sender %> just sent you <%= @count %> file(s) via 42Share</h4>
                                                                 <a href=<%= @link %> >Download these files</a>	
-                                                    
 
-                                                                <ul >
+
+                                                                <p>
+                                                                	File(s):	
+                                                                </p>
+																                                                    
+
 	                                                                <% for n in @filenames %>
-	                                                                	<li>
-	                                                             			<%= n %>		  
-	                                                                	</li>
+	                                                             			<p><%= n %></p>		  
 	                                                                <% end %>
-                                                                </ul>
 
-                                                                <% if (!@sub.empty?) %>
-                                                                <strong>Subject:</strong><%= @sub %>
-                                                                <br />
-                                                                <% end %>
                                                                 <% if (!@message.empty?) %>
                                                                 <strong>Message:</strong><%= @message %>                                                                 <br />
                                                                 <br />
@@ -426,7 +426,10 @@
                                                     <tr>
                                                         <td valign="top" width="350">
                                                             <div mc:edit="std_footer">
-																<a>42Share</a> makes it easy and secure to share files with anyone.
+																<a>42Share</a> makes file sharing easy and secure.
+															<p>
+																	© Copyright 2012 42Zen, LLC | All Rights Reserved
+															</p>
                                                             </div>
                                                             <br />
                                                         

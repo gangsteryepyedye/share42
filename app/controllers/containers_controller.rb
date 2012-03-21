@@ -27,7 +27,10 @@ class ContainersController < ApplicationController
 
       container_id=params[:id]
       email=params[:email]
-    
+      
+      ip=request.remote_ip.to_s 
+
+      Spacecop.log_download(ip,params[:id].to_s,"zip")
 
       @container=Container.find_by_id_or_sha1(container_id)   
 
@@ -44,29 +47,40 @@ class ContainersController < ApplicationController
     
       s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
    
-   
+      @filelist = []
 
-        @container.downloaded=@container.downloaded+1
+      for stuff in @container.stuffs 
 
-        @container.save
-          
+        @filelist.push(stuff.file_file_name)
+      
+      end
+
+
+      @container.downloaded = @container.downloaded+1
+      @container.updated_at = Time.now
+      @container.save
+      
+
 
          if (!email.nil?) 
             query=url_unescape(email)
             @email=@container.emails.where("name =?",query).first
+
             if(!@email.nil?)
               @email.downloads=@email.downloads+1
               @email.save
-              @tiny_id = "http://127.0.0.1:3000/containers/"+@container.sha1
-              @link=Container.shorten(@tiny_id).short_url
-              if @container.user_id.nil?
-                 Notifier.download_notify(@email.name,@container.sender,@link).deliver
-              else
-                @user=User.find(@container.user_id)
-                if (@user.everytime==true||(@user.everytime==false&&@email.downloads==1))                  
-                  Notifier.download_notify(@email.name,@user.email,@link).deliver
+              @link = "http://127.0.0.1:3001/containers/"+@container.sha1
+
+              if @email.downloads == 1
+                if @container.user_id.nil?
+                  Notifier.download_notify(@email.name,@container.sender,@link,@filelist).deliver
+                else
+                  @user=User.find(@container.user_id)
+                  if (@user.everytime==true||(@user.everytime==false&&@email.downloads==1))                  
+                    Notifier.download_notify(@email.name,@user.email,@link,@filelist).deliver
+                  end
                 end
-              end
+              end    
             end
           end   
 
@@ -183,7 +197,7 @@ class ContainersController < ApplicationController
     @stuff = @container.stuffs.new    
     #remember to clean the unused Container here   
     #need to change the url later
-    @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+    @tiny_id = "http://127.0.0.1:3001/containers/"+sha1
     @link=Container.shorten(@tiny_id).short_url
   
 
@@ -199,7 +213,7 @@ class ContainersController < ApplicationController
       @container.downloadcap=30
       @container.save
       @stuff = @container.stuffs.new    
-      @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+      @tiny_id = "http://127.0.0.1:3001/containers/"+sha1
       @link=Container.shorten(@tiny_id).short_url
     else
       redirect_to "/containers"
@@ -214,7 +228,7 @@ class ContainersController < ApplicationController
       @container.downloadcap=30
       @container.save
       @stuff = @container.stuffs.new    
-      @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+      @tiny_id = "http://127.0.0.1:3001/containers/"+sha1
       @link=Container.shorten(@tiny_id).short_url
     else
       @container = current_user.containers.new  
@@ -225,7 +239,7 @@ class ContainersController < ApplicationController
       @stuff = @container.stuffs.new    
       #remember to clean the unused Container here   
       #need to change the url later
-      @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+      @tiny_id = "http://127.0.0.1:3001/containers/"+sha1
       @link=Container.shorten(@tiny_id).short_url
     end
     respond_to do |format|      
@@ -262,16 +276,19 @@ class ContainersController < ApplicationController
     end
 
 
+    link="http://127.0.0.1:3001/containers/"+@container.sha1
 
-
-
-    link="http://127.0.0.1:3000/containers/"+@container.sha1
-
-
+    #send out emails to recipients
     for e in @container.emails
           Notifier.notify(@container.subject,@container.message,@container.sender,e.name.to_s,name_list,link).deliver
     end
+
   
+    #send out a confirmation email
+    if @container.sender
+          Notifier.confirm(@container.sender,@container.emails,name_list,link).deliver
+    end
+    
 
     respond_to do |format|      
           format.all{render :nothing => true, :status => 200, :content_type => 'text/html'}
@@ -316,7 +333,6 @@ class ContainersController < ApplicationController
 
 
     @sent_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state !=?","removed")
-
     @removed_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state =?","removed") 
     @personal_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state =?","personal") 
 
@@ -388,7 +404,7 @@ end
   def show_container
   
         @container=Container.find_by_id_or_sha1(params[:id])   
-        @link=Container.shorten("http://127.0.0.1:3000/containers/"+@container.sha1).short_url
+        @link=Container.shorten("http://127.0.0.1:3001/containers/"+@container.sha1).short_url
         if(params[:password]==@container.password)      
           respond_to do |format|      
             format.html {render :partial => "container_main_visit",:locals =>{:container=>@container,:files=>@container.stuffs,:link=>@link} }  

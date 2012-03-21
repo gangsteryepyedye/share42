@@ -1,7 +1,27 @@
 class Notifier < ActionMailer::Base
    default :from => "238357@gmail.com"
-  
 
+
+  def hacker_upload_alert(ip,upload_today,upload_total) 
+
+    @ip = ip
+    @upload_today = upload_today
+    @upload_total = upload_total
+
+    mail(:to=>"238357@gmail.com",:subject=>"Hacker Upload Alert")
+
+  end  
+
+  def hacker_download_alert(ip,object_id,download_today,download_total)
+
+    @ip = ip
+    @object_id = object_id
+    @download_today = download_today
+    @download_total = download_total
+
+    mail(:to=>"238357@gmail.com",:subject=>"Hacker Download Alert")
+
+  end
 
 
   def plan_support(sender,message)
@@ -33,7 +53,7 @@ class Notifier < ActionMailer::Base
   end
 
 
-  def download_notify(email,recipient,link)
+  def download_notify(email,recipient,link,namelist)
     
     if email.nil?||email.empty?
       @sender="An anonymous user"
@@ -41,10 +61,11 @@ class Notifier < ActionMailer::Base
       @sender=email
     end
 
-    subject="File Download Notification from 42Share.com"
+    subject="Your file(s) have been downloaded from 42Share.com"
     @link=link
     @recipient = recipient
-    
+    @filenames=namelist
+
     mail(:to=>@recipient,
          :subject=>subject) do |format|
           format.html {render 'notify_download'}
@@ -54,20 +75,19 @@ class Notifier < ActionMailer::Base
 
 
   def notify(subject,message,sender,recipient,namelist,link)
-     
-    if subject.nil?||subject.empty?
-      @subject="You have a file(s) waiting"
-    else
-      @subject=subject
-    end
+ 
     
     @message = message
 
     if sender.nil?||sender.empty?
       @sender ="Someone"
     else
-      @sender=sender
+      @sender = sender
     end
+ 
+
+    @subject = @sender+" has sent you file(s) via 42share"
+
   	@recipient = recipient
     @sub = @subject
     @filenames=namelist
@@ -92,13 +112,27 @@ class Notifier < ActionMailer::Base
 
 
 
-  def confirm(sender,emails)
+  def confirm(sender,recipients,namelist,link)
 
+    @subject = "Thanks for using 42share - file(s) sent to recipients"
 
+    @sender = sender
 
+    @reps = ["238357@gmail.com","jinxin@grinnell.edu"]
 
+    @filenames = namelist
+
+    @link = Container.shorten(link).short_url
+
+    mail(:to => @sender, 
+      :subject => @subject) do |format|
+        format.html {render 'confirm_email'}
+    end
 
   end
+
+
+
 
 
 

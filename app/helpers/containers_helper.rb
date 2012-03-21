@@ -32,15 +32,13 @@ module ContainersHelper
 		return number_to_human_size(total)
 	end
 
+
+
 	def expired(container)
-		if container.exptime.nil?
-			return false
+		if container.state=="removed"
+			return true
 		else
-			if Time.at(container.exptime-Time.now).to_i <= 0
-				return true
-			else
-				return false
-			end
+			return false
 		end
 	end
 

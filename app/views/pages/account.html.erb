@@ -31,7 +31,7 @@
 				<li class=""><a href="#billing_history">Payment History</a></li>						
 				<li class=""><a href="#change_password">Change Password</a></li>			
 				<li class=""><a href="#change_email">Change Email</a></li>			
-				<li class=""><a href="#notifications">Notifications</a></li>			
+				
 			</ul>
 	</nav>
 
@@ -345,17 +345,17 @@
 
 		
 		<div class="credit-card">
-			<div style="float:left">
-			<h3>Past Payments</h3>
+			<div>
+			<h3>Past Payments<span><a href="#">Refund</a></span>
+</h3>
 			</div>
-			<div id="iwantmymoneyback">
-				<a href="#">Refund</a>
-			</div>
+
 		</div>
 
 
 		<% if current_user.customer_id.nil? %>
-		<p>No payment record yet</p>
+				<p>No payment record yet</p>
+
 		<% else %>
 		<table>
 			<tbody>

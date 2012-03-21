@@ -303,10 +303,10 @@ var progressHandler = function(progress_event){
 
     var current_percentage = Math.floor((parseInt(progress_event.bytesLoaded)/parseInt(progress_event.bytesTotal))*100)+'%';
    
-    var upload_speed = formatBytes(parseInt(progress_event.bytesLoaded)/diff);
+    var upload_speed = formatBytes((queueBytesLoaded+parseInt(progress_event.bytesLoaded))/diff);
 
     $(".head h4").html("Sending File(s)... "+upload_speed);
-    $(".head h4").css("margin-left","130px");
+    $(".head h4").css("margin-left","125px");
 
 
     //change td width, hide delete button
@@ -394,6 +394,10 @@ var readableBytes = function(bytes) {
 
 
 $(function () {
+
+    if($.browser.name=="msie"){
+        $(".content").html("<h1>Sorry, we do not support IE</h1><p>We are sorry if you are a genuine IE fan, changing your browser can be a real pain but it's definitely worth it. Think of it as you are supporting small companies on the web by not using IE. It isn't a joke, it really is a huge support. Thanks for your understanding.</p><br><p>42share works with Chrome, Firefox and Safari</p><br>")
+    }
 
     //user payment processing(upgrade)
     $(".payment-form").submit(function(event) {
@@ -572,7 +576,6 @@ $(function () {
 
 
    
-    $('.scrollable').scrollbar(); 
 
 
     $('a#copy').zclip({
@@ -825,7 +828,7 @@ function validateForm() {
     validatePassword();
 
     if ($('.tagsinput').find(".tag").length == 0) {
-        $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please provide at least one email recipient to send your file(s)</p></div>');
+        $(".error").html('<div class="alert-message success fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please provide at least one email recipient to send your file(s)</p><p>(Tip: You can also send file(s) to your own email)</p></div>');
         return false;
     } else if ($.g_config.totalNumber==0) {
         $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please select at least one file</p></div>');
@@ -866,6 +869,7 @@ function validatePassword() {
 function passwordToggle() {
     $('.password-block').toggle();
     $("#container_password").val('');
+    $("#container_password_confirm").val('');
 }
 
 function passwordEnable() {
@@ -995,3 +999,29 @@ function folderPassword() {
                 }
     }
 
+function mycarousel_initCallback(carousel)
+{
+    // Disable autoscrolling if the user clicks the prev or next button.
+    carousel.buttonNext.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    carousel.buttonPrev.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    // Pause autoscrolling if the user moves with the cursor over the clip.
+    carousel.clip.hover(function() {
+        carousel.stopAuto();
+    }, function() {
+        carousel.startAuto();
+    });
+};
+
+jQuery(document).ready(function() {
+    jQuery('#mycarousel').jcarousel({
+        auto: 8,
+        wrap: 'circular',
+        initCallback: mycarousel_initCallback
+    });
+});

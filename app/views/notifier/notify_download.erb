@@ -31,6 +31,7 @@
 			*/
 			body, #backgroundTable{
 				/*@editable*/ background-color:#FAFAFA;
+				color:#444;
 			}
 
 			/**
@@ -109,7 +110,7 @@
 			* @style heading 4
 			*/
 			h4, .h4{
-				/*@editable*/ color:#202020;
+				/*@editable*/ color:#777;
 				display:block;
 				/*@editable*/ font-family:Arial;
 				/*@editable*/ font-size:22px;
@@ -346,7 +347,7 @@
                                     	<tr>
                                         	<td valign="top">
                                             	<div mc:edit="std_preheader_content">
-                                                	File Download Notification
+                                                	Hello
                                                 </div>
                                           
                                         </tr>
@@ -372,9 +373,20 @@
                                                         <td valign="top">
                                                             <div mc:edit="std_content00">
                                                                
-                                                                <h4 class="h4">Hi! <%= @sender %> just downloaded your file(s) on 42Share.com</h4>
+                                                                <h4 class="h4"><%= @sender %> just downloaded the following file(s) from 42Share.com:</h4>
+                                                                	<% for f in @filenames %>
+                                                                	<p><%= f %></p>	
+                                                                	<% end %>
+                                                                
+
+
+
                                                                 <a href=<%= @link %> >Go to that folder</a>	
-                                                    
+                                                    			
+
+                                                    			<p>You will only be notified when a recipient has downloaded a file for the first time.	
+                                                                <p>
+
                                                             </div>
 														</td>
                                                     </tr>
@@ -401,6 +413,9 @@
                                                         <td valign="top" width="350">
                                                             <div mc:edit="std_footer">
 																<a>42Share</a> makes it easy and secure to share files with anyone.
+																<p>
+																	© Copyright 2012 42Zen, LLC | All Rights Reserved
+																</p>
                                                             </div>
                                                             <br />
                                                         

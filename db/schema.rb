@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308010412) do
+ActiveRecord::Schema.define(:version => 20120317204350) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -45,6 +45,11 @@ ActiveRecord::Schema.define(:version => 20120308010412) do
     t.integer  "downloads",    :default => 0
   end
 
+  create_table "spacecops", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "stuffs", :force => true do |t|
     t.string   "name"
     t.integer  "container_id"
@@ -58,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20120308010412) do
     t.string   "sha1"
     t.boolean  "notif",             :default => true
     t.boolean  "legal",             :default => false
+    t.string   "uploader_ip"
   end
 
   create_table "tempusers", :force => true do |t|

@@ -10,13 +10,18 @@ def download
    
     require 'aws/s3'
 
+    ip=request.remote_ip.to_s 
+
     @stuff=Stuff.find_by_id_or_sha1(params[:id])   
 
+    @filelist=[].push(@stuff.file_file_name)
 
     @container=Container.find(@stuff.container_id)
     
+    Spacecop.log_download(ip,params[:id].to_s,"file")
 
-    @container.downloaded=@container.downloaded+1
+    @container.downloaded = @container.downloaded+1
+    @container.updated_at = Time.now
     @container.save
   
   
@@ -27,17 +32,19 @@ def download
           if(!@email.nil?)
               @email.downloads=@email.downloads+1
               @email.save
-              @tiny_id = "http://127.0.0.1:3000/containers/"+@container.sha1
-              @link=Container.shorten(@tiny_id).short_url
-              if @container.user_id.nil?
-                 Notifier.download_notify(@email.name,@container.sender,@link).deliver
-              else
-                @user=User.find(@container.user_id)
-                if (@user.everytime==true||(@user.everytime==false&&@email.downloads==1))                  
-                  Notifier.download_notify(@email.name,@user.email,@link).deliver
+              @link = "http://127.0.0.1:3001/containers/"+@container.sha1
+
+              if @email.downloads == 1
+                if @container.user_id.nil?
+                  Notifier.download_notify(@email.name,@container.sender,@link,@filelist).deliver
+                else
+                  @user=User.find(@container.user_id)
+                  if (@user.everytime==true||(@user.everytime==false&&@email.downloads==1))                  
+                    Notifier.download_notify(@email.name,@user.email,@link,@filelist).deliver
+                  end
                 end
-              end
-            end
+              end    
+          end
     end        
 
     AWS::S3::Base.establish_connection!(
@@ -85,10 +92,28 @@ end
   end
    
   def create
+    
+
+    #get the ip address
+    ip=request.remote_ip.to_s 
+
+    if !current_user
+       #check if ip exists, if not, create a new one
+       Spacecop.log_upload(ip,params[:stuff])   
+    end
+
+
+    
+
 
     #initialize file holder (stuff)
     @stuff = Stuff.new(params[:stuff])
     
+    #save the uploader's ip
+
+    @stuff.uploader_ip = ip         
+
+
     #initialize flag
     @pass = true    
 
@@ -130,7 +155,9 @@ end
     #check to see if there is enough space left
     if space_allowed < params[:stuff][:file_file_size].to_i
       @pass = false
-    end 
+    else
+      @pass = true
+    end
        
 
     if (@container.emails.empty?)

@@ -30,7 +30,17 @@ def move_upload_from_temp_to_final_resting_place
       end
     end
   else
-
+    old_name = "/#{self.file_file_name}"
+    (1..5).each do |try|
+      begin
+        # Copy the file
+        AWS::S3::S3Object.delete(old_name,'filetunnel')
+        self.destroy
+        break
+      rescue Exception => e
+        sleep 1
+      end
+    end
 
   end
 

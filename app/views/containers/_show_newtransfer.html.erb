@@ -41,8 +41,10 @@
     <label for="xlInput3">Files Recipients: <span style="color:#676767;font-size: 12px;
 font-family: Arial;
 font-weight: normal;">
-(Tip: You can also send files to your own email address)
-<span></label>
+
+(Separate each email with a space/comma/tab)
+
+</span></label>
     <div class="input recipientInput">
     <input class="xlarge recipients" id="xlInput" name="email" size="30" type="text" style="width:100%;">
    </div> 
@@ -62,7 +64,7 @@ font-weight: normal;">
 font-family: Arial;
 font-weight: normal;"> (Optional)</span></label>
             <div class="input">
-              <input class="xlarge span3 sender" id="xlInput3" name="sender" size="30" type="text" placeholder="Your Email Address" style="margin-bottom:2px;width:480px;">
+              <input class="xlarge span3 sender" id="xlInput3" name="sender" size="30" type="text" placeholder="Enter your email address to receive a copy" style="margin-bottom:2px;width:480px;">
             </div>
 <% end %>
 
@@ -98,7 +100,7 @@ font-weight: normal;"> (Optional)</span>
 
 
             <div class="input message-field">
-              <textarea class="xxlarge subject-field2" id="textarea2" name="message" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 480px; " spellcheck="false" placeholder="Message" ></textarea>
+              <textarea class="xxlarge subject-field2" id="textarea2" name="message" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 54px; margin-left: 0px; margin-right: 0px; width: 480px; " spellcheck="false" placeholder="Type your message (optional)" ></textarea>
             </div>
 
 
@@ -144,7 +146,6 @@ font-weight: normal;"> Only $5.99</span>
 
                 <li>
 
-                <% if current_user %>
                   <label>
                     <input type="checkbox" name="optionsCheckboxes" value="option2" onClick="passwordToggle()" >
                     <span> Protect Download (Password)</span> 
@@ -161,45 +162,27 @@ font-weight: normal;"> Only $5.99</span>
              
               </div>
 
-              <% else %>
-                  <label>
- <input type="checkbox" name="optionsCheckboxes" value="option2" disabled="">
-                    <span> Protect Download (Password)</span> <span style="color:#676767;font-size: 12px;
-font-family: Arial;
-font-weight: normal;"> For Registered Users</span>
-                  </label>
-              <% end %>
 
                 </li>
                
                  
                 <li>
 
-                <% if current_user%>
                   <label>
-                    <%= f.check_box :notif %>
+                    <%= f.check_box :notif,{:checked=>false} %>
 
-                    <span>Notify Upon Download</span>
+                    <span>Notify Upon Download (A sender's email is required)</span>
   
 
                   </label>
 
-                <% else %>
-                <label>
-
-             <input type="checkbox" disabled="">
-                                <span> Notify Upon Download</span> <span style="color:#676767;font-size: 12px;
-            font-family: Arial;
-            font-weight: normal;"> For Registered Users</span>
-                </label>
-                <% end %>
                 </li>  
 
           <% if !current_user||current_user.priviledge=="1" %>      
             <li>
             
               <span class="help-block">
-                <strong>Note:</strong> Files will expire for inactivity. Upgrade to have unlimited storage.
+                <strong>Note:</strong> Inactive files will expire in 30 days. Upgrade to have unlimited storage.
               </span>
             </li>    
             <% end %>

@@ -49,9 +49,17 @@
 
 <% elsif current_user %>
 
+<% if current_user.id == @container.user_id %>
+
  <input id="folder_sha1" type="hidden" value=<%= @container.sha1 %> />
  <%= render :partial => "container_main",  :locals =>{:container=>@container} %> 
 
+<% else %>
+
+ <input id="folder_sha1" type="hidden" value=<%= @container.sha1 %> />
+ <%= render :partial => "container_main_visit",  :locals =>{:container=>@container} %> 
+ 
+ <% end %>
 <% else %>
  <input id="folder_sha1" type="hidden" value=<%= @container.sha1 %> />
 

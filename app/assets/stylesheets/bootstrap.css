@@ -1050,7 +1050,7 @@ textarea[readonly] {
   padding-top: 0;
 }
 .inputs-list:first-child {
-  padding-top: 6px;
+  padding-top: 0px;
 }
 .inputs-list li + li {
   padding-top: 2px;
@@ -1749,7 +1749,7 @@ a.menu:after, .dropdown-toggle:after {
 }
 .hero-unit {
   float:left;
-  padding: 115px 0px 30px 0px;
+  padding: 130px 0px 30px 0px;
   margin-left:1px;
   width:380px;
   position:relative;
@@ -1762,6 +1762,7 @@ a.menu:after, .dropdown-toggle:after {
   line-height: 1;
   letter-spacing: -1px;
   color:#3AD;
+  text-shadow: 1.5px 1.5px 0 white;
 }
 .hero-unit p {
 font-size: 20px;
