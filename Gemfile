@@ -42,7 +42,7 @@ gem 'rspec'
 gem "rspec-rails"
 gem "autotest"
 gem "autotest-rails"
-
+gem "ZenTest", "4.6.0"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -58,6 +58,5 @@ gem "autotest-rails"
 
 group :test do
   # Pretty printed test output
-  gem 'ZenTest'
   gem 'turn', :require => false
 end
