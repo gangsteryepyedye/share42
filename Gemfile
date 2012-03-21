@@ -25,7 +25,7 @@ group :assets do
 end
 
 
-gem "resque-scheduler"
+gem "resque-scheduler", "~> 2.0.0"	
 gem "mail"
 gem "aws-ses"
 gem 'aws-s3'
