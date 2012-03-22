@@ -394,7 +394,13 @@ var readableBytes = function(bytes) {
 
 
 $(function () {
-
+    
+    $('#mycarousel').jcarousel({
+        auto: 8,
+        wrap: 'circular',
+        initCallback: mycarousel_initCallback
+    });
+    
     if($.browser.name=="msie"){
         $(".content").html("<h1>Sorry, we do not support IE</h1><p>We are sorry if you are a genuine IE fan, changing your browser can be a real pain but it's definitely worth it. Think of it as you are supporting small companies on the web by not using IE. It isn't a joke, it really is a huge support. Thanks for your understanding.</p><br><p>42share works with Chrome, Firefox and Safari</p><br>")
     }
@@ -1017,11 +1023,3 @@ function mycarousel_initCallback(carousel)
         carousel.startAuto();
     });
 };
-
-jQuery(document).ready(function() {
-    jQuery('#mycarousel').jcarousel({
-        auto: 8,
-        wrap: 'circular',
-        initCallback: mycarousel_initCallback
-    });
-});

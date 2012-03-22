@@ -62,6 +62,17 @@ Filetunnel::Application.configure do
 
   MAXFSIZE_PREMIUM=500000000 
   config.action_mailer.delivery_method = :ses
+
+  #redis to go url
   ENV["REDISTOGO_URL"] = 'redis://redistogo:72d608637652eb4bbd799ef5bf10327f@pike.redistogo.com:9325' 
+
+  #heroku account information
+
+  ENV["HEROKU_APP"] = 'share42'
+  ENV["HEROKU_USER"] = 'wikihowtodo'
+  ENV["HEROKU_PASSWORD"] = 'cmfttlpqf9'
+
+
+
 
 end

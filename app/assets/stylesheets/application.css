@@ -2144,6 +2144,13 @@ background-color: hsl(208, 100%, 83%); }
 
 }
 
+#sign_in_block_wrapper{
+	position: absolute;
+padding-left: 731px;
+top: 1px;
+
+
+}
 
 #sign_in_block{
 	display:block;
@@ -2156,8 +2163,6 @@ background-color: hsl(208, 100%, 83%); }
 	margin-top:40px;
 	background:white;
 	top:1px;
-	left:1022px;
-	position:absolute;
 	z-index:4;
 	display:none;
 }

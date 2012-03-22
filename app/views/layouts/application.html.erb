@@ -41,7 +41,7 @@
         We're sorry but our site <strong>requires</strong> JavaScript.
     </div>    
 </noscript>	
-	
+
 <div id="overlay">
 	
 <div class="topbar">
@@ -109,11 +109,15 @@
 <div class="container">
 	
 	
+  		
+	<%= yield %>
 
 
-
+  
 <% if !current_user %>
+<div id="sign_in_block_wrapper">
 <div id="sign_in_block">
+
       <%= form_tag sessions_path, :class=>"form-stacked" do %>
            <fieldset>
             <div class="clearfix">
@@ -137,12 +141,10 @@
 
 
 </div>
-
+</div>
 
 <% end %>
-  		
-  		
-	<%= yield %>
+      
 
 
 <% if current_user %>

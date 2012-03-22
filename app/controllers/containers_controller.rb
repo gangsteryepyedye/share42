@@ -1,5 +1,9 @@
 class ContainersController < ApplicationController
 
+
+
+
+
   require 'zip/zip'
   require 'zip/zipfilesystem'
   require 'resque_scheduler'
@@ -435,7 +439,10 @@ end
 
   module Compression
 
+
       require 'drb'
+      load('HerokuAutoScaler.rb')
+      extend HerokuAutoScaler::AutoScaling
 
       @queue = :compression_queue
 
@@ -458,6 +465,10 @@ end
   module Deletion
 
       require 'aws/s3'
+      load('HerokuAutoScaler.rb')      
+      extend HerokuAutoScaler::AutoScaling
+
+
 
     @queue = :delete_queue
 
