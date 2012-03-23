@@ -79,6 +79,9 @@ class Spacecop < ActiveRecord::Base
     	end
 
 
+
+
+
       	download_key_total = object_id.to_s + "_" + ip + "_total"
       	download_key_today = object_id.to_s + "_" + ip + Date.today.to_s
  
@@ -109,6 +112,13 @@ class Spacecop < ActiveRecord::Base
 
 
     end
+
+    
+
+
+
+    
+
 
 
 
