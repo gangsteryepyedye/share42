@@ -14,7 +14,9 @@ end
 
 
 group :production do
+	gem "thin"
 	gem 'pg'
+	gem 'aws-sdk'
 end
 # Gems used only for assets and not required
 # in production environments by default.
@@ -44,7 +46,6 @@ gem "rspec-rails"
 gem "autotest"
 gem "autotest-rails"
 gem "ZenTest", "4.6.0"
-gem "thin"
 
 
 
