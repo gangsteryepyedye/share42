@@ -30,6 +30,7 @@ gem 'resque-scheduler', require: 'resque_scheduler', git: 'git://github.com/bvan
 gem "mail"
 gem "aws-ses"
 gem 'aws-s3'
+gem 'aws-sdk'
 gem "paperclip", "~> 2.4"
 gem 'jquery-rails'
 gem 'rubyzip'
@@ -37,7 +38,6 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem "googl"
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 's3_swf_upload', :git => 'git://github.com/nathancolgate/s3-swf-upload-plugin'
-gem "amazon-ec2", :require => "AWS"
 gem 'resque', :require => 'resque/server'  
 gem 'redis-objects'	
 gem 'rspec'
