@@ -14,6 +14,7 @@ class Stuff < ActiveRecord::Base
 
 
 def move_upload_from_temp_to_final_resting_place
+    require 'aws/s3'
   # Rename the image on s3 (more of a move)
   AWS::S3::Base.establish_connection!(:access_key_id => 'AKIAICDXU5SXRWQA5RQA',:secret_access_key => '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')
   
