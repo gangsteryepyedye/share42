@@ -31,7 +31,7 @@ def download
           if(!@email.nil?)
               @email.downloads=@email.downloads+1
               @email.save
-              @link = "http://127.0.0.1:3000/containers/"+@container.sha1
+              @link = "http://www.42share.com/containers/"+@container.sha1
 
               if @email.downloads == 1
                 if @container.user_id.nil?

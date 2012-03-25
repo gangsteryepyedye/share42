@@ -71,7 +71,7 @@ class ContainersController < ApplicationController
             if(!@email.nil?)
               @email.downloads=@email.downloads+1
               @email.save
-              @link = "http://127.0.0.1:3000/containers/"+@container.sha1
+              @link = "http://www.42share.com/containers/"+@container.sha1
 
               if @email.downloads == 1
                 if @container.user_id.nil?
@@ -200,7 +200,7 @@ class ContainersController < ApplicationController
     @stuff = @container.stuffs.new    
     #remember to clean the unused Container here   
     #need to change the url later
-    @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+    @tiny_id = "http://www.42share.com/containers/"+sha1
     @link=Container.shorten(@tiny_id).short_url
   
 
@@ -216,7 +216,7 @@ class ContainersController < ApplicationController
       @container.downloadcap=30
       @container.save
       @stuff = @container.stuffs.new    
-      @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+      @tiny_id = "http://www.42share.com/containers/"+sha1
       @link=Container.shorten(@tiny_id).short_url
     else
       redirect_to "/containers"
@@ -231,7 +231,7 @@ class ContainersController < ApplicationController
       @container.downloadcap=30
       @container.save
       @stuff = @container.stuffs.new    
-      @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+      @tiny_id = "http://www.42share.com/containers/"+sha1
       @link=Container.shorten(@tiny_id).short_url
     else
       @container = current_user.containers.new  
@@ -242,7 +242,7 @@ class ContainersController < ApplicationController
       @stuff = @container.stuffs.new    
       #remember to clean the unused Container here   
       #need to change the url later
-      @tiny_id = "http://127.0.0.1:3000/containers/"+sha1
+      @tiny_id = "http://www.42share.com/containers/"+sha1
       @link=Container.shorten(@tiny_id).short_url
     end
     respond_to do |format|      
@@ -279,7 +279,7 @@ class ContainersController < ApplicationController
     end
 
 
-    link="http://127.0.0.1:3000/containers/"+@container.sha1
+    link="http://www.42share.com/containers/"+@container.sha1
 
     #send out emails to recipients
     for e in @container.emails
@@ -407,7 +407,7 @@ end
   def show_container
   
         @container=Container.find_by_id_or_sha1(params[:id])   
-        @link=Container.shorten("http://127.0.0.1:3000/containers/"+@container.sha1).short_url
+        @link=Container.shorten("http://www.42share.com/containers/"+@container.sha1).short_url
         if(params[:password]==@container.password)      
           respond_to do |format|      
             format.html {render :partial => "container_main_visit",:locals =>{:container=>@container,:files=>@container.stuffs,:link=>@link} }  

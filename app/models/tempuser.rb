@@ -5,9 +5,9 @@ class Tempuser < ActiveRecord::Base
 
 
   	def temp_init
-      	self.capacity=1073741824 
+      	self.capacity=2147483648 
       	self.priviledge=0
-      	self.spf=1073741824
+      	self.spf=2147483648
       	self.downloadcap=2147483648 
       	self.storage=0
       	self.save

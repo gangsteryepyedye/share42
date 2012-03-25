@@ -22,7 +22,7 @@ class JsonController < ApplicationController
     if @container.downloaded+1 > @downloadcap
         
 
-       @tiny_id = "http://127.0.0.1:3000/containers/"+@container.sha1
+       @tiny_id = "http://www.42share.com/containers/"+@container.sha1
        @link=Container.shorten(@tiny_id).short_url 
 
        if (!@user.nil?)
