@@ -153,19 +153,7 @@ Total (including anonymous)<br></td>
       </label>              
           <div class="input">
               <ul class="inputs-list">
-               <% if current_user.priviledge.to_i<3 %>  
-             <li>
-                <label class="disabled">
-                    <input type="checkbox" name="optionsCheckboxes" value="option2" checked="yes" disabled="">
-                    <span>Expire in  <%= expiration_day(@container) %></span>
-                </label>
-              <span class="help-block">
-                <strong>Note:</strong> Files will expire in <%= expiration_day(@container) %>. Upgrade to have unlimited storage.
-              </span>
-
-            </li>    
-      
-          <% end %>
+            
                 <li>
                   <label>
                     <%= f.check_box :notif %>
