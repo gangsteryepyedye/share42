@@ -1279,16 +1279,31 @@ table .headerSortUp.purple, table .headerSortDown.purple {
 .topbar h3 {
   position: relative;
 }
+
 .topbar h3 a, .topbar .brand {
   float: left;
   display: block;
   padding: 8px 20px 12px;
-  margin-left: -20px;
+  padding-left:0px;
   color: #ffffff;
   font-size: 20px;
   font-weight: 200;
   line-height: 1;
+  margin: 0;
+-webkit-transition: .2s all linear;
 }
+
+.topbar h3 a, .topbar .brand:hover{
+  text-shadow: 0 1px 0 #c9c9c9,
+               0 2px 0 #bbb,
+               0 3px 0 #b9b9b9;
+        
+ 
+}
+
+
+
+
 .topbar p {
   margin: 0;
   line-height: 40px;
@@ -1749,7 +1764,7 @@ a.menu:after, .dropdown-toggle:after {
 }
 .hero-unit {
   float:left;
-  padding: 130px 0px 30px 0px;
+  padding: 140px 0px 30px 0px;
   margin-left:1px;
   width:380px;
   position:relative;

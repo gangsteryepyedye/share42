@@ -8,7 +8,6 @@ class StuffsController < ApplicationController
  # end
 def download
    
-    require 'aws/s3'
 
     ip=request.remote_ip.to_s 
 
@@ -32,7 +31,7 @@ def download
           if(!@email.nil?)
               @email.downloads=@email.downloads+1
               @email.save
-              @link = "http://www.42share.com/containers/"+@container.sha1
+              @link = "http://127.0.0.1:3000/containers/"+@container.sha1
 
               if @email.downloads == 1
                 if @container.user_id.nil?
@@ -47,25 +46,17 @@ def download
           end
     end        
 
-    AWS::S3::Base.establish_connection!(
-    :access_key_id => "AKIAICDXU5SXRWQA5RQA",
-    :secret_access_key => "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"
-    )
+ 
+    s3 = AWS::S3.new(:access_key_id => 'AKIAICDXU5SXRWQA5RQA',:secret_access_key => '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')
+    bucket = s3.buckets['filetunnel']  
+
     filename=@stuff.file.path[1..-1]
 
-    s3obj = AWS::S3::S3Object.find(filename, 'filetunnel')
-    file_type = s3obj.about["content-type"]
-    file_length = s3obj.about["content-length"]
-
-
-    send_file_headers!(:length => file_length, :type => file_type, :filename => @stuff.file_file_name)
-    render :status => 200, :text => Proc.new { |response, output|
-    AWS::S3::S3Object.stream(filename, 'filetunnel') do |chunk|
-    output.write chunk
-    end
-    }
-
+    s3obj = bucket.objects[filename]
+    
+    url = s3obj.url_for(:read,:expires => 10*60)
   
+    redirect_to url.to_s
 
 end
 
@@ -149,7 +140,7 @@ end
     if current_user
       space_allowed = current_user.capacity - current_user.storage
     else
-      space_allowed = 1073741824
+      space_allowed = 2147483648
     end
 
     #check to see if there is enough space left

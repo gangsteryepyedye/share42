@@ -1983,6 +1983,9 @@ width: 140px;
 	left:120px;
 }
 
+#easiest{
+	text-align:center;
+}
 
 #easiest p{
 margin-top:30px;
@@ -1992,7 +1995,6 @@ font-size: 56px;
 font-weight: bold;
 letter-spacing: -1px;
 text-decoration: none;
-text-align:center;
 text-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
 line-height: 70px;
 margin-bottom: 15px;

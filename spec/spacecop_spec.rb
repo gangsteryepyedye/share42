@@ -5,7 +5,7 @@ describe Spacecop do
 
 	it "increases the upload size of 999.999.999.999 by 1GB " do
 		  	ip = "999.999.999.999"
-		   	stuff = {:file_file_size=>1073741824}
+		   	stuff = {:file_file_size=>2147483648}
 
 		   	ip_key_total = ip+"_total"
 	   		ip_key_today = ip+"_"+Date.today.to_s
@@ -17,8 +17,8 @@ describe Spacecop do
    			ip_upload_total = $redis.hget(ip_key_total,"upload")			 
        		ip_upload_today = $redis.hget(ip_key_today,"upload")
 
-   			ip_upload_total.should = 1073741824.to_s
-   			ip_upload_today.should = 1073741824.to_s
+   			ip_upload_total.should = 2147483648.to_s
+   			ip_upload_today.should = 2147483648.to_s
 
 	end
 

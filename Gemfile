@@ -30,6 +30,7 @@ gem 'resque-scheduler', require: 'resque_scheduler', git: 'git://github.com/bvan
 gem "mail"
 gem "aws-ses"
 gem 'aws-s3'
+gem 'aws-sdk'
 gem "paperclip", "~> 2.4"
 gem 'jquery-rails'
 gem 'rubyzip'

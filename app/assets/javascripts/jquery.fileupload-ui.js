@@ -15,7 +15,7 @@
 (function ($) {
 	
 	     var response=$.ajax({
-			url: "http://www.42share.com/priviledge",
+			url: "http://127.0.0.1:3000/priviledge",
 			dataType: "json",
 			type: "GET",
 			processData: true,
