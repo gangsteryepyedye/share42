@@ -34,7 +34,7 @@ config.action_mailer.default_url_options = { :host => "www.42share.com" }
   config.action_mailer.delivery_method = :ses
 
 
-  ENV["REDISTOGO_URL"] = 'redis://localhost:6379' 
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:72d608637652eb4bbd799ef5bf10327f@pike.redistogo.com:9325' 
 
    
 end
