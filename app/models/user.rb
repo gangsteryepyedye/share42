@@ -124,7 +124,7 @@ end
   def personal_init(first_time)
       self.capacity=107374182400 
       self.priviledge="3"
-      self.spf=2147483648     
+      self.spf=5368709120     
       self.downloadcap=99999
       if first_time==true
         self.storage=0
