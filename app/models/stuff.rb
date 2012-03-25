@@ -16,7 +16,9 @@ class Stuff < ActiveRecord::Base
 def move_upload_from_temp_to_final_resting_place
   # Rename the image on s3 (more of a move)
   s3 = AWS::S3.new(:access_key_id => 'AKIAICDXU5SXRWQA5RQA',:secret_access_key => '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')
-  
+ 
+
+  if self.legal==true 
     new_name = self.file.path[1..-1]
     old_name = "#{self.file_file_name}"
     (1..5).each do |try|
@@ -31,10 +33,23 @@ def move_upload_from_temp_to_final_resting_place
         sleep 1
       end
     end
+  else
+        old_name = "/#{self.file_file_name}"
+    (1..5).each do |try|
+      begin
+       # Copy the file
+        AWS::S3::S3Object.delete(old_name,'filetunnel')
+        self.destroy
+        break
+      rescue Exception => e
+        sleep 1
+      end
+    end
+ 
+  end
 
 
 end
-  
   def shorten (string, count = 10)
     if string.length >= count 
       shortened = string[0, count]
