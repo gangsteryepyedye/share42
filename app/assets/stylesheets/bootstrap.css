@@ -1780,8 +1780,7 @@ a.menu:after, .dropdown-toggle:after {
   text-shadow: 1px 1px 0 white;
 }
 .hero-unit p {
-font-size: 20px;
-font-weight: bold;
+font-size: 18px;
 color: #666;
 display: block;
 margin: 0;  
@@ -1789,6 +1788,16 @@ margin-top:15px;
 line-height: 25px;
 }
 
+.hero-unit p strong{
+  font-size:23px;
+
+}
+
+
+.call_to_action p strong{
+  display:inline-block;
+  font-size:12px;
+}
 
 .footer {
     clear:both;

@@ -112,7 +112,32 @@ class ContainersController < ApplicationController
       @container.save
 
       if @container.is_single!=true
-        Resque.enqueue_in(10.minutes,Deletion,params[:id],current_user.id,zip_name)
+
+
+          for stuff in @container.stuffs
+            @user.storage = @user.storage-stuff.file_file_size
+            stuff.destroy
+          end
+          
+          @user.save
+          @container.exptime = Time.now
+          @container.state = "removed"
+          @container.save
+
+          #destroy zip
+          s3 = AWS::S3.new(:access_key_id => 'AKIAICDXU5SXRWQA5RQA',:secret_access_key => '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')
+          bucket = s3.buckets['filetunnel']  
+          
+
+          
+          filename="zip/#{@container.sha1}/#{zip_name}"
+
+          s3obj = nil
+        
+          s3obj = bucket.objects[filename]
+
+          s3obj.delete();
+
       end
       
       redirect_to '/containers'
@@ -125,6 +150,8 @@ class ContainersController < ApplicationController
 
     @container=Container.find_by_id_or_sha1(params[:id])
     @container.destroy
+
+
 
     redirect_to '/containers'
 

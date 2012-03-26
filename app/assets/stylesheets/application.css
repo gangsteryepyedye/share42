@@ -891,6 +891,7 @@ table.plan_table td{
 	color:#333;
 	font-weight: bold;
 	height:25px;	
+	width: 80px;
 }
 
 #plans{
@@ -2397,7 +2398,7 @@ ul#mycarousel li{
 
 .jcarousel-skin-tango .jcarousel-item-horizontal {
     margin-left: 0;
-    margin-right: 38px;
+    margin-right: 34px;
 }
 
 .jcarousel-skin-tango .jcarousel-item-horizontal .item-title{
