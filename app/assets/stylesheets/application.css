@@ -72,6 +72,14 @@ background-position: 0 -336px;
 }
 
 
+.action_button.user.action_icon::before {
+background-position: 0 -360px;
+}
+
+.action_button.user.action_icon:hover:before,
+.action_button.user.action_icon:focus:before,
+.action_button.user.action_icon:active:before { background-position: -12px -360px; }
+
 
 
 .action_button.action_icon::before {

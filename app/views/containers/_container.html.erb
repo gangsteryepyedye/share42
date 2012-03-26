@@ -32,7 +32,11 @@
 </div>
 
 <div class="index_first_td_top_right">
+
+
+
 <% if !expired(container) %>
+    <a href="#button" class="action_button action_icon user">Share</a>
     <%= link_to "Remove", {:controller=>"containers",:action=>"remove",:id=>container.sha1},:class=>"action_button danger action_icon trash",:confirm=>"Remove this folder? All the files contained will be removed."%>
 <% else %>
     <%= link_to "Delete", {:controller=>"containers",:action=>"remove_folder",:id=>container.sha1},:class=>"action_button danger action_icon trash" %>

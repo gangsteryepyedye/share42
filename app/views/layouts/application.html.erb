@@ -51,11 +51,15 @@
 			
 
 42Share</a>
-         
+        
+
+        <% if !current_user %>  
          <ul class="nav">
             <li><a href="/pages/pricing">Signup & Pricing</a></li>
           </ul>
-          
+        <% end %>    
+
+
          <% if current_user %>
 
 
