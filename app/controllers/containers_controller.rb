@@ -113,7 +113,8 @@ class ContainersController < ApplicationController
 
           #destroy zip
           s3 = AWS::S3.new(:access_key_id => 'AKIAICDXU5SXRWQA5RQA',:secret_access_key => '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')
-          
+          bucket = s3.buckets['filetunnel']  
+
           filename="zip/#{@container.sha1}/#{zip_name}"
 
           s3obj = bucket.objects[filename]
