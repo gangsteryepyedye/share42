@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-   default :from => "238357@gmail.com"
+   default :from => "noreply@42share.com"
 
 
   def hacker_upload_alert(ip,upload_today,upload_total) 
@@ -8,7 +8,7 @@ class Notifier < ActionMailer::Base
     @upload_today = upload_today
     @upload_total = upload_total
 
-    mail(:to=>"238357@gmail.com",:subject=>"Hacker Upload Alert")
+    mail(:to=>"noreply@42share.com",:subject=>"Hacker Upload Alert")
 
   end  
 
@@ -19,7 +19,7 @@ class Notifier < ActionMailer::Base
     @download_today = download_today
     @download_total = download_total
 
-    mail(:to=>"238357@gmail.com",:subject=>"Hacker Download Alert")
+    mail(:to=>"noreply@42share.com",:subject=>"Hacker Download Alert")
 
   end
 
@@ -29,7 +29,7 @@ class Notifier < ActionMailer::Base
     @message=message
     @sender=sender
 
-    mail(:to=>"238357@gmail.com",:subject=>"Question regarding the plan") 
+    mail(:to=>"noreply@42share.com",:subject=>"Question regarding the plan") 
 
   end
 
@@ -118,7 +118,7 @@ class Notifier < ActionMailer::Base
 
     @sender = sender
 
-    @reps = ["238357@gmail.com","jinxin@grinnell.edu"]
+    @reps = ["noreply@42share.com","jinxin@grinnell.edu"]
 
     @filenames = namelist
 
