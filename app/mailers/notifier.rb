@@ -118,7 +118,7 @@ class Notifier < ActionMailer::Base
 
     @sender = sender
 
-    @reps = ["noreply@42share.com","jinxin@grinnell.edu"]
+    @reps = recipients
 
     @filenames = namelist
 

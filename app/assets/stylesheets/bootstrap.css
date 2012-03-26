@@ -1500,33 +1500,58 @@ a.menu:after, .dropdown-toggle:after {
   opacity: 0.5;
 }
 .menu-dropdown, .dropdown-menu {
-  background-color: #ffffff;
-  float: left;
-  display: none;
-  position: absolute;
-  top: 40px;
-  z-index: 900;
-  min-width: 160px;
-  max-width: 220px;
-  _width: 160px;
-  margin-left: 0;
-  margin-right: 0;
-  padding: 6px 0;
-  zoom: 1;
-  border-color: #999;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: solid;
-  border-width: 0 1px 1px;
-  -webkit-border-radius: 0 0 6px 6px;
-  -moz-border-radius: 0 0 6px 6px;
-  border-radius: 0 0 6px 6px;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
+position: absolute;
+top: 100%;
+left: 0;
+z-index: 1000;
+float: left;
+display: none;
+min-width: 160px;
+padding: 4px 0;
+margin: 0;
+list-style: none;
+background-color: white;
+border-color: #CCC;
+border-color: rgba(0, 0, 0, 0.2);
+border-style: solid;
+border-width: 1px;
+-webkit-border-radius: 0 0 5px 5px;
+-moz-border-radius: 0 0 5px 5px;
+border-radius: 0 0 5px 5px;
+-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+-webkit-background-clip: padding-box;
+-moz-background-clip: padding;
+background-clip: padding-box;
 }
+
+
+.menu-dropdown .dropdown-menu::before {
+content: '';
+display: inline-block;
+border-left: 7px solid transparent;
+border-right: 7px solid transparent;
+border-bottom: 7px solid #CCC;
+border-bottom-color: rgba(0, 0, 0, 0.2);
+position: absolute;
+top: -7px;
+left: 9px;
+}
+
+
+.menu-dropdown .dropdown-menu::after {
+content: '';
+display: inline-block;
+border-left: 6px solid transparent;
+border-right: 6px solid transparent;
+border-bottom: 6px solid white;
+position: absolute;
+top: -6px;
+left: 10px;
+}
+
+
 .menu-dropdown li, .dropdown-menu li {
   float: none;
   display: block;
