@@ -1,101 +1,101 @@
-2012-03-26T22:38:49+00:00 app[web.1]: 
-2012-03-26T22:38:49+00:00 app[web.1]: Started GET "/priviledge" for 10.36.18.203 at 2012-03-26 22:38:49 +0000
-2012-03-26T22:38:49+00:00 app[web.1]:   Processing by JsonController#user_info as JSON
-2012-03-26T22:38:49+00:00 app[web.1]:   Parameters: {"json"=>{"action"=>"user_info", "controller"=>"json"}}
-2012-03-26T22:38:49+00:00 app[web.1]: Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.0ms)
-2012-03-26T22:38:49+00:00 app[web.1]: cache: [GET /priviledge] miss
-2012-03-26T22:38:49+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:49 +0000] "GET /priviledge HTTP/1.1" 304 0 "https://www.42share.com/new_transfer" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:49+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:49 +0000] "GET /priviledge HTTP/1.0" 304 0 "https://www.42share.com/new_transfer" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:49+00:00 heroku[router]: GET www.42share.com/priviledge dyno=web.1 queue=0 wait=0ms service=8ms status=304 bytes=0
-2012-03-26T22:38:50+00:00 app[web.1]: cache: [GET /flash/s3_upload.swf] miss
-2012-03-26T22:38:50+00:00 heroku[router]: GET www.42share.com/flash/s3_upload.swf dyno=web.1 queue=0 wait=0ms service=3ms status=304 bytes=0
-2012-03-26T22:38:50+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_upload.swf HTTP/1.1" 304 0 "https://www.42share.com/new_transfer" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:50+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_upload.swf HTTP/1.0" 304 0 "https://www.42share.com/new_transfer" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:50+00:00 app[web.1]: cache: [GET /flash/s3_over_button.gif] miss
-2012-03-26T22:38:50+00:00 app[web.1]: cache: [GET /flash/s3_down_button.gif] miss
-2012-03-26T22:38:50+00:00 heroku[router]: GET www.42share.com/flash/s3_over_button.gif dyno=web.1 queue=0 wait=0ms service=11ms status=304 bytes=0
-2012-03-26T22:38:50+00:00 heroku[router]: GET www.42share.com/flash/s3_down_button.gif dyno=web.1 queue=0 wait=0ms service=12ms status=304 bytes=0
-2012-03-26T22:38:50+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_over_button.gif HTTP/1.0" 304 0 "https://www.42share.com/flash/s3_upload.swf" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:50+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_over_button.gif HTTP/1.1" 304 0 "https://www.42share.com/flash/s3_upload.swf" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:50+00:00 heroku[router]: GET www.42share.com/flash/s3_up_button.gif dyno=web.1 queue=0 wait=0ms service=15ms status=304 bytes=0
-2012-03-26T22:38:50+00:00 app[web.1]: cache: [GET /flash/s3_up_button.gif] miss
-2012-03-26T22:38:50+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_down_button.gif HTTP/1.0" 304 0 "https://www.42share.com/flash/s3_upload.swf" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:50+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_down_button.gif HTTP/1.1" 304 0 "https://www.42share.com/flash/s3_upload.swf" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:50+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_up_button.gif HTTP/1.1" 304 0 "https://www.42share.com/flash/s3_upload.swf" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:50+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:50 +0000] "GET /flash/s3_up_button.gif HTTP/1.0" 304 0 "https://www.42share.com/flash/s3_upload.swf" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:57+00:00 app[web.1]: 
-2012-03-26T22:38:57+00:00 app[web.1]: 
-2012-03-26T22:38:57+00:00 app[web.1]: Started GET "/containers" for 10.36.18.203 at 2012-03-26 22:38:57 +0000
-2012-03-26T22:38:57+00:00 app[web.1]:   Processing by ContainersController#index as HTML
-2012-03-26T22:38:57+00:00 app[web.1]: Rendered containers/_header.html.erb (0.0ms)
-2012-03-26T22:38:57+00:00 app[web.1]: Rendered containers/_container.html.erb (86.5ms)
-2012-03-26T22:38:57+00:00 app[web.1]: Rendered containers/index.html.erb within layouts/application (119.1ms)
-2012-03-26T22:38:57+00:00 app[web.1]: Completed 200 OK in 149ms (Views: 66.7ms | ActiveRecord: 62.9ms)
-2012-03-26T22:38:57+00:00 app[web.1]: cache: [GET /containers] miss
-2012-03-26T22:38:57+00:00 heroku[router]: GET www.42share.com/containers dyno=web.1 queue=0 wait=0ms service=168ms status=200 bytes=8992
-2012-03-26T22:38:57+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:57 +0000] "GET /containers HTTP/1.1" 200 3230 "https://www.42share.com/new_transfer" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:57+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:57 +0000] "GET /containers HTTP/1.0" 200 8992 "https://www.42share.com/new_transfer" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" 
-www.42share.com
-2012-03-26T22:38:58+00:00 app[web.1]: 
-2012-03-26T22:38:58+00:00 app[web.1]: 
-2012-03-26T22:38:58+00:00 app[web.1]: Started GET "/priviledge" for 10.36.18.203 at 2012-03-26 22:38:58 +0000
-2012-03-26T22:38:58+00:00 app[web.1]:   Processing by JsonController#user_info as JSON
-2012-03-26T22:38:58+00:00 app[web.1]:   Parameters: {"json"=>{"action"=>"user_info", "controller"=>"json"}}
-2012-03-26T22:38:58+00:00 app[web.1]: Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.0ms)
-2012-03-26T22:38:58+00:00 app[web.1]: cache: [GET /priviledge] miss
-2012-03-26T22:38:58+00:00 heroku[router]: GET www.42share.com/priviledge dyno=web.1 queue=0 wait=0ms service=38ms status=304 bytes=0
-2012-03-26T22:38:58+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:58 +0000] "GET /priviledge HTTP/1.0" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:58 +0000] "GET /priviledge HTTP/1.1" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 app[web.1]: cache: [GET /assets/search-spacer.png] miss
-2012-03-26T22:38:58+00:00 heroku[router]: GET www.42share.com/assets/search-spacer.png dyno=web.1 queue=0 wait=0ms service=2ms status=304 bytes=0
-2012-03-26T22:38:58+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/search-spacer.png HTTP/1.0" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/search-spacer.png HTTP/1.1" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 app[web.1]: cache: [GET /assets/glyphicons-halflings-white.png] miss
-2012-03-26T22:38:58+00:00 heroku[router]: GET www.42share.com/assets/glyphicons-halflings-white.png dyno=web.1 queue=0 wait=0ms service=38ms status=304 bytes=0
-2012-03-26T22:38:58+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/glyphicons-halflings-white.png HTTP/1.0" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/glyphicons-halflings-white.png HTTP/1.1" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 app[web.1]: cache: [GET /assets/gh-icons.png] miss
-2012-03-26T22:38:58+00:00 app[web.1]: cache: [GET /assets/glyphicons-halflings.png] miss
-2012-03-26T22:38:58+00:00 heroku[router]: GET www.42share.com/assets/gh-icons.png dyno=web.1 queue=0 wait=0ms service=8ms status=304 bytes=0
-2012-03-26T22:38:58+00:00 app[web.1]: cache: [GET /assets/folder_icon.png] miss
-2012-03-26T22:38:58+00:00 heroku[router]: GET www.42share.com/assets/glyphicons-halflings.png dyno=web.1 queue=0 wait=0ms service=9ms status=304 bytes=0
-2012-03-26T22:38:58+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/gh-icons.png HTTP/1.1" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/gh-icons.png HTTP/1.0" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[router]: GET www.42share.com/assets/folder_icon.png dyno=web.1 queue=0 wait=0ms service=13ms status=304 bytes=0
-2012-03-26T22:38:58+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/glyphicons-halflings.png HTTP/1.1" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/glyphicons-halflings.png HTTP/1.0" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/folder_icon.png HTTP/1.1" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:38:58+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:38:58 +0000] "GET /assets/folder_icon.png HTTP/1.0" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:39:01+00:00 app[web.1]: 
-2012-03-26T22:39:01+00:00 app[web.1]: 
-2012-03-26T22:39:01+00:00 app[web.1]: Started GET "/containers/5080c6021b00df357eb85e6ba52d6f31d0a5b2e5/remove" for 10.36.18.203 at 2012-03-26 22:39:01 +0000
-2012-03-26T22:39:01+00:00 app[web.1]:   Processing by ContainersController#remove as HTML
-2012-03-26T22:39:01+00:00 app[web.1]:   Parameters: {"id"=>"5080c6021b00df357eb85e6ba52d6f31d0a5b2e5"}
-2012-03-26T22:39:01+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
-2012-03-26T22:39:02+00:00 app[web.1]: [paperclip] Deleting attachments.
-2012-03-26T22:39:02+00:00 app[web.1]: [paperclip] deleting /original/9/5-sevillanas-duets-oct-08__2_.zip.zip
-2012-03-26T22:39:02+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
-2012-03-26T22:39:02+00:00 app[web.1]: [paperclip] Deleting attachments.
-2012-03-26T22:39:02+00:00 app[web.1]: [paperclip] deleting /original/10/Phx_debug_log__1_.txt
-2012-03-26T22:39:03+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
-2012-03-26T22:39:03+00:00 app[web.1]: [paperclip] deleting /original/11/Phx_debug_log.txt
-2012-03-26T22:39:03+00:00 app[web.1]: [paperclip] Deleting attachments.
-2012-03-26T22:39:03+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
-2012-03-26T22:39:03+00:00 app[web.1]: [paperclip] deleting /original/12/Portuguese_ALSO_Mid-sem.docx
-2012-03-26T22:39:03+00:00 app[web.1]: [paperclip] Deleting attachments.
-2012-03-26T22:39:03+00:00 app[web.1]: Completed 500 Internal Server Error in 1531ms
-2012-03-26T22:39:03+00:00 app[web.1]: 
-2012-03-26T22:39:03+00:00 app[web.1]: TypeError (nil can't be coerced into Fixnum):
-2012-03-26T22:39:03+00:00 app[web.1]:   app/controllers/containers_controller.rb:118:in `-'
-2012-03-26T22:39:03+00:00 app[web.1]:   app/controllers/containers_controller.rb:118:in `block in remove'
-2012-03-26T22:39:03+00:00 app[web.1]:   app/controllers/containers_controller.rb:117:in `remove'
-2012-03-26T22:39:03+00:00 app[web.1]: 
-2012-03-26T22:39:03+00:00 app[web.1]: cache: [GET /containers/5080c6021b00df357eb85e6ba52d6f31d0a5b2e5/remove] miss
-2012-03-26T22:39:03+00:00 app[web.1]: 
-2012-03-26T22:39:03+00:00 heroku[router]: GET www.42share.com/containers/5080c6021b00df357eb85e6ba52d6f31d0a5b2e5/remove dyno=web.1 queue=0 wait=0ms service=1575ms status=500 bytes=728
-2012-03-26T22:39:03+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:39:03 +0000] "GET /containers/5080c6021b00df357eb85e6ba52d6f31d0a5b2e5/remove HTTP/1.1" 500 728 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:39:03+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:39:03 +0000] "GET /containers/5080c6021b00df357eb85e6ba52d6f31d0a5b2e5/remove HTTP/1.0" 500 728 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:39:03+00:00 app[web.1]: cache: [GET /favicon.ico] miss
-2012-03-26T22:39:03+00:00 heroku[router]: GET www.42share.com/favicon.ico dyno=web.1 queue=0 wait=0ms service=1ms status=200 bytes=0
-2012-03-26T22:39:03+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:22:39:03 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
-2012-03-26T22:39:03+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:22:39:03 +0000] "GET /favicon.ico HTTP/1.0" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 app[web.1]: 
+2012-03-26T23:20:00+00:00 app[web.1]:   Processing by ContainersController#show as HTML
+2012-03-26T23:20:00+00:00 app[web.1]:   Parameters: {"id"=>"02b30c4c3cc7adffafd09529830ac81ba1d4f716"}
+2012-03-26T23:20:00+00:00 app[web.1]: Rendered containers/_header.html.erb (0.0ms)
+2012-03-26T23:20:00+00:00 app[web.1]: Rendered containers/_container_main.html.erb (35.0ms)
+2012-03-26T23:20:00+00:00 app[web.1]: Rendered containers/show.html.erb within layouts/application (50.5ms)
+2012-03-26T23:20:00+00:00 app[web.1]: Completed 200 OK in 180ms (Views: 53.1ms | ActiveRecord: 13.4ms)
+2012-03-26T23:20:00+00:00 app[web.1]: cache: [GET /containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716] miss
+2012-03-26T23:20:00+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:00 +0000] "GET /containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716 HTTP/1.1" 200 3512 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:00 +0000] "GET /containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716 HTTP/1.0" 200 10911 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 heroku[router]: GET www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716 dyno=web.1 queue=0 wait=0ms service=214ms status=200 bytes=10911
+2012-03-26T23:20:00+00:00 app[web.1]: 
+2012-03-26T23:20:00+00:00 app[web.1]: 
+2012-03-26T23:20:00+00:00 app[web.1]: Started GET "/priviledge" for 10.36.18.203 at 2012-03-26 23:20:00 +0000
+2012-03-26T23:20:00+00:00 app[web.1]:   Processing by JsonController#user_info as JSON
+2012-03-26T23:20:00+00:00 app[web.1]:   Parameters: {"json"=>{"action"=>"user_info", "controller"=>"json"}}
+2012-03-26T23:20:00+00:00 app[web.1]: Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+2012-03-26T23:20:00+00:00 app[web.1]: cache: [GET /priviledge] miss
+2012-03-26T23:20:00+00:00 heroku[router]: GET www.42share.com/priviledge dyno=web.1 queue=0 wait=0ms service=18ms status=304 bytes=0
+2012-03-26T23:20:00+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:00 +0000] "GET /priviledge HTTP/1.0" 304 0 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:00 +0000] "GET /priviledge HTTP/1.1" 304 0 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 app[web.1]: cache: [GET /assets/user.png] miss
+2012-03-26T23:20:00+00:00 heroku[router]: GET www.42share.com/assets/user.png dyno=web.1 queue=0 wait=0ms service=5ms status=200 bytes=1087
+2012-03-26T23:20:00+00:00 app[web.1]: cache: [GET /assets/clipboard.png] miss
+2012-03-26T23:20:00+00:00 heroku[router]: GET www.42share.com/assets/clipboard.png dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=721
+2012-03-26T23:20:00+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:00 +0000] "GET /assets/user.png HTTP/1.1" 200 1087 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:00 +0000] "GET /assets/user.png HTTP/1.0" 200 1087 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:00 +0000] "GET /assets/clipboard.png HTTP/1.1" 200 721 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:00 +0000] "GET /assets/clipboard.png HTTP/1.0" 200 721 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:00+00:00 app[web.1]: cache: [GET /assets/file_icon.png] miss
+2012-03-26T23:20:01+00:00 app[web.1]: cache: [GET /assets/ZeroClipboard.swf] miss
+2012-03-26T23:20:00+00:00 heroku[router]: GET www.42share.com/assets/file_icon.png dyno=web.1 queue=0 wait=0ms service=11ms status=200 bytes=1273
+2012-03-26T23:20:00+00:00 heroku[router]: GET www.42share.com/assets/ZeroClipboard.swf dyno=web.1 queue=0 wait=0ms service=4ms status=200 bytes=1071
+2012-03-26T23:20:01+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:01 +0000] "GET /assets/ZeroClipboard.swf HTTP/1.1" 200 1071 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:01+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:01 +0000] "GET /assets/ZeroClipboard.swf HTTP/1.0" 200 1071 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:01+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:01 +0000] "GET /assets/file_icon.png HTTP/1.1" 200 1273 "h
+ttps://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:01+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:01 +0000] "GET /assets/file_icon.png HTTP/1.0" 200 1273 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:02+00:00 app[web.1]: 
+2012-03-26T23:20:02+00:00 app[web.1]: 
+2012-03-26T23:20:02+00:00 app[web.1]: Started GET "/" for 10.36.18.203 at 2012-03-26 23:20:02 +0000
+2012-03-26T23:20:02+00:00 app[web.1]:   Processing by ContainersController#new as HTML
+2012-03-26T23:20:02+00:00 app[web.1]: Redirected to https://www.42share.com/containers
+2012-03-26T23:20:02+00:00 app[web.1]: Completed 302 Found in 4ms
+2012-03-26T23:20:02+00:00 app[web.1]: cache: [GET /] miss
+2012-03-26T23:20:02+00:00 heroku[router]: GET www.42share.com/ dyno=web.1 queue=0 wait=0ms service=11ms status=302 bytes=100
+2012-03-26T23:20:02+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:02 +0000] "GET / HTTP/1.1" 302 100 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:02+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:02 +0000] "GET / HTTP/1.0" 302 100 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:02+00:00 app[web.1]: 
+2012-03-26T23:20:02+00:00 app[web.1]: 
+2012-03-26T23:20:02+00:00 app[web.1]: Started GET "/containers" for 10.36.18.203 at 2012-03-26 23:20:02 +0000
+2012-03-26T23:20:02+00:00 app[web.1]:   Processing by ContainersController#index as HTML
+2012-03-26T23:20:02+00:00 app[web.1]: Rendered containers/_header.html.erb (0.0ms)
+2012-03-26T23:20:02+00:00 app[web.1]: Rendered containers/_container.html.erb (106.1ms)
+2012-03-26T23:20:02+00:00 app[web.1]: Rendered containers/index.html.erb within layouts/application (116.5ms)
+2012-03-26T23:20:02+00:00 app[web.1]: Completed 200 OK in 124ms (Views: 11.7ms | ActiveRecord: 110.6ms)
+2012-03-26T23:20:02+00:00 app[web.1]: cache: [GET /containers] miss
+2012-03-26T23:20:02+00:00 heroku[router]: GET www.42share.com/containers dyno=web.1 queue=0 wait=0ms service=127ms status=304 bytes=0
+2012-03-26T23:20:02+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:02 +0000] "GET /containers HTTP/1.1" 304 0 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:02+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:02 +0000] "GET /containers HTTP/1.0" 304 0 "https://www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:03+00:00 app[web.1]: 
+2012-03-26T23:20:03+00:00 app[web.1]: 
+2012-03-26T23:20:03+00:00 app[web.1]: Started GET "/priviledge" for 10.36.18.203 at 2012-03-26 23:20:03 +0000
+2012-03-26T23:20:03+00:00 app[web.1]:   Processing by JsonController#user_info as JSON
+2012-03-26T23:20:03+00:00 app[web.1]:   Parameters: {"json"=>{"action"=>"user_info", "controller"=>"json"}}
+2012-03-26T23:20:03+00:00 app[web.1]: Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+2012-03-26T23:20:03+00:00 app[web.1]: cache: [GET /priviledge] miss
+2012-03-26T23:20:03+00:00 heroku[router]: GET www.42share.com/priviledge dyno=web.1 queue=0 wait=0ms service=8ms status=304 bytes=0
+2012-03-26T23:20:03+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:03 +0000] "GET /priviledge HTTP/1.1" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:03+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:03 +0000] "GET /priviledge HTTP/1.0" 304 0 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:05+00:00 app[web.1]:   Parameters: {"id"=>"02b30c4c3cc7adffafd09529830ac81ba1d4f716"}
+2012-03-26T23:20:05+00:00 app[web.1]: 
+2012-03-26T23:20:05+00:00 app[web.1]:   Processing by ContainersController#remove as HTML
+2012-03-26T23:20:05+00:00 app[web.1]: Started GET "/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716/remove" for 10.36.18.203 at 2012-03-26 23:20:05 +0000
+2012-03-26T23:20:05+00:00 app[web.1]: 
+2012-03-26T23:20:05+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] Deleting attachments.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] deleting /original/57/1321035266-redo.png
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] Deleting attachments.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] deleting /original/58/1321035266-redo__2_.png
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] Deleting attachments.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] deleting /original/59/1321034787_doc_export.png
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] Scheduling attachments for deletion.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] Deleting attachments.
+2012-03-26T23:20:06+00:00 app[web.1]: [paperclip] deleting /original/60/1321036159_key.png
+2012-03-26T23:20:06+00:00 app[web.1]: Completed 500 Internal Server Error in 1110ms
+2012-03-26T23:20:06+00:00 app[web.1]: NoMethodError (undefined method `delete' for <AWS::S3>:AWS::S3):
+2012-03-26T23:20:06+00:00 app[web.1]: 
+2012-03-26T23:20:06+00:00 app[web.1]: 
+2012-03-26T23:20:06+00:00 app[web.1]: 
+2012-03-26T23:20:06+00:00 app[web.1]:   app/controllers/containers_controller.rb:122:in `remove'
+2012-03-26T23:20:06+00:00 app[web.1]: cache: [GET /containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716/remove] miss
+2012-03-26T23:20:06+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:06 +0000] "GET /containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716/remove HTTP/1.1" 500 728 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:06+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:06 +0000] "GET /containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716/remove HTTP/1.0" 500 728 "https://www.42share.com/containers" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:06+00:00 heroku[router]: GET www.42share.com/containers/02b30c4c3cc7adffafd09529830ac81ba1d4f716/remove dyno=web.1 queue=0 wait=0ms service=1131ms status=500 bytes=728
+2012-03-26T23:20:07+00:00 app[web.1]: cache: [GET /favicon.ico] miss
+2012-03-26T23:20:07+00:00 heroku[router]: GET www.42share.com/favicon.ico dyno=web.1 queue=0 wait=0ms service=1ms status=200 bytes=0
+2012-03-26T23:20:07+00:00 heroku[nginx]: 10.36.18.203 - - [26/Mar/2012:23:20:07 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com
+2012-03-26T23:20:07+00:00 heroku[nginx]: 127.0.0.1 - - [26/Mar/2012:23:20:07 +0000] "GET /favicon.ico HTTP/1.0" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11" www.42share.com

@@ -9,9 +9,6 @@ class ContainersController < ApplicationController
   require 'resque_scheduler'
 
 
-  #To-Do: 1. Test before_download check
-  #       2. Create downloading notifier 
-
 
 
 
@@ -119,7 +116,9 @@ class ContainersController < ApplicationController
           
           filename="zip/#{@container.sha1}/#{zip_name}"
 
-          s3.delete(:bucket_name=>'filetunnel',:key=>'filename')
+          s3obj = bucket.objects[filename]
+
+          s3obj.delete()
 
       end
       
