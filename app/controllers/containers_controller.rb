@@ -294,7 +294,7 @@ class ContainersController < ApplicationController
     end
 
 
-    link="http://www.42share.com/containers/"+@container.sha1
+    link="http://www.42share.com/containers/"+@container.sha1.to_s
 
     #send out emails to recipients
     for e in @container.emails
