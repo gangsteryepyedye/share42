@@ -743,6 +743,8 @@ $(function () {
 
 
 
+
+
     $(".personal_upgrade").bind("click",function(){
         $(".plan").val("personal");
         $(".plan_show").html("<strong>Personal </strong>");
@@ -908,6 +910,10 @@ function folderUpdate() {
 
 }
 
+function updateTitle(){
+    var title = $(".form_folder_name").val();
+    $(".folder_name").html(title)    
+}
 
 
 function checkSpace() {

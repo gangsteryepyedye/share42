@@ -7,7 +7,7 @@
         <% if @container.name.nil? %>
         <li class="active"><%= @container.stuffs.first.file_file_name %></li>
         <% else %>
-        <li class="active"><%= @container.name %></li>
+        <li class="active folder_name"><%= @container.name %></li>
         <% end %>
     
 
@@ -142,7 +142,7 @@ Total (including anonymous)<br></td>
   <div class="clearfix">  
     <label for="xlInput">Folder Name</label>
     <div class="input">
-      <%= f.text_field :name, :id=>"xlInput", :class=>"xlarge" %>
+      <%= f.text_field :name, :id=>"xlInput", :class=>"xlarge form_folder_name" %>
     </div>
   </div>
 
@@ -197,7 +197,7 @@ Total (including anonymous)<br></td>
   </div>
   
     <div style="margin-top:5px;">
-    <%= f.submit "update", :class=>"btn large", :style=>"margin-left:150px;margin-top:10px;" %>
+    <%= f.submit "update", :class=>"btn large", :style=>"margin-left:150px;margin-top:10px;",:onClick=>"updateTitle();return true" %>
 
     </div>
 

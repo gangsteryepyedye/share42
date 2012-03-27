@@ -2,6 +2,24 @@ class Spacecop < ActiveRecord::Base
 
 
 
+    def self.add_clean_later(id)
+      if $redis.get("all_folder_ids").nil?
+        $redis.set("all_folder_ids","[]")
+      end
+
+      ids = JSON.parse($redis.get("all_folder_ids"))
+
+      ids.push(id)
+
+      result_string = ids.to_json
+
+      $redis.set("all_folder_ids",result_string)
+
+
+
+    end
+
+
     def self.add_new_ip(ip)
       
       if $redis.get("all_ips").nil?

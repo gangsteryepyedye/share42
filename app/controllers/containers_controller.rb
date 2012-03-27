@@ -108,7 +108,7 @@ class ContainersController < ApplicationController
       @container.state = "removed"
       @container.save
 
-      if @container.is_single!=true
+      if (@container.is_single!=true)&&(@container.zipped==true)
 
 
           #destroy zip
@@ -122,6 +122,11 @@ class ContainersController < ApplicationController
           s3obj.delete()
 
       end
+
+      if (@container.is_single!=true)&&(@container.zipped==false)
+        Spacecop.add_clean_later(@container.sha1)
+      end
+
       
       redirect_to '/containers'
   end
@@ -293,7 +298,7 @@ class ContainersController < ApplicationController
 
     #send out emails to recipients
     for e in @container.emails
-          Notifier.notify(@container.subject,@container.message,@container.sender,e.name.to_s,name_list,link).deliver
+          Notifier.notify(@container.subject,@container.message,@container.sender,e.name,name_list,link).deliver
     end
 
   
