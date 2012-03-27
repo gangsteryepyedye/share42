@@ -66,10 +66,14 @@ class Notifier < ActionMailer::Base
     @recipient = recipient
     @filenames=namelist
 
-    mail(:to=>@recipient,
-         :subject=>subject) do |format|
-          format.html {render 'notify_download'}
+    if !@recipient.nil?  
+      mail(:to=>@recipient,
+           :subject=>subject) do |format|
+            format.html {render 'notify_download'}
+      end
     end
+
+
   end
   
 

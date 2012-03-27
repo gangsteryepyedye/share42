@@ -34,11 +34,11 @@ def download
               @link = "http://www.42share.com/containers/"+@container.sha1
 
               if @email.downloads == 1
-                if @container.user_id.nil?
+                if (@container.user_id.nil?)&&(@container.notif==true)
                   Notifier.download_notify(@email.name,@container.sender,@link,@filelist).deliver
                 else
                   @user=User.find(@container.user_id)
-                  if (@user.everytime==true||(@user.everytime==false&&@email.downloads==1))                  
+                  if @container.notif==true                 
                     Notifier.download_notify(@email.name,@user.email,@link,@filelist).deliver
                   end
                 end
