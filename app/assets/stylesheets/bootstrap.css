@@ -1789,7 +1789,7 @@ left: 10px;
 }
 .hero-unit {
   float:left;
-  padding: 140px 0px 30px 0px;
+  padding: 155px 0px 30px 0px;
   margin-left:1px;
   width:380px;
   position:relative;
@@ -1814,8 +1814,9 @@ line-height: 25px;
 }
 
 .hero-unit p strong{
-  font-size: 17px;
-
+  font-size: 18px;
+  margin-right:1px;
+  margin-left:1px;
 }
 
 

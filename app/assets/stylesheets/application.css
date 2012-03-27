@@ -2347,8 +2347,8 @@ ul#mycarousel li{
 #mycarousel p{
 	color: #666666;
     margin-top: 0;
-font: normal normal normal 14px Arial, sans-serif;   
-margin-right:8px;	
+font: normal normal normal 12px Arial, sans-serif;   
+
 }
 
 
@@ -2365,9 +2365,9 @@ margin-right:8px;
 
 .jcarousel-skin-tango .jcarousel-container-horizontal {
     width: 400px;
-    padding: 20px 40px;
+    padding: 0px 40px;
     padding-left:0px;
-    padding-top:10px;
+    padding-top:5px;
 }
 
 .jcarousel-skin-tango .jcarousel-container-vertical {
@@ -2402,6 +2402,7 @@ margin-right:8px;
 
 .jcarousel-skin-tango .jcarousel-item-horizontal .item-title{
     text-align:center;
+    padding-right:22px;
 
 
 }
