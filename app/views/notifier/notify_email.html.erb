@@ -376,8 +376,11 @@
                                                             <div mc:edit="std_content00">
                                                                
                                                                 <h4 class="h4"><%= @sender %> just sent you <%= @count %> file(s) via 42Share</h4>
+                                                                <% if @filenames.count == 1 %>
+                                                                <a href=<%= @link %> >Download this file</a>
+                                                                <% else %>
                                                                 <a href=<%= @link %> >Download these files</a>	
-
+                                                                <% end %>
 
                                                                 <p>
                                                                 	File(s):	
