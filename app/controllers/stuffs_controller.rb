@@ -36,7 +36,7 @@ def download
               if @email.downloads == 1
                 if (@container.user_id.nil?)&&(@container.notif==true)
                   Notifier.download_notify(@email.name,@container.sender,@link,@filelist).deliver
-                else
+                elsif !@container.user_id.nil?
                   @user=User.find(@container.user_id)
                   if @container.notif==true                 
                     Notifier.download_notify(@email.name,@user.email,@link,@filelist).deliver
