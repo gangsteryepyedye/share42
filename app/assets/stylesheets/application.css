@@ -2346,10 +2346,9 @@ ul#mycarousel li{
 
 #mycarousel p{
 	color: #666666;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 15px;
-    margin-top: 0;	
+    margin-top: 0;
+font: normal normal normal 14px Arial, sans-serif;   
+margin-right:7px;	
 }
 
 
@@ -2398,7 +2397,7 @@ ul#mycarousel li{
 
 .jcarousel-skin-tango .jcarousel-item-horizontal {
     margin-left: 0;
-    margin-right: 34px;
+    margin-right: 29px;
 }
 
 .jcarousel-skin-tango .jcarousel-item-horizontal .item-title{
