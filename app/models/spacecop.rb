@@ -13,7 +13,7 @@ class Spacecop < ActiveRecord::Base
 
       result_string = ids.to_json
 
-      $redis.set("all_folder_ids",result_string)
+      $redis.set("all_folder_ids",result_string )
 
 
 
@@ -48,12 +48,21 @@ class Spacecop < ActiveRecord::Base
 
        Spacecop.add_new_ip(ip)
 
+
+       key_total = "total_upload"
 	   ip_key_total = ip+"_total"
 	   ip_key_today = ip+"_"+Date.today.to_s
 	   stuff_size = stuff[:file_file_size].to_i
 
+       stats_total = $redis.get(key_total)
        ip_stats_total = $redis.hgetall(ip_key_total)
        ip_stats_today = $redis.hgetall(ip_key_today) 
+
+
+       if stats_total == {}
+          $redis.set(key_total,"0")
+       end
+
 
        if ip_stats_total == {}
        		$redis.hmset(ip_key_total,"upload","0")
@@ -63,13 +72,13 @@ class Spacecop < ActiveRecord::Base
        		$redis.hmset(ip_key_today,"upload","0")
        end
 
+       upload_total = $redis.get(key_total).to_i
        ip_upload_total = $redis.hget(ip_key_total,"upload").to_i			 
        ip_upload_today = $redis.hget(ip_key_today,"upload").to_i
 
        #fire warning calls here
 
-
-
+       upload_total = upload_total.to_i + stuff_size
        ip_upload_total = ip_upload_total.to_i + stuff_size
        ip_upload_today = ip_upload_today.to_i + stuff_size
 
@@ -78,7 +87,7 @@ class Spacecop < ActiveRecord::Base
        	Notifier.hacker_upload_alert(ip,ip_upload_total.to_s,ip_upload_today.to_s).deliver
        end	
 
-
+       $redis.set(key_total, upload_total)
        $redis.hset(ip_key_total,"upload",ip_upload_total.to_s)
        $redis.hset(ip_key_today,"upload",ip_upload_today.to_s)
 
