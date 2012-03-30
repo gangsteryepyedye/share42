@@ -19,6 +19,457 @@ String.prototype.trunc = function(n){
 };
 
 
+
+
+$(function () {
+    
+    $('#mycarousel').jcarousel({
+        auto: 8,
+        wrap: 'circular',
+        initCallback: mycarousel_initCallback
+    });
+    
+    if($.browser.name=="msie"){
+        $(".content").html("<h1>Sorry, we do not support IE</h1><p>We are sorry if you are a genuine IE fan, changing your browser can be a real pain but it's definitely worth it. Think of it as you are supporting small companies on the web by not using IE. It isn't a joke, it really is a huge support. Thanks for your understanding.</p><br><p>42share works with Chrome, Firefox and Safari</p><br>")
+    }
+
+    //user payment processing(upgrade)
+    $(".payment-form").submit(function(event) {
+
+
+
+            // disable the submit button to prevent repeated clicks
+            $('.submit-button').attr("disabled", "disabled");
+
+            var amount = 1000; //amount you want to charge in cents
+            Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val()
+            }, amount, stripeResponseHandler);
+
+            // prevent the form from submitting with the default action
+            return false;
+  });
+
+   $(".payment-form-switch").submit(function(event) {
+            // disable the submit button to prevent repeated clicks
+            $('.submit-button').attr("disabled", "disabled");
+
+            var amount = 1000; //amount you want to charge in cents
+            Stripe.createToken({
+                number: $('.card-number-switch').val(),
+                cvc: $('.card-cvc-switch').val(),
+                exp_month: $('.card-expiry-month-switch').val(),
+                exp_year: $('.card-expiry-year-switch').val()
+            }, amount, stripeResponseHandler2);
+
+            // prevent the form from submitting with the default action
+            return false;
+  });
+
+
+  $("#xlInput_tag").focus(function(){
+    $(this).css("width","178px");
+});
+ 
+
+
+  $(".zip").click(function(event){
+     
+    var id=$("#folder_sha1").val();
+
+    var response = $.ajax({
+        url: "/compression_check?id="+id,
+        dataType: "json",
+        type: "GET",
+        processData: true,
+        contentType: "application/json",
+        async: false,
+    });
+    var response_object = eval('(' + response.responseText + ')');
+
+    if (response_object.status=='pass'){
+        return true;
+    }
+    else{
+      event.preventDefault();  
+      $.notification({ message:response_object.status, type:"notice" });
+      return false;
+    } 
+
+  });
+
+  $(".single_file").click(function(event){
+       var id=$("#folder_sha1").val();
+
+    var response = $.ajax({
+        url: "/compression_check?id="+id,
+        dataType: "json",
+        type: "GET",
+        processData: true,
+        contentType: "application/json",
+        async: false,
+    });
+    var response_object = eval('(' + response.responseText + ')');
+
+    if (response_object.status=='pass'||response_object.status=='We are still busy zipping up files for this folder, please come back later or download individual files.'){
+        return true;
+    }
+    else{
+      event.preventDefault();  
+      $.notification({ message:response_object.status, type:"notice" });
+      return false;
+    } 
+
+
+  });
+
+
+
+    $.notification = function (options) {
+        $(".jbar").html("");
+        var opts = $.extend({}, {
+            type: 'notice',
+            time: 10000
+        }, options);
+        var o = opts;
+
+        timeout = setTimeout('$.notification.removebar()', o.time);
+        var message_span = $('<span />').addClass('jbar-content').html(o.message);
+        var wrap_bar = $('<div />').addClass('jbar jbar-top').css("cursor", "pointer");
+
+        if (o.type == 'error') {
+            wrap_bar.css({
+                "color": "white",
+                "background-color": "#DB3939",
+                "border-bottom": "1px solid #AC2020"
+            })
+        };
+
+        wrap_bar.click(function () {
+            $.notification.removebar()
+        });
+
+        wrap_bar.append(message_span).hide().insertBefore($('.container')).fadeIn('fast');
+    };
+
+
+    var timeout;
+    $.notification.removebar = function (txt) {
+        if ($('.jbar').length) {
+            clearTimeout(timeout);
+
+            $('.jbar').fadeOut('fast', function () {
+                $(this).remove();
+            });
+        }
+    };
+});
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(function () {
+
+
+   $("#showcase").awShowcase(
+    {
+        content_width:          1000,
+        content_height:         400,
+        fit_to_parent:          false,
+        auto:                   false,
+        continuous:             false,
+        loading:                true,
+        tooltip_width:          200,
+        tooltip_icon_width:     32,
+        tooltip_icon_height:    32,
+        tooltip_offsetx:        18,
+        tooltip_offsety:        0,
+        arrows:                 true,
+        buttons:                false,
+        btn_numbers:            false,
+        keybord_keys:           true,
+        mousetrace:             false, /* Trace x and y coordinates for the mouse */
+        pauseonover:            true,
+        stoponclick:            false,
+        transition:             'hslide', /* hslide/vslide/fade */
+        transition_delay:       0,
+        transition_speed:       500,
+        show_caption:           'onload', /* onload/onhover/show */
+        thumbnails:             false,
+        thumbnails_position:    'outside-last', /* outside-last/outside-first/inside-last/inside-first */
+        thumbnails_direction:   'vertical', /* vertical/horizontal */
+        thumbnails_slidex:      1, /* 0 = auto / 1 = slide one thumbnail / 2 = slide two thumbnails / etc. */
+        dynamic_height:         false, /* For dynamic height to work in webkit you need to set the width and height of images in the source. Usually works to only set the dimension of the first slide in the showcase. */
+        speed_change:           true, /* Set to true to prevent users from swithing more then one slide at once. */
+        viewline:               false, /* If set to true content_width, thumbnails, transition and dynamic_height will be disabled. As for dynamic height you need to set the width and height of images in the source. */
+        custom_function:        null /* Define a custom function that runs on content change */
+    });
+
+
+   
+
+
+    $('a#copy').zclip({
+        path: '/assets/ZeroClipboard.swf',
+        copy: $('.copied').val()
+    });
+
+    var response = $.ajax({
+                url: "/priviledge",
+                dataType: "json",
+                type: "GET",
+                processData: true,
+                contentType: "application/json",
+                async: false,
+    });
+
+    var response_object = eval('(' + response.responseText + ')');
+
+
+    $.g_config = {
+        maxSize: response_object.maxfilesize,
+        maxNumber: response_object.maxfilenumber,
+        totalSize: 0,
+        totalNumber: 0,
+        error: false
+    };
+
+
+    var plan = getUrlVars()["plan"]
+
+    if (plan != null) {
+        var name = "." + plan + "_summary";
+        $(name).show();
+    }
+
+
+
+    $("#planSelect").bind('change', function () {
+
+        var name = "." + $("#planSelect").val() + "_summary";
+        $(name).show();
+        $(name).siblings().hide();
+
+
+    });
+
+
+
+    $(".signin-toggle").bind("click",function(){
+        $("#sign_in_block").toggle();
+    });
+
+    $(".expand1").each(function() {
+
+        
+        var tis = $(this), state = false;
+        
+        tis.click(function() {
+            state = !state;
+            $(".subject-field1").toggle();
+            $(".subject-field2").toggle();
+
+            tis.toggleClass('active',state);
+
+        });
+    });
+
+
+
+
+    $(".expand3").each(function() {
+
+        var tis = $(this), state = false;
+
+        tis.click(function() {
+            state = !state;   
+            $(".subject-field3").toggle();
+            tis.toggleClass('active',state);
+        });
+
+    });
+
+
+
+
+
+
+    $('.topbar').dropdown();
+
+    $('#result-refinement').dropdown();
+
+    $("#show_hide_stats").bind("click",function(){
+        $(".stats").toggle();   
+        if($(".stats").is(":visible")){
+            $("#show_hide_stats").html("&nbspHide");
+        }
+        else{
+            $("#show_hide_stats").html("&nbspShow");            
+        }
+           
+    });
+
+
+    $(".free_upgrade").bind("click",function(){
+        
+    });
+
+    $(".cancel_upload_button").bind("click",function(){
+        alert("Uploading cancelled, please refresh the page to start over.");
+    });
+
+
+    $("#modal-from-dom").modal({
+              backdrop: true
+            });
+     $("#modal-from-dom1").modal({
+              backdrop: true
+            });
+
+
+
+    var plan=getURLParam("plan");
+
+    if(plan == 'plus'){
+        $("#planSelect").val("plus");
+    }
+    else if(plan == "premium"){
+        $("#planSelect").val("premium");
+    }
+    else{
+        $("#planSelect").val("personal");
+    }
+
+
+
+
+
+    $(".personal_switch").bind("click",function(){
+        $(".plan").val("personal");
+        $(".plan_show").html("<strong>Personal </strong>");
+        $("#modal-from-dom1").modal("show");
+    });
+
+    $(".premium_switch").bind("click",function(){
+        $(".plan").val("premium");
+        $(".plan_show").html("<strong>Premium </strong>");
+        $("#modal-from-dom1").modal("show");
+    });
+
+    $(".plus_switch").bind("click",function(){
+        $(".plan").val("plus");
+        $(".plan_show").html("<strong>Plus </strong>");
+        $("#modal-from-dom1").modal("show");     
+    });
+
+
+
+
+
+
+
+    $(".personal_upgrade").bind("click",function(){
+        $(".plan").val("personal");
+        $(".plan_show").html("<strong>Personal </strong>");
+        $("#modal-from-dom").modal("show");
+    });
+
+    $(".premium_upgrade").bind("click",function(){
+        $(".plan").val("premium");
+        $(".plan_show").html("<strong>Premium </strong>");
+        $("#modal-from-dom").modal("show");
+    });
+
+    $(".plus_upgrade").bind("click",function(){
+        $(".plan").val("plus");
+        $(".plan_show").html("<strong>Plus </strong>");
+        $("#modal-from-dom").modal("show");     
+    });
+
+    $("#search-form").bind("ajax:beforeSend", function(evt, xhr, settings){
+        $("#dynamic_folder_display").css("opacity","0.4");
+        $("#loader-div").show();
+    })
+
+
+    $("#sort-by a").bind("ajax:beforeSend", function(evt, xhr, settings){
+        $("#dynamic_folder_display").css("opacity","0.4");
+        $("#loader-div").show();
+    })
+
+
+     $(".nav-list a").bind("ajax:beforeSend", function(evt, xhr, settings){
+        $("#dynamic_folder_display").css("opacity","0.4");
+        $("#loader-div").show();
+    })
+
+
+    $('#flash').delay(500).fadeIn('normal', function() {
+      $(this).delay(2500).fadeOut();
+    });
+
+
+    //footerslide tour
+    var open = false;
+    $('.slide_button').click(function() {
+        if(open === false) {
+            var browser_height = $(window).height();
+            var content_height = browser_height*0.95;
+
+
+            $("#footerSlideContent").focus();
+            $('#footerSlideContent').animate({ height: content_height }, 'fast');
+            $(this).css('backgroundPosition', 'bottom left');
+            open = true;
+        } else {
+            $('#footerSlideContent').animate({ height: '0px' });
+            $(this).css('backgroundPosition', 'top left');
+            open = false;
+        }
+    });
+
+
+
+});
+
+
 var availableNumber = function(){
     var response = $.ajax({
                 url: "/priviledge",
@@ -607,452 +1058,3 @@ var mycarousel_initCallback = function (carousel)
 
 
 
-
-
-$(function () {
-    
-    $('#mycarousel').jcarousel({
-        auto: 8,
-        wrap: 'circular',
-        initCallback: mycarousel_initCallback
-    });
-    
-    if($.browser.name=="msie"){
-        $(".content").html("<h1>Sorry, we do not support IE</h1><p>We are sorry if you are a genuine IE fan, changing your browser can be a real pain but it's definitely worth it. Think of it as you are supporting small companies on the web by not using IE. It isn't a joke, it really is a huge support. Thanks for your understanding.</p><br><p>42share works with Chrome, Firefox and Safari</p><br>")
-    }
-
-    //user payment processing(upgrade)
-    $(".payment-form").submit(function(event) {
-
-
-
-            // disable the submit button to prevent repeated clicks
-            $('.submit-button').attr("disabled", "disabled");
-
-            var amount = 1000; //amount you want to charge in cents
-            Stripe.createToken({
-                number: $('.card-number').val(),
-                cvc: $('.card-cvc').val(),
-                exp_month: $('.card-expiry-month').val(),
-                exp_year: $('.card-expiry-year').val()
-            }, amount, stripeResponseHandler);
-
-            // prevent the form from submitting with the default action
-            return false;
-  });
-
-   $(".payment-form-switch").submit(function(event) {
-            // disable the submit button to prevent repeated clicks
-            $('.submit-button').attr("disabled", "disabled");
-
-            var amount = 1000; //amount you want to charge in cents
-            Stripe.createToken({
-                number: $('.card-number-switch').val(),
-                cvc: $('.card-cvc-switch').val(),
-                exp_month: $('.card-expiry-month-switch').val(),
-                exp_year: $('.card-expiry-year-switch').val()
-            }, amount, stripeResponseHandler2);
-
-            // prevent the form from submitting with the default action
-            return false;
-  });
-
-
-  $("#xlInput_tag").focus(function(){
-    $(this).css("width","178px");
-});
- 
-
-
-  $(".zip").click(function(event){
-     
-    var id=$("#folder_sha1").val();
-
-    var response = $.ajax({
-        url: "/compression_check?id="+id,
-        dataType: "json",
-        type: "GET",
-        processData: true,
-        contentType: "application/json",
-        async: false,
-    });
-    var response_object = eval('(' + response.responseText + ')');
-
-    if (response_object.status=='pass'){
-        return true;
-    }
-    else{
-      event.preventDefault();  
-      $.notification({ message:response_object.status, type:"notice" });
-      return false;
-    } 
-
-  });
-
-  $(".single_file").click(function(event){
-       var id=$("#folder_sha1").val();
-
-    var response = $.ajax({
-        url: "/compression_check?id="+id,
-        dataType: "json",
-        type: "GET",
-        processData: true,
-        contentType: "application/json",
-        async: false,
-    });
-    var response_object = eval('(' + response.responseText + ')');
-
-    if (response_object.status=='pass'||response_object.status=='We are still busy zipping up files for this folder, please come back later or download individual files.'){
-        return true;
-    }
-    else{
-      event.preventDefault();  
-      $.notification({ message:response_object.status, type:"notice" });
-      return false;
-    } 
-
-
-  });
-
-
-
-    $.notification = function (options) {
-        $(".jbar").html("");
-        var opts = $.extend({}, {
-            type: 'notice',
-            time: 10000
-        }, options);
-        var o = opts;
-
-        timeout = setTimeout('$.notification.removebar()', o.time);
-        var message_span = $('<span />').addClass('jbar-content').html(o.message);
-        var wrap_bar = $('<div />').addClass('jbar jbar-top').css("cursor", "pointer");
-
-        if (o.type == 'error') {
-            wrap_bar.css({
-                "color": "white",
-                "background-color": "#DB3939",
-                "border-bottom": "1px solid #AC2020"
-            })
-        };
-
-        wrap_bar.click(function () {
-            $.notification.removebar()
-        });
-
-        wrap_bar.append(message_span).hide().insertBefore($('.container')).fadeIn('fast');
-    };
-
-
-    var timeout;
-    $.notification.removebar = function (txt) {
-        if ($('.jbar').length) {
-            clearTimeout(timeout);
-
-            $('.jbar').fadeOut('fast', function () {
-                $(this).remove();
-            });
-        }
-    };
-});
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$(function () {
-
-
-   $("#showcase").awShowcase(
-    {
-        content_width:          1000,
-        content_height:         400,
-        fit_to_parent:          false,
-        auto:                   false,
-        continuous:             false,
-        loading:                true,
-        tooltip_width:          200,
-        tooltip_icon_width:     32,
-        tooltip_icon_height:    32,
-        tooltip_offsetx:        18,
-        tooltip_offsety:        0,
-        arrows:                 true,
-        buttons:                false,
-        btn_numbers:            false,
-        keybord_keys:           true,
-        mousetrace:             false, /* Trace x and y coordinates for the mouse */
-        pauseonover:            true,
-        stoponclick:            false,
-        transition:             'hslide', /* hslide/vslide/fade */
-        transition_delay:       0,
-        transition_speed:       500,
-        show_caption:           'onload', /* onload/onhover/show */
-        thumbnails:             false,
-        thumbnails_position:    'outside-last', /* outside-last/outside-first/inside-last/inside-first */
-        thumbnails_direction:   'vertical', /* vertical/horizontal */
-        thumbnails_slidex:      1, /* 0 = auto / 1 = slide one thumbnail / 2 = slide two thumbnails / etc. */
-        dynamic_height:         false, /* For dynamic height to work in webkit you need to set the width and height of images in the source. Usually works to only set the dimension of the first slide in the showcase. */
-        speed_change:           true, /* Set to true to prevent users from swithing more then one slide at once. */
-        viewline:               false, /* If set to true content_width, thumbnails, transition and dynamic_height will be disabled. As for dynamic height you need to set the width and height of images in the source. */
-        custom_function:        null /* Define a custom function that runs on content change */
-    });
-
-
-   
-
-
-    $('a#copy').zclip({
-        path: '/assets/ZeroClipboard.swf',
-        copy: $('.copied').val()
-    });
-
-    var response = $.ajax({
-                url: "/priviledge",
-                dataType: "json",
-                type: "GET",
-                processData: true,
-                contentType: "application/json",
-                async: false,
-    });
-
-    var response_object = eval('(' + response.responseText + ')');
-
-
-    $.g_config = {
-        maxSize: response_object.maxfilesize,
-        maxNumber: response_object.maxfilenumber,
-        totalSize: 0,
-        totalNumber: 0,
-        error: false
-    };
-
-
-    var plan = getUrlVars()["plan"]
-
-    if (plan != null) {
-        var name = "." + plan + "_summary";
-        $(name).show();
-    }
-
-
-
-    $("#planSelect").bind('change', function () {
-
-        var name = "." + $("#planSelect").val() + "_summary";
-        $(name).show();
-        $(name).siblings().hide();
-
-
-    });
-
-
-
-    $(".signin-toggle").bind("click",function(){
-        $("#sign_in_block").toggle();
-    });
-
-    $(".expand1").each(function() {
-
-        
-        var tis = $(this), state = false;
-        
-        tis.click(function() {
-            state = !state;
-            $(".subject-field1").toggle();
-            $(".subject-field2").toggle();
-
-            tis.toggleClass('active',state);
-
-        });
-    });
-
-
-
-
-    $(".expand3").each(function() {
-
-        var tis = $(this), state = false;
-
-        tis.click(function() {
-            state = !state;   
-            $(".subject-field3").toggle();
-            tis.toggleClass('active',state);
-        });
-
-    });
-
-
-
-
-
-
-    $('.topbar').dropdown();
-
-    $('#result-refinement').dropdown();
-
-    $("#show_hide_stats").bind("click",function(){
-        $(".stats").toggle();   
-        if($(".stats").is(":visible")){
-            $("#show_hide_stats").html("&nbspHide");
-        }
-        else{
-            $("#show_hide_stats").html("&nbspShow");            
-        }
-           
-    });
-
-
-    $(".free_upgrade").bind("click",function(){
-        
-    });
-
-    $(".cancel_upload_button").bind("click",function(){
-        alert("Uploading cancelled, please refresh the page to start over.");
-    });
-
-
-    $("#modal-from-dom").modal({
-              backdrop: true
-            });
-     $("#modal-from-dom1").modal({
-              backdrop: true
-            });
-
-
-
-    var plan=getURLParam("plan");
-
-    if(plan == 'plus'){
-        $("#planSelect").val("plus");
-    }
-    else if(plan == "premium"){
-        $("#planSelect").val("premium");
-    }
-    else{
-        $("#planSelect").val("personal");
-    }
-
-
-
-
-
-    $(".personal_switch").bind("click",function(){
-        $(".plan").val("personal");
-        $(".plan_show").html("<strong>Personal </strong>");
-        $("#modal-from-dom1").modal("show");
-    });
-
-    $(".premium_switch").bind("click",function(){
-        $(".plan").val("premium");
-        $(".plan_show").html("<strong>Premium </strong>");
-        $("#modal-from-dom1").modal("show");
-    });
-
-    $(".plus_switch").bind("click",function(){
-        $(".plan").val("plus");
-        $(".plan_show").html("<strong>Plus </strong>");
-        $("#modal-from-dom1").modal("show");     
-    });
-
-
-
-
-
-
-
-    $(".personal_upgrade").bind("click",function(){
-        $(".plan").val("personal");
-        $(".plan_show").html("<strong>Personal </strong>");
-        $("#modal-from-dom").modal("show");
-    });
-
-    $(".premium_upgrade").bind("click",function(){
-        $(".plan").val("premium");
-        $(".plan_show").html("<strong>Premium </strong>");
-        $("#modal-from-dom").modal("show");
-    });
-
-    $(".plus_upgrade").bind("click",function(){
-        $(".plan").val("plus");
-        $(".plan_show").html("<strong>Plus </strong>");
-        $("#modal-from-dom").modal("show");     
-    });
-
-    $("#search-form").bind("ajax:beforeSend", function(evt, xhr, settings){
-        $("#dynamic_folder_display").css("opacity","0.4");
-        $("#loader-div").show();
-    })
-
-
-    $("#sort-by a").bind("ajax:beforeSend", function(evt, xhr, settings){
-        $("#dynamic_folder_display").css("opacity","0.4");
-        $("#loader-div").show();
-    })
-
-
-     $(".nav-list a").bind("ajax:beforeSend", function(evt, xhr, settings){
-        $("#dynamic_folder_display").css("opacity","0.4");
-        $("#loader-div").show();
-    })
-
-
-    $('#flash').delay(500).fadeIn('normal', function() {
-      $(this).delay(2500).fadeOut();
-    });
-
-
-    //footerslide tour
-    var open = false;
-    $('.slide_button').click(function() {
-        if(open === false) {
-            var browser_height = $(window).height();
-            var content_height = browser_height*0.95;
-
-
-            $("#footerSlideContent").focus();
-            $('#footerSlideContent').animate({ height: content_height }, 'fast');
-            $(this).css('backgroundPosition', 'bottom left');
-            open = true;
-        } else {
-            $('#footerSlideContent').animate({ height: '0px' });
-            $(this).css('backgroundPosition', 'top left');
-            open = false;
-        }
-    });
-
-
-
-});

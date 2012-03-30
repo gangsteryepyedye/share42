@@ -93,8 +93,8 @@
             <li class="dropdown" style="margin-top: 2px;">
               <a href="#" class="dropdown-toggle"><%= current_user.email %></a>
               <ul class="dropdown-menu">
-                <li><a href="/pages/account">Account Settings</a></li>
-                <li><%= link_to "Log out", log_out_path %></li>
+                <li><a href="/pages/account">Settings</a></li>
+                <li><%= link_to "Sign out", log_out_path %></li>
               </ul>
             </li>
           </ul>
@@ -156,11 +156,11 @@
                <input id="password" name="password" type="password">
             </div>
 
-            <div class="clearfix">
-              <label class="checkbox">
-                               <%= check_box_tag :remember_me, 1, params[:remember_me] %>
-&nbsp&nbspRemember me
-              </label>
+            <div class="clearfix" style="margin-bottom:0px">
+            <p style="line-height: 20px;margin-top:5px;">
+                               <%= check_box_tag :remember_me, 1, params[:remember_me], :style=>"margin-top:2px" %>
+<label for="remember_me" style="vertical-align: middle; cursor: pointer;display:inline-block;margin-top: -7px;margin-left:3px; ">Remember me</label>            
+            </p>
             </div>
                <a href="/pages/pricing">Create an account</a>
                <button class="btn" type="submit" style="margin-left:38px">Sign in</button>
