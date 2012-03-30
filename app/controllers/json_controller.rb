@@ -102,12 +102,12 @@ class JsonController < ApplicationController
     if(current_user)
         @user=current_user        
         respond_with({
-            :maxfilenumber => 50,
+            :maxfilenumber => 500,
             :maxfilesize => @user.spf
           })          
     else 
         respond_with({
-            :maxfilenumber => 50,
+            :maxfilenumber => 500,
             :maxfilesize => 2147483648
         })          
     end
