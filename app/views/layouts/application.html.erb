@@ -134,7 +134,8 @@
 
             <div class="clearfix">
               <label class="checkbox">
-                 <input type="checkbox">&nbsp&nbspRemember me
+                               <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+&nbsp&nbspRemember me
               </label>
             </div>
                <a href="/pages/pricing">Create an account</a>

@@ -1,8 +1,14 @@
 <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
 <script type="text/javascript">
 
-</script>
 
+$(function(){
+	$('#refund').popover();
+});
+
+</script>
 
 
  <%= render :partial =>"/containers/header" %>
@@ -54,7 +60,10 @@
 					Storage	
 				</th>
 				<th>
-					Max transfer size(per file)
+					Max transfer size
+				</th>
+				<th>
+					Expiration
 				</th>
 				<th>
 					Action
@@ -136,11 +145,12 @@
 				<th>
 					Storage	
 				</th>
+
 				<th>
-					Downloads(per file)	
+					Max transfer size
 				</th>
-				<th>
-					Max transfer size(per file)
+					<th>
+					Expiration
 				</th>
 
 				<th>
@@ -228,13 +238,13 @@
 				<th>
 					Storage	
 				</th>
-				<th>
-					Downloads(per file)	
-				</th>
-				<th>
-					Max transfer size(per file)
-				</th>
 
+				<th>
+					Max transfer size
+				</th>
+				<th>
+					Expiration
+				</th>
 				<th>
 					Action
 				</th>
@@ -309,7 +319,7 @@
 		
 		<div class="credit-card">
 			<div>
-			<h3>Past Payments<span><a href="#">Refund</a></span>
+			<h3>Past Payments<span><a href="#" id="refund" rel="popover" data-content="You can simply cancel your membership by email at any time by writing to support@42share.com" data-original-title="Refund">Refund</a></span>
 </h3>
 			</div>
 

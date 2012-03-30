@@ -10,7 +10,7 @@ module ContainersHelper
 			if current_user.priviledge == "1"
 				html='<h4>(Up to 2GB | <a href="/pages/account">Upgrade</a> to send larger files)</h4>'
 			elsif current_user.priviledge == "3"
-				html='<h4>(Up to 2GB | <a href="/pages/account">Upgrade</a> to send larger files)</h4>'
+				html=''
 			elsif current_user.priviledge == "4"
 				html=''
 			elsif current_user.priviledge == "5"

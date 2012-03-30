@@ -171,8 +171,11 @@ font-weight: normal;"> Only $5.99</span>
                   <label>
                     <%= f.check_box :notif,{:checked=>false} %>
 
-                    <span>Notify Upon Download (A sender's email is required)</span>
-  
+                    
+                    <span>Notify Upon Download <% if !current_user %>(A sender's email is required)
+                    <% end %>
+                    </span>
+               
 
                   </label>
 

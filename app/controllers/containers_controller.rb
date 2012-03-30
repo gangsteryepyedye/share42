@@ -35,6 +35,9 @@ class ContainersController < ApplicationController
 
       @container=Container.find_by_id_or_sha1(container_id)   
 
+
+
+
       #get the zip name
       zip_name=@container.stuffs.first.file_file_name.to_s+".zip"
 
@@ -84,7 +87,16 @@ class ContainersController < ApplicationController
           end   
 
        url = s3obj.url_for(:read,:expires => 10*60)
+
+    (1..5).each do |try|
+    
+    begin
       redirect_to url.to_s
+    rescue Exception => e
+        sleep 1
+    end
+    
+    end
 
 
   end
