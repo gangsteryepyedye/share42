@@ -384,10 +384,226 @@ var readableBytes = function(bytes) {
 
 
 
+var getURLParam = function (strParamName){
+  var strReturn = "";
+  var strHref = window.location.href;
+  if ( strHref.indexOf("?") > -1 ){
+    var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+    var aQueryString = strQueryString.split("&");
+    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+      if ( 
+aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
+        var aParam = aQueryString[iParam].split("=");
+        strReturn = aParam[1];
+        break;
+      }
+    }
+  }
+  return unescape(strReturn);
+}
 
 
 
 
+var validateForm = function () {
+    var files = $(".template-upload").length;
+
+    validatePassword();
+
+    if ($('.tagsinput').find(".tag").length == 0) {
+        $(".error").html('<div class="alert-message success fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please provide at least one email recipient to send your file(s)</p><p>(Tip: You can also send file(s) to your own email)</p></div>');
+        return false;
+    } else if ($.g_config.totalNumber==0) {
+        $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please select at least one file</p></div>');
+        return false;
+    } else {
+        if ($.g_config.error == false) {
+            $(".error").html('');
+            s3_swf_1_object.startUploading();
+            return true;
+        } else if ($.g_config.error == true) {
+            $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over transfer limit</p></div>');
+        } else {
+            return false
+        }
+    }   
+
+}
+
+
+var validatePassword = function () {
+    var a = $("#container_password").val();
+    var b = $("#container_password_confirm").val();
+
+
+
+    if (a != b) {
+        $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Your Passwords do not match</p></div>');
+        return false;
+    } else {
+        $(".error").html('');
+        return true;
+    }
+
+
+}
+
+
+var passwordToggle = function() {
+    $('.password-block').toggle();
+    $("#container_password").val('');
+    $("#container_password_confirm").val('');
+}
+
+var passwordEnable = function () {
+    if (!($("#passwordCheckBox").is(':checked'))) {
+        $("#container_password_confirm").val("");
+        $("#container_password").val("");
+        $("#container_password_confirm").attr('disabled', true);
+        $("#container_password").attr('disabled', true);
+    } else {
+
+        $("#container_password_confirm").attr('disabled', false);
+        $("#container_password").attr('disabled', false);
+    }
+
+}
+
+
+
+
+
+
+var validateEmail = function (elementValue) {
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(elementValue);
+}
+
+
+var folderUpdate = function () {
+    $(".edit_container").submit();
+
+}
+
+var updateTitle = function (){
+    var title = $(".form_folder_name").val();
+    $(".folder_name").html(title)    
+}
+
+
+var checkSpace = function () {
+    var response = $.ajax({
+        url: "/storage",
+        dataType: "json",
+        type: "GET",
+        processData: true,
+        contentType: "application/json",
+        async: false,
+    });
+    var response_object = eval('(' + response.responseText + ')');
+
+    return response_object.availablespace
+}
+
+
+
+var getUrlVars = function () {
+    var vars = [],
+        hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+var folderPassword = function () {
+    var pwd = $("#folder_password").val();
+    var container_id = $("#folder_sha1").val();
+
+    var response = $.ajax({
+        url: "/password_match",
+        dataType: "json",
+        type: "GET",
+        data: {
+            password: pwd,
+            id: container_id
+        },
+        processData: true,
+        contentType: "application/json",
+        async: false
+    });
+
+    var response_object = eval('(' + response.responseText + ')');
+
+    if (response_object.match == "true") {
+        $.get('/show_container?' + 'password=' + pwd + '&id=' + container_id, function (data) {
+            $('#folder_display').html(data);
+        });
+    } else {
+        alert("Incorrect password");
+    }
+
+}
+
+
+
+    // this identifies your website in the createToken call below
+    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
+     
+  var stripeResponseHandler = function (status, response) {
+                if (response.error) {
+                    var message_text = response.error.message;
+                    $.notification({ message:message_text, type:"error" });
+                    $(".submit-button").attr("disabled",false);
+
+                        } else {
+                    var form = $(".payment-form");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form.get(0).submit();
+                }
+            }
+ var stripeResponseHandler2 = function (status, response) {
+                if (response.error) {
+                    var message_text = response.error.message;
+                    $.notification({ message:message_text, type:"error" });
+                    $(".submit-button").attr("disabled",false);
+
+                } else {
+                    var form = $(".payment-form-switch");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form.get(0).submit();
+                }
+    }
+
+var mycarousel_initCallback = function (carousel)
+{
+    // Disable autoscrolling if the user clicks the prev or next button.
+    carousel.buttonNext.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    carousel.buttonPrev.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    // Pause autoscrolling if the user moves with the cursor over the clip.
+    carousel.clip.hover(function() {
+        carousel.stopAuto();
+    }, function() {
+        carousel.startAuto();
+    });
+};
 
 
 
@@ -549,6 +765,25 @@ $(function () {
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -821,224 +1056,3 @@ $(function () {
 
 
 });
-
-function getURLParam(strParamName){
-  var strReturn = "";
-  var strHref = window.location.href;
-  if ( strHref.indexOf("?") > -1 ){
-    var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
-    var aQueryString = strQueryString.split("&");
-    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
-      if ( 
-aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
-        var aParam = aQueryString[iParam].split("=");
-        strReturn = aParam[1];
-        break;
-      }
-    }
-  }
-  return unescape(strReturn);
-}
-
-
-
-
-function validateForm() {
-    var files = $(".template-upload").length;
-
-    validatePassword();
-
-    if ($('.tagsinput').find(".tag").length == 0) {
-        $(".error").html('<div class="alert-message success fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please provide at least one email recipient to send your file(s)</p><p>(Tip: You can also send file(s) to your own email)</p></div>');
-        return false;
-    } else if ($.g_config.totalNumber==0) {
-        $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please select at least one file</p></div>');
-        return false;
-    } else {
-        if ($.g_config.error == false) {
-            $(".error").html('');
-            s3_swf_1_object.startUploading();
-            return true;
-        } else if ($.g_config.error == true) {
-            $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over transfer limit</p></div>');
-        } else {
-            return false
-        }
-    }   
-
-}
-
-
-function validatePassword() {
-    var a = $("#container_password").val();
-    var b = $("#container_password_confirm").val();
-
-
-
-    if (a != b) {
-        $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Your Passwords do not match</p></div>');
-        return false;
-    } else {
-        $(".error").html('');
-        return true;
-    }
-
-
-}
-
-
-function passwordToggle() {
-    $('.password-block').toggle();
-    $("#container_password").val('');
-    $("#container_password_confirm").val('');
-}
-
-function passwordEnable() {
-    if (!($("#passwordCheckBox").is(':checked'))) {
-        $("#container_password_confirm").val("");
-        $("#container_password").val("");
-        $("#container_password_confirm").attr('disabled', true);
-        $("#container_password").attr('disabled', true);
-    } else {
-
-        $("#container_password_confirm").attr('disabled', false);
-        $("#container_password").attr('disabled', false);
-    }
-
-}
-
-
-
-
-
-
-function validateEmail(elementValue) {
-    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(elementValue);
-}
-
-
-function folderUpdate() {
-    $(".edit_container").submit();
-
-}
-
-function updateTitle(){
-    var title = $(".form_folder_name").val();
-    $(".folder_name").html(title)    
-}
-
-
-function checkSpace() {
-    var response = $.ajax({
-        url: "/storage",
-        dataType: "json",
-        type: "GET",
-        processData: true,
-        contentType: "application/json",
-        async: false,
-    });
-    var response_object = eval('(' + response.responseText + ')');
-
-    return response_object.availablespace
-}
-
-
-
-function getUrlVars() {
-    var vars = [],
-        hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-}
-
-function folderPassword() {
-    var pwd = $("#folder_password").val();
-    var container_id = $("#folder_sha1").val();
-
-    var response = $.ajax({
-        url: "/password_match",
-        dataType: "json",
-        type: "GET",
-        data: {
-            password: pwd,
-            id: container_id
-        },
-        processData: true,
-        contentType: "application/json",
-        async: false
-    });
-
-    var response_object = eval('(' + response.responseText + ')');
-
-    if (response_object.match == "true") {
-        $.get('/show_container?' + 'password=' + pwd + '&id=' + container_id, function (data) {
-            $('#folder_display').html(data);
-        });
-    } else {
-        alert("Incorrect password");
-    }
-
-}
-
-
-
-    // this identifies your website in the createToken call below
-    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
-     
-  function stripeResponseHandler(status, response) {
-                if (response.error) {
-                    var message_text = response.error.message;
-                    $.notification({ message:message_text, type:"error" });
-                    $(".submit-button").attr("disabled",false);
-
-                        } else {
-                    var form = $(".payment-form");
-                    // token contains id, last4, and card type
-                    var token = response['id'];
-                    // insert the token into the form so it gets submitted to the server
-                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                    // and submit
-                    form.get(0).submit();
-                }
-            }
- function stripeResponseHandler2(status, response) {
-                if (response.error) {
-                    var message_text = response.error.message;
-                    $.notification({ message:message_text, type:"error" });
-                    $(".submit-button").attr("disabled",false);
-
-                } else {
-                    var form = $(".payment-form-switch");
-                    // token contains id, last4, and card type
-                    var token = response['id'];
-                    // insert the token into the form so it gets submitted to the server
-                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                    // and submit
-                    form.get(0).submit();
-                }
-    }
-
-function mycarousel_initCallback(carousel)
-{
-    // Disable autoscrolling if the user clicks the prev or next button.
-    carousel.buttonNext.bind('click', function() {
-        carousel.startAuto(0);
-    });
-
-    carousel.buttonPrev.bind('click', function() {
-        carousel.startAuto(0);
-    });
-
-    // Pause autoscrolling if the user moves with the cursor over the clip.
-    carousel.clip.hover(function() {
-        carousel.stopAuto();
-    }, function() {
-        carousel.startAuto();
-    });
-};
