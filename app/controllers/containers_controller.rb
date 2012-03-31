@@ -166,7 +166,7 @@ class ContainersController < ApplicationController
     @container.password=params[:container_password]
     if @container.save
       respond_to do |format|
-        @message="We have updated the settings for this folder"
+        @message="We have updated your settings for this folder"
         @type="notice"
         format.js{
           render :action=>"notice"

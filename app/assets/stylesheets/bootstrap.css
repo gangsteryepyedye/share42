@@ -1872,6 +1872,61 @@ float: left;
   font-weight:200;
   font-size:23px;
 }
+
+
+.lightalert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #c09853;
+}
+.lightalert-heading {
+  color: inherit;
+}
+.lightalert .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: 18px;
+}
+.lightalert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+.lightalert-danger,
+.lightalert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+.lightalert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+.lightalert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.lightalert-block > p,
+.lightalert-block > ul {
+  margin-bottom: 0;
+}
+.lightalert-block p + p {
+  margin-top: 5px;
+}
+
+
+
+
+
+
 .btn.danger,
 .alert-message.danger,
 .btn.danger:hover,
@@ -2074,23 +2129,20 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 .close {
   float: right;
-  color: #ffffff;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  line-height: 13.5px;
+  line-height: 18px;
+  color: #000000;
   text-shadow: 0 1px 0 #ffffff;
-  filter: alpha(opacity=60);
-  -khtml-opacity: 0.60;
-  -moz-opacity: 0.60;
-  opacity: 0.60;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
 }
 .close:hover {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
-  filter: alpha(opacity=80);
-  -khtml-opacity: 0.8;
-  -moz-opacity: 0.8;
-  opacity: 0.8;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  cursor: pointer;
 }
 .alert-message {
   position: relative;

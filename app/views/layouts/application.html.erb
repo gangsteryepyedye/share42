@@ -90,8 +90,10 @@
 
     	<ul class="nav secondary-nav">
 
+            <li style="margin-top: 2px;"><a href="/"><i class="icon-home icon-white"></i> Home</a></li>
+
             <li class="dropdown" style="margin-top: 2px;">
-              <a href="#" class="dropdown-toggle"><%= current_user.email %></a>
+              <a href="#" class="dropdown-toggle"><i class="icon-user icon-white"></i> Account</a>
               <ul class="dropdown-menu">
                 <li><a href="/pages/account">Settings</a></li>
                 <li><%= link_to "Sign out", log_out_path %></li>

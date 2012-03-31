@@ -503,6 +503,7 @@ var availableSpace = function(){
 
 };
 
+
 var spaceLimit = function(){
     $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Over Transfer Size Limit <a id="upgrade_link" href="/pages/pricing">Upgrade</a></p></div>');
     $.g_config.error = true;
