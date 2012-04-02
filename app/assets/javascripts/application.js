@@ -101,32 +101,6 @@ $(function () {
 
   });
 
-  $(".single_file").click(function(event){
-       var id=$("#folder_sha1").val();
-
-    var response = $.ajax({
-        url: "/compression_check?id="+id,
-        dataType: "json",
-        type: "GET",
-        processData: true,
-        contentType: "application/json",
-        async: false,
-    });
-    var response_object = eval('(' + response.responseText + ')');
-
-    if (response_object.status=='pass'||response_object.status=='We are still busy zipping up files in this folder, please come back later or download individual files.'){
-        return true;
-    }
-    else{
-      event.preventDefault();  
-      $.notification({ message:response_object.status, type:"notice" });
-      return false;
-    } 
-
-
-  });
-
-
 
     $.notification = function (options) {
         $(".jbar").html("");
