@@ -206,6 +206,7 @@ font-weight: normal;"> Only $5.99</span>
 
    
 <div style="width:490px;margin:auto;">
+ <div id="upload_info" style="color:#777;"></div>
 
 
 
@@ -246,12 +247,42 @@ font-weight: normal;"> Only $5.99</span>
 
                 <div id="upload_control_panel">
                   <ul>
-                    <li>
-                      <button class="cupid-green" onclick=" validateForm();return false;">Send!</button> 
-                    </li>
-                    <li>
+                    <li style="width:268px">
+
+<%=raw s3_swf_upload_tag(
+:queueSizeLimit => "availableNumber()",
+:fileSizeLimit => "availableSpace()",
+:fileTypes => '*.*',
+:fileTypeDescs => 'All files.',
+:onFileNotInQueue => "",
+:onFileSizeLimitReached => "tooBig();",
+:onQueueChange => "queueChangeHandler(queue);",
+:onQueueSizeLimitReached => "tooMany();",
+:onQueueEmpty => "alert('You gotta have at least one file in there');",
+:onQueueClear => "queueClearHandler(queue);",
+:onUploadingStart => "uploadingStartHandler();",
+:onUploadingFinish => "uploadingFinishHandler();",
+:onSignatureIOError => "alert('Error:Connection was lost, please try again.');",
+:onSignatureXMLError => "alert('Error:Connection was lost, please try again.');",
+:onSignatureSecurityError => "alert('Error:Connection was lost, please try again.');",
+:onUploadError => "alert('Error:Connection was lost, please try again.');",
+:onUploadIOError => "alert('Error:Connection was lost, please try again.');",
+:onUploadSecurityError => "alert('Error:Connection was lost, please try again.');",
+:onUploadProgress => "progressHandler(progress_event);",
+:onUploadComplete => "uploadCompleteHandler(upload_options,event);",
+:buttonWidth=>"100",
+:buttonHeight=>"31"
+
+) %>
+</li>
+                     <li>
                       <button class="minimal" onclick="s3_swf_1_object.clearQueue();return false;">Clear Queue</button>
                     </li>
+
+                    <li>
+                      <button class="cupid-green" onclick=" validateForm();return false;" style="margin-right:0px">Send!</button> 
+                    </li>
+                   
                   </ul>
                 </div>
                 
@@ -281,57 +312,22 @@ display:none">
 
 
 
-                <div id="upload_info" style="padding-top: 6px; padding-bottom: 10px; padding-left: 54px; margin-left: 240px; color:#777;"></div>
-
+               
 
                 </div>                               
 
 </div> 
 
     <span class="help-block" style="text-align:center;">
-    <br>  
-    <p>
+      <br>
+    <p style="margin-top:13px;">
                 By clicking on the "Send!" button, you agree to 42Share's <a href="/pages/tos" target="_blank">Terms of Service</a> 
     </p>
               </span>
-   <div id="input_button_container">
-
-<%=raw s3_swf_upload_tag(
-:queueSizeLimit => "availableNumber()",
-:fileSizeLimit => "availableSpace()",
-:fileTypes => '*.*',
-:fileTypeDescs => 'All files.',
-:onFileNotInQueue => "",
-:onFileSizeLimitReached => "tooBig();",
-:onQueueChange => "queueChangeHandler(queue);",
-:onQueueSizeLimitReached => "tooMany();",
-:onQueueEmpty => "alert('You gotta have at least one file in there');",
-:onQueueClear => "queueClearHandler(queue);",
-:onUploadingStart => "uploadingStartHandler();",
-:onUploadingFinish => "uploadingFinishHandler();",
-:onSignatureIOError => "alert('Error:Connection was lost, please try again.');",
-:onSignatureXMLError => "alert('Error:Connection was lost, please try again.');",
-:onSignatureSecurityError => "alert('Error:Connection was lost, please try again.');",
-:onUploadError => "alert('Error:Connection was lost, please try again.');",
-:onUploadIOError => "alert('Error:Connection was lost, please try again.');",
-:onUploadSecurityError => "alert('Error:Connection was lost, please try again.');",
-:onUploadProgress => "progressHandler(progress_event);",
-:onUploadComplete => "uploadCompleteHandler(upload_options,event);",
-:buttonWidth=>"130",
-:buttonHeight=>"47"
-
-) %>
 
 
 
-   </div>
-
-
-
-
-
-
-
+    <br>
 
     
     <% end %> 

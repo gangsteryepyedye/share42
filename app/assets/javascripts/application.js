@@ -556,18 +556,22 @@ var queueChangeHandler = function(queue){
 
     //update information
 
+
     if(fileSize==0||fileSize==null||fileSize==NaN){
         $("#upload_info").html("");
+        $("#upload_info").css("padding-bottom","0px");     
         $.g_config.totalNumber=0;
         $.g_config.totalSize=0;
     }
     else if (fileNumber==1){
         $("#upload_info").html("Total: 1 file, "+readableBytes(fileSize));
+        $("#upload_info").css("padding-bottom","15px");
         $.g_config.totalNumber=1;
         $.g_config.totalSize=fileSize;
     }
     else{
         $("#upload_info").html("Total: "+fileNumber+" files, "+readableBytes(fileSize));
+         $("#upload_info").css("padding-bottom","15px");       
         $.g_config.totalNumber=fileNumber;
         $.g_config.totalSize=fileSize;
     }
@@ -588,7 +592,8 @@ var uploadingStartHandler = function(){
 
     $(".head h4").html("Sending File(s)...");
     $("#upload_info").hide();
-    $("#upload_control_panel").hide();
+    $("#upload_control_panel").css('position','absolute');
+    $("#upload_control_panel").css('left','-9999px');
     $("#overall_percentage .progress-bar").show();
     $("#overall_percentage #count").show();
     $("#cancel_upload").show();
@@ -1034,4 +1039,8 @@ var mycarousel_initCallback = function (carousel)
 };
 
 
+var move_transfer_div = function(){
 
+
+
+}

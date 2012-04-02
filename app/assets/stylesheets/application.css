@@ -1307,7 +1307,6 @@ height:31px;
 
 
     #upload_control_panel{
-    	width:300px;	
    		display:block;
     }
 
@@ -2369,6 +2368,7 @@ ul#mycarousel li{
     padding: 20px 40px;
     padding-left:0px;
     padding-top:10px;
+    padding-bottom: 10px;
 }
 
 .jcarousel-skin-tango .jcarousel-container-vertical {
