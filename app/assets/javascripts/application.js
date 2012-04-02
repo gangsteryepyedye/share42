@@ -621,7 +621,7 @@ var uploadingFinishHandler = function(){
 
 
 
-  $.notification({ message:"Success! We have uploaded your files. A notification is sent to recipient(s).", type:"notice" });
+  $.notification({ message:"Success! We have uploaded your files. A notification has been sent to recipient(s).", type:"notice" });
                             var link = $(".link").val();
                             var sha1 =$(".container_id").val();
                             $("#syf").html('Send More Files');
