@@ -39,7 +39,7 @@ class JsonController < ApplicationController
 
     elsif @container.zipped==false
       respond_with({
-          :status => "We are still busy zipping up files for this folder, please come back later or download individual files."
+          :status => "We are still zipping up files in this folder, please come back later or download individual files."
       })
     else
       respond_with({
