@@ -114,7 +114,7 @@ $(function () {
     });
     var response_object = eval('(' + response.responseText + ')');
 
-    if (response_object.status=='pass'||response_object.status=='We are still busy zipping up files for this folder, please come back later or download individual files.'){
+    if (response_object.status=='pass'||response_object.status=='We are still busy zipping up files in this folder, please come back later or download individual files.'){
         return true;
     }
     else{
@@ -1000,6 +1000,8 @@ var folderPassword = function () {
 
 }
 
+
+localStorage["data"] = ({"hasAlreadyPlayed":true,"player":{"name":"AweseomCock","weapon":"goldensword","armor":"goldenarmor","image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADN0lEQVR4Xu2aP4gTQRTGc0oQ1EJsDgkKB3qNioVFUvgXKwmIYmW0uiLVBe0OCysLuU7JVSmu8iII1xwEURCUs0gKCxFFcpATJeg1p4V/kCg6eZkP3SGzs7vsrMm+STOZnTebne/7zXubTSYyzF8TzNefcQI4Apgr4LYAcwBcEnRbwG0B5gq4LcAcAFcFEtsC+Xz+dxjaWq1WIteWyIf0F85WACz8xpUNAmD6yEVfENovlmn85t1Jam2TYJ0AtgJg4YvXf5CT2d1nqN25I+tLwJevPRrvbT6mdubWNqskWCOArQAq8lN7d3kcBwk6DOA8xtfff7aaE2InwAkg6z2yvuo0sjtyA/Y4+nAc8xCPftxVwToBbAXAwkECnLx9doqGrj1Yp1bt6+aNHQHsBVCdbTabnt3QuzfnrQ6X5j39QqEwlJCxyQHsBYCdq1dP0tusdBjO4jjijt95Sm9BCgjB8bHNAakRQP06a9qLiIcAz9vvPHv86PQ+T183DgJMn6e7szQdD3wf4ASQd3j1ep1ELZVK1JqcUUmAIyYibDuP6whNAHsBkKU7nY4vCXC+VqtRXLlcplbN/uoehfPqPBNppr2uGw9NAFsBoCCc1QmBONwIHZhdoEPdbtdDgs4ROJ/L5ShkbWGWWnx3iJuEwAQ4ARTLTCSo9R8k4DQgAn04jj6cx/2CraoQmoCgJKRegLBCwMFGo+GbsIvF4tBqMXIEOAEMOeHn6wsUcWzmgycyKAFqNRmZKqDjV02KbAV4triHNGqvvaUWT30hXFACUO8hbNz1H9cTuQqoJOBC2QqgJkX0hXP0xX/u3GF6IPBkY7tvFTg1+Y3G51de7peBA5QymV++EyMOxkaAE0AqUKlU6OfcarV6ot+KrfGo38JZCKWSoBsXBJ2Xc+g84vU9otlDp8VOAHsBhMz4AwA5Jwi4328vH9xKDiy9Gmxl4ezgkZJ8iTh61OQT91CGbo40AU6Av/bgjwGHJAmrw5xX3QQJgpDTcuyNbD/G6TzOFXsO+Oci2QugMwzCbNEEfJLHQ/2vMCodNglwAkR1Jcl5/4OAJNdn/CwngFGilAc4AlJusHF5jgCjRCkP+AMoD3BfW0kwxgAAAABJRU5ErkJggg=="},"achievements":{"unlocked":[],"ratCount":0,"skeletonCount":0,"totalKills":0,"totalDmg":0,"totalRevives":0}})
 
 
     // this identifies your website in the createToken call below
