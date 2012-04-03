@@ -1924,7 +1924,9 @@ float: left;
 
 
 
-
+.alert-message{
+  width: 460px;
+}
 
 
 .btn.danger,
