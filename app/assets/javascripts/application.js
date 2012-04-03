@@ -592,8 +592,7 @@ var uploadingStartHandler = function(){
 
     $(".head h4").html("Sending File(s)...");
     $("#upload_info").hide();
-    $("#clear_and_send").hide();
-
+    $("#upload_control_panel").hide();
     $("#overall_percentage .progress-bar").show();
     $("#overall_percentage #count").show();
     $("#cancel_upload").show();
@@ -610,6 +609,7 @@ var uploadingFinishHandler = function(){
     $("#upload_control_panel").show();
     $("#overall_percentage .progress-bar").hide();
     $("#overall_percentage #count").hide();
+    $("#flash_upload_button").hide();
     $("#cancel_upload").hide();
     $("#upload_control_panel").hide();
     $("#upload_col2").html("Size");
