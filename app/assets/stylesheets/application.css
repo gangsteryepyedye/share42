@@ -123,6 +123,12 @@ border-bottom-color: #EFF2C7;
 
 }
 
+#upload_info{
+	float: right;
+	padding-right: 5px;
+	padding-top: 8px;
+}
+
 .fileupload-content{
 border-style: dashed!important;
 border-width: 2px!important;
