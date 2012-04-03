@@ -37,6 +37,36 @@
 
 
    <div class="beforesend">
+
+
+<div id="flash_upload_button">
+<%=raw s3_swf_upload_tag(
+:queueSizeLimit => "availableNumber()",
+:fileSizeLimit => "availableSpace()",
+:fileTypes => '*.*',
+:fileTypeDescs => 'All files.',
+:onFileNotInQueue => "",
+:onFileSizeLimitReached => "tooBig();",
+:onQueueChange => "queueChangeHandler(queue);",
+:onQueueSizeLimitReached => "tooMany();",
+:onQueueEmpty => "alert('You gotta have at least one file in there');",
+:onQueueClear => "queueClearHandler(queue);",
+:onUploadingStart => "uploadingStartHandler();",
+:onUploadingFinish => "uploadingFinishHandler();",
+:onSignatureIOError => "alert('Error:Connection was lost, please try again.');",
+:onSignatureXMLError => "alert('Error:Connection was lost, please try again.');",
+:onSignatureSecurityError => "alert('Error:Connection was lost, please try again.');",
+:onUploadError => "alert('Error:Connection was lost, please try again.');",
+:onUploadIOError => "alert('Error:Connection was lost, please try again.');",
+:onUploadSecurityError => "alert('Error:Connection was lost, please try again.');",
+:onUploadProgress => "progressHandler(progress_event);",
+:onUploadComplete => "uploadCompleteHandler(upload_options,event);",
+:buttonWidth=>"480",
+:buttonHeight=>"31"
+
+) %>
+</div>
+
     <div class="clearfix" style="margin-bottom:0px">  
     <label for="xlInput3">Files Recipients: <span style="color:#676767;font-size: 12px;
 font-family: Arial;
@@ -249,32 +279,8 @@ font-weight: normal;"> Only $5.99</span>
                   <ul>
                     <li style="width:268px">
 
-<%=raw s3_swf_upload_tag(
-:queueSizeLimit => "availableNumber()",
-:fileSizeLimit => "availableSpace()",
-:fileTypes => '*.*',
-:fileTypeDescs => 'All files.',
-:onFileNotInQueue => "",
-:onFileSizeLimitReached => "tooBig();",
-:onQueueChange => "queueChangeHandler(queue);",
-:onQueueSizeLimitReached => "tooMany();",
-:onQueueEmpty => "alert('You gotta have at least one file in there');",
-:onQueueClear => "queueClearHandler(queue);",
-:onUploadingStart => "uploadingStartHandler();",
-:onUploadingFinish => "uploadingFinishHandler();",
-:onSignatureIOError => "alert('Error:Connection was lost, please try again.');",
-:onSignatureXMLError => "alert('Error:Connection was lost, please try again.');",
-:onSignatureSecurityError => "alert('Error:Connection was lost, please try again.');",
-:onUploadError => "alert('Error:Connection was lost, please try again.');",
-:onUploadIOError => "alert('Error:Connection was lost, please try again.');",
-:onUploadSecurityError => "alert('Error:Connection was lost, please try again.');",
-:onUploadProgress => "progressHandler(progress_event);",
-:onUploadComplete => "uploadCompleteHandler(upload_options,event);",
-:buttonWidth=>"100",
-:buttonHeight=>"31"
-
-) %>
 </li>
+<div id="clear_and_send">
                      <li>
                       <button class="minimal" onclick="s3_swf_1_object.clearQueue();return false;">Clear Queue</button>
                     </li>
@@ -282,7 +288,7 @@ font-weight: normal;"> Only $5.99</span>
                     <li>
                       <button class="cupid-green" onclick=" validateForm();return false;" style="margin-right:0px">Send!</button> 
                     </li>
-                   
+</div>
                   </ul>
                 </div>
                 

@@ -592,8 +592,8 @@ var uploadingStartHandler = function(){
 
     $(".head h4").html("Sending File(s)...");
     $("#upload_info").hide();
-    $("#upload_control_panel").css('position','absolute');
-    $("#upload_control_panel").css('left','-9999px');
+    $("#clear_and_send").hide();
+
     $("#overall_percentage .progress-bar").show();
     $("#overall_percentage #count").show();
     $("#cancel_upload").show();
