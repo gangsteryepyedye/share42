@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     plan = params[:planSelect]
 
     #get the Api key
-    Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
+    Stripe.api_key = "HX1SRH5xdd1BZDgkRfzsWKSV4H66XfKe"
     # get the credit card details submitted by the form
     token = params[:stripeToken]
 
@@ -53,6 +53,7 @@ class UsersController < ApplicationController
 
     if plan=="free"
       @user.free_init(true)
+
     elsif plan=="personal"
       @user.personal_init(true)
     elsif plan=="premium"
@@ -63,9 +64,13 @@ class UsersController < ApplicationController
 
 
       if @user.save
+        @user.send_email_confirmation
+        if plan!="free"
+          Notifier.send_invoice(@user).deliver
+        end      
         sign_in @user
         $redis.set("user_"+@user.id.to_s,"normal")
-        redirect_to '/new_transfer', :notice => "Signed up!"
+        redirect_to '/new_transfer', :notice => "You have just been sent an email to confirm your email address. Please click on the link in the email to active your account."
       else
         if plan.nil?
           render :action => "new"
@@ -85,7 +90,7 @@ class UsersController < ApplicationController
 
   def upgrade
 
-    Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
+    Stripe.api_key = "HX1SRH5xdd1BZDgkRfzsWKSV4H66XfKe"
 
     # get the credit card details submitted by the form
     token = params[:stripeToken]
@@ -123,10 +128,11 @@ class UsersController < ApplicationController
         current_user.premium_init(false)
     end
     
-  
+    
 
   
     if current_user.save
+        Notifier.send_invoice(current_user).deliver
         respond_to do |format|
           format.html{@plan=plan.capitalize}
         end 
@@ -205,7 +211,20 @@ end
   end 
 
 
+  def confirm
 
+    @user=User.find_by_confirmation_code!(params[:id])
+      
+      if @user
+        @user.confirmed = true
+        @user.save
+        cookies[:auth_token] = @user.auth_token
+        redirect_to '/new_transfer', :notice=>"Welcome! Your account has been activated"
+      else
+        redirct_to '/new_transfer', :notice=>"Something goes wrong"
+      end
+
+  end
     
 
 

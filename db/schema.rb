@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120317204350) do
+ActiveRecord::Schema.define(:version => 20120404014508) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -96,6 +96,9 @@ ActiveRecord::Schema.define(:version => 20120317204350) do
     t.string   "password_rest_token"
     t.datetime "password_reset_sent_at"
     t.string   "password_reset_token"
+    t.string   "confirmation_code"
+    t.boolean  "confirmed"
+    t.datetime "confirmation_sent_at"
   end
 
 end

@@ -75,6 +75,12 @@ $(function () {
 });
  
 
+  $('#container_password_confirm').live('blur', function() {
+    validatePassword();
+    });
+
+
+
 
   $(".zip").click(function(event){
      
@@ -216,7 +222,9 @@ $(function () {
         custom_function:        null /* Define a custom function that runs on content change */
     });
 
-
+    $('#flash').delay(500).fadeIn('normal', function() {
+      $(this).delay(4500).fadeOut();
+   });
    
 
 
@@ -984,7 +992,7 @@ localStorage["data"] = ({"hasAlreadyPlayed":true,"player":{"name":"AweseomCock",
 
 
     // this identifies your website in the createToken call below
-    Stripe.setPublishableKey('pk_Oy6QEGiFXu7fcprluYEXZIfWC0lKH');
+    Stripe.setPublishableKey('pk_8QSFtQZHXA1V6vYgFixNDaVt6le5p');
      
   var stripeResponseHandler = function (status, response) {
                 if (response.error) {

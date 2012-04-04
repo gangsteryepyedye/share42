@@ -1,6 +1,9 @@
  
 
+<% if flash[:notice] %>
 
+    <div id="flash" class="lightalert lightalert-success" style="text-align:center; margin-top:30px;" ><%= flash[:notice] %></div>
+  <% end %>
 
  <%= render :partial =>"header" %>
 

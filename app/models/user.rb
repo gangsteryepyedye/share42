@@ -33,6 +33,14 @@ def generate_token(column)
   end while User.exists?(column => self[column])
 end          
 
+def send_email_confirmation
+  generate_token(:confirmation_code)
+  self.confirmation_sent_at = Time.zone.now
+  save!
+  Notifier.valid_email_confirmation(self).deliver  
+end
+
+
 
 
 

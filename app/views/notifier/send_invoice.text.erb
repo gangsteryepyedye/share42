@@ -1,0 +1,25 @@
+Hello <%= @user.email %>,
+
+We’re glad that you’ve chosen 42Share. We hope you have a lot of success – and fun – with it.
+
+Date: <%= Time.zone.now.to_date %>
+Invoice period: <%= Time.zone.now.to_date %> - <%= Time.zone.now.to_date + 30.days %>
+Customer: <%= @user.email %>
+Plan: <% if @user.priviledge == "3" %>Personal<% else %>Premium<% end %>
+
+Your 1 month subscription will renew on  <%= Time.zone.now.to_date + 30.days %>. Your plan continues to cost $(US) <%if @user.priviledge == "3" %>$10 <% else %>$20 <% end %>a month. You can cancel anytime up to the end of the current subscription period. If you cancel before <%= Time.zone.now.to_date + 15.days %>, we will refund you the money for your purchase.
+
+If you have any questions about the invoice, you can reach us via email at support@42share.com.
+
+Please take a look at the user terms. You will find more information below in this email.
+
+
+Best, 
+-The 42Share Team
+
++++ User Terms +++
+Statement of Terms and Conditions:
+
+The user is entitled to withdraw their expression of will to conclude the contract within a time limit of two weeks without giving reasons. The time limit starts on the day after the contract is concluded, i.e. on the day after receipt of the acceptance statement by 42Zen and after receipt of this right of withdrawal instruction in written form. Withdrawal must be declared in written form (e.g. letter, fax, email) to 42Zen. To observe the time limit, it is sufficient to dispatch the declaration of withdrawal in time.
+The right of withdrawal ceases to exist at the time 42Zen starts providing the service before the end of the time limit for withdrawal with the user's express consent or if the user itself has initiated the start of the service.
+In the event of a valid withdrawal, 42Zen will repay any usage fees already paid by the user.

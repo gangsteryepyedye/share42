@@ -28,7 +28,7 @@ class PagesController < ApplicationController
 
 
 
-    Stripe.api_key = "8npiKgDByhdpXj4sB5kgEEM6HujsRuJR"
+    Stripe.api_key = "HX1SRH5xdd1BZDgkRfzsWKSV4H66XfKe"
 
     @containers = current_user.containers.where("empty =?",false)
     downloads=0

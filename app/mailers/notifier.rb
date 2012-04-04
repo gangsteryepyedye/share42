@@ -135,7 +135,15 @@ class Notifier < ActionMailer::Base
 
   end
 
+  def valid_email_confirmation(user)
+    @user = user
+    mail :to => user.email, :subject => "Confirmation Email"
+  end
 
+  def send_invoice(user)
+    @user = user
+    mail :to => user.email, :subject => "42Share Invoice"
+  end
 
 
 

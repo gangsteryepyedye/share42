@@ -68,6 +68,7 @@ Filetunnel::Application.routes.draw do
        put 'update_email'
        put 'update_notifications'
        put 'upgrade'
+       get 'confirm'
     end
   end
 
