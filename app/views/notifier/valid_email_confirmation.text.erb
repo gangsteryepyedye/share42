@@ -3,7 +3,7 @@ Thanks for signing up with 42share!
 The user account with the email address <%= @user.email %> is ready to go. 
 With this action you confirm your email address and activate your account on 42Share.
 
-<%= confirm_user_url(@user.confirmation_code) %>
+<%= confirm_user_url(@user.confirmation_code,:host=>"www.42share.com") %>
 
 We're really excited to have you on board. We built 42share as an easier way to share. 
 
