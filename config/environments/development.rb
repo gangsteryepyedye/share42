@@ -15,7 +15,7 @@ Filetunnel::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
-config.action_mailer.default_url_options = { :host => "www.42share.com" }
+config.action_mailer.default_url_options = { :host => "share42.herokuapp.com" }
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
