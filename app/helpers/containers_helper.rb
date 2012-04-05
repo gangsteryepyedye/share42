@@ -5,16 +5,16 @@ module ContainersHelper
 	def upgrade_suggestion
 
 		if !current_user
-			html='<h4>(Up to 2 GB | <a href="/pages/pricing">Upgrade</a> to send larger files)</h4>'
+			html='<h4>Up to 2 GB Per Transfer</h4>'
 		else
 			if current_user.priviledge == "1"
-				html='<h4>(Up to 2GB | <a href="/pages/account">Upgrade</a> to send larger files)</h4>'
+				html='<h4>Up to 2 GB Per Transfer</h4>'
 			elsif current_user.priviledge == "3"
-				html=''
+				html='<h4>Up to 2 GB Per Transfer</h4>'
 			elsif current_user.priviledge == "4"
-				html=''
+				html='<h4>Up to 2 GB Per Transfer</h4>'
 			elsif current_user.priviledge == "5"
-				html=''
+				html='<h4>Up to 2 GB Per Transfer</h4>'
 			end
 		end
 
@@ -48,9 +48,9 @@ module ContainersHelper
 	  if current_user.priviledge!="1"
 	  	return "Never"
 	  else 		
-		interval = Time.at(container.exptime-Time.now).day
+		interval = Time.at(container.exptime-Time.zone.now).day
 
-		if Time.at(container.exptime-Time.now).to_i <= 0
+		if Time.at(container.exptime-Time.zone.now).to_i <= 0
 			return "Expired"
 		else
 			return interval.to_s + " Days"

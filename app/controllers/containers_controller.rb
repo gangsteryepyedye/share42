@@ -59,7 +59,7 @@ class ContainersController < ApplicationController
 
 
       @container.downloaded = @container.downloaded+1
-      @container.updated_at = Time.now
+      @container.updated_at = Time.zone.now
       @container.save
       
 
@@ -116,7 +116,7 @@ class ContainersController < ApplicationController
       end
       
       @user.save
-      @container.exptime = Time.now
+      @container.exptime = Time.zone.now
       @container.state = "removed"
       @container.save
 
@@ -503,7 +503,7 @@ end
       end
       
       @user.save
-      @container.exptime = Time.now
+      @container.exptime = Time.zone.now
       @container.state = "removed"
       @container.save
 

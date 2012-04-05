@@ -41,7 +41,7 @@ class Container < ActiveRecord::Base
       end  
 
 
-      @container.exptime = Time.now
+      @container.exptime = Time.zone.now
       @container.state = "removed"
       @container.save
 
@@ -70,7 +70,7 @@ class Container < ActiveRecord::Base
   def self.test_remove
 
     for container in Container.all
-      if((Time.now-container.updated_at)/3600/48>15)
+      if((Time.zone.now-container.updated_at)/3600/48>15)
 
         if container.user_id.nil?
           if container.empty?

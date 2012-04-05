@@ -20,7 +20,7 @@ def download
     Spacecop.log_download(ip,params[:id].to_s,"file")
 
     @container.downloaded = @container.downloaded+1
-    @container.updated_at = Time.now
+    @container.updated_at = Time.zone.now
     @container.save
   
   
@@ -129,10 +129,10 @@ end
     #assign expiration time to each file
     if current_user
       if current_user.priviledge=="1"
-        @container.exptime=Time.now+14.days
+        @container.exptime=Time.zone.now+14.days
       end
     else
-        @container.exptime=Time.now+14.days
+        @container.exptime=Time.zone.now+14.days
     end
     
     #get the allowed space

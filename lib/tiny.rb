@@ -48,7 +48,7 @@ module Tiny
     
     # Same as tiny() but use the current UNIX timestamp - TINY_EPOCH (hat tip: Nir Yariv)
     def tiny_from_timestamp
-      tiny(Time.now.to_f - TINY_EPOCH)
+      tiny(Time.zone.now.to_f - TINY_EPOCH)
     end
     
     def generate_set
@@ -56,7 +56,7 @@ module Tiny
       base_set = base_set.sort_by{ rand }.to_s
       puts "generate_set()"
       puts base_set
-      puts "TINY_EPOCH = #{Time.now.to_i}"
+      puts "TINY_EPOCH = #{Time.zone.now.to_i}"
     end
   end
 end
@@ -74,9 +74,9 @@ puts Tiny::untiny(Tiny::tiny(64))
 puts Tiny::untiny(Tiny::tiny(1))
 puts Tiny::untiny(Tiny::tiny(0))
 
-time_now  = Time.now.to_i
-tiny_time = Tiny::tiny(time_now)
-puts "#{time_now} -> #{tiny_time} -> #{Tiny::untiny(tiny_time)}"
+Time.zone.now  = Time.zone.now.to_i
+tiny_time = Tiny::tiny(Time.zone.now)
+puts "#{Time.zone.now} -> #{tiny_time} -> #{Tiny::untiny(tiny_time)}"
 
 puts Tiny::tiny_from_timestamp
 puts Tiny::tiny_from_timestamp

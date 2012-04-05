@@ -43,8 +43,6 @@ end
 
 
 
-
-
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && user.passowrd_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
@@ -121,7 +119,7 @@ end
   def free_init(first_time)
       self.capacity=10737418240 
       self.priviledge="1"
-      self.spf=1073741824
+      self.spf=2147483648
       self.downloadcap=99999
       if first_time==true
         self.storage=0
@@ -132,7 +130,7 @@ end
   def personal_init(first_time)
       self.capacity=107374182400 
       self.priviledge="3"
-      self.spf=5368709120     
+      self.spf=2147483648     
       self.downloadcap=99999
       if first_time==true
         self.storage=0
@@ -144,7 +142,7 @@ end
   def premium_init(first_time)
       self.capacity=1073741824000
       self.priviledge="4"
-      self.spf=5368709120
+      self.spf=2147483648
       self.downloadcap=99999
       if first_time==true
         self.storage=0

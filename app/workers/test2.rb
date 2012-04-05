@@ -7,7 +7,7 @@ module Compression
   	  @container=Container.find_by_id_or_sha1(container_id)   
 
       file_name = @container.stuffs.first.file_file_name+".zip"
-      signature=Digest::SHA1.hexdigest(Time.now.to_s+file_name)
+      signature=Digest::SHA1.hexdigest(Time.zone.now.to_s+file_name)
       t = Tempfile.new("#{signature}my-temp-filename.zip")
       Zip::ZipOutputStream.open(t.path) do |z|
         @container.stuffs.each do |file|

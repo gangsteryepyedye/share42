@@ -4,15 +4,15 @@
 
 desc "This task is called by the Heroku cron add-on"
 task :cron => :environment do
-  if Time.now.hour % 1 == 0 # run every four hours
+  if Time.zone.now.hour % 1 == 0 # run every four hours
     puts "Calling webpage"
 	req = Net::HTTP.get(URI.parse('http://www.42share.com'))
     puts "done."
   end
 
-  if Time.now.hour == 0 # run at midnight
+  if Time.zone.now.hour == 0 # run at midnight
   	for container in Container.all
-  		if((Time.now-container.updated_at)/3600/48>30)
+  		if((Time.zone.now-container.updated_at)/3600/48>30)
   			if container.user_id.nil?
   				if container.empty?
   					container.destroy	
