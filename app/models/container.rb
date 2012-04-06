@@ -3,6 +3,18 @@ class Container < ActiveRecord::Base
   has_many :emails, :dependent => :destroy	
   belongs_to :user
 
+
+
+
+    def self.shorten(url)
+    Bitly.use_api_version_3
+    service = Bitly.new('jinxin238357', 'R_95eeea3c9210c79d7aecf07ffe02b50d')
+    shortened_url = service.shorten(url)
+     return shortened_url
+  end
+
+
+
   def self.shorten(url)
   	 return Googl.shorten(url)
   end
