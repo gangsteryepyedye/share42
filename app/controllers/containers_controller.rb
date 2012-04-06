@@ -190,7 +190,7 @@ class ContainersController < ApplicationController
     @files=@container.stuffs
     @url=request.url
     
-    @link=Container.shorten(@url).short_url
+    @link=Container.shorten(@url)
     
     
 
@@ -228,7 +228,7 @@ class ContainersController < ApplicationController
     #remember to clean the unused Container here   
     #need to change the url later
     @tiny_id = "http://www.42share.com/containers/"+sha1
-    @link=Container.shorten(@tiny_id).short_url
+    @link=Container.shorten(@tiny_id)
   
 
   end
@@ -244,7 +244,7 @@ class ContainersController < ApplicationController
       @container.save
       @stuff = @container.stuffs.new    
       @tiny_id = "http://www.42share.com/containers/"+sha1
-      @link=Container.shorten(@tiny_id).short_url
+      @link=Container.shorten(@tiny_id)
     else
       redirect_to "/containers"
     end    
@@ -259,7 +259,7 @@ class ContainersController < ApplicationController
       @container.save
       @stuff = @container.stuffs.new    
       @tiny_id = "http://www.42share.com/containers/"+sha1
-      @link=Container.shorten(@tiny_id).short_url
+      @link=Container.shorten(@tiny_id)
     else
       @container = current_user.containers.new  
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
@@ -270,7 +270,7 @@ class ContainersController < ApplicationController
       #remember to clean the unused Container here   
       #need to change the url later
       @tiny_id = "http://www.42share.com/containers/"+sha1
-      @link=Container.shorten(@tiny_id).short_url
+      @link=Container.shorten(@tiny_id)
     end
     respond_to do |format|      
        format.html {render :partial=>"show_newtransfer",:layout => "layouts/application", :locals=>{:container=>@container,:stuff=>@stuff,:link=>@link} }
@@ -434,7 +434,7 @@ end
   def show_container
   
         @container=Container.find_by_id_or_sha1(params[:id])   
-        @link=Container.shorten("http://www.42share.com/containers/"+@container.sha1).short_url
+        @link=Container.shorten("http://www.42share.com/containers/"+@container.sha1)
         if(params[:password]==@container.password)      
           respond_to do |format|      
             format.html {render :partial => "container_main_visit",:locals =>{:container=>@container,:files=>@container.stuffs,:link=>@link} }  

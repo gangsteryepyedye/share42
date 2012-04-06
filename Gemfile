@@ -47,8 +47,6 @@ gem "autotest-rails"
 gem "ZenTest", "4.6.0"
 gem "eventmachine", "~> 1.0.0.beta.4.1"
 gem 'roadie'
-
-
 gem 'bitly'
 
 # To use ActiveModel has_secure_password

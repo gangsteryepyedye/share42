@@ -7,10 +7,16 @@ class Container < ActiveRecord::Base
 
 
     def self.shorten(url)
+    
+    begin
     Bitly.use_api_version_3
     service = Bitly.new('jinxin238357', 'R_95eeea3c9210c79d7aecf07ffe02b50d')
-    shortened_url = service.shorten(url)
-     return shortened_url
+    shortened_url = service.shorten(url).short_url
+    return shortened_url
+    rescue
+    return url
+    end 
+
   end
 
 
