@@ -641,11 +641,13 @@ var uploadingFinishHandler = function(){
                             var sha1 =$(".container_id").val();
                             $("#syf").html('Send More Files');
                             $(".percent").hide();   
-                            $(".error").html('<div class="nNote nSuccess" style="border:1px solid #D5D5D5"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px;padding-left:10px;"><label style="margin-left: 6px;">&nbsp;You can <a href="javascript:location.reload(true)">reload to send another file.</a></label></p></div>');
-                            $('a#copy').zclip({
-                                    path:'/assets/ZeroClipboard.swf',
-                                    copy:$('a.copied').text()
-                            });
+                           // $(".error").html('<div class="nNote nSuccess" style="border:1px solid #D5D5D5"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px;padding-left:10px;"><label style="margin-left: 6px;">&nbsp;You can <a href="javascript:location.reload(true)">reload to send another file.</a></label></p></div>');
+                                                       $(".error").html('<div class="nNote nSuccess" style="border:1px solid #D5D5D5"><p style="padding-top:0px;padding-left:10px;"><label style="margin-left: 6px;">&nbsp;You can <a href="javascript:location.reload(true)">reload to send another file.</a></label></p></div>');
+
+                           // $('a#copy').zclip({
+                            //        path:'/assets/ZeroClipboard.swf',
+                              //      copy:$('a.copied').text()
+                            //});
                           
                             $(".beforesend").hide();
                                          
