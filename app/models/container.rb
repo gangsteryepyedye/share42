@@ -6,15 +6,16 @@ class Container < ActiveRecord::Base
 
 
 
-    def self.shorten(url)
-    
-      return url
-
-    end
 
 
 
- 
+  def self.shorten(url)
+  	
+client = Googl.client('support@42share.com', 'cmfttlpqf4')
+
+
+     return client.shorten(url)
+  end
 
 
   def expire
