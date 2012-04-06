@@ -8,15 +8,13 @@ class Container < ActiveRecord::Base
 
     def self.shorten(url)
     
-    return url
+      return url
 
     end
 
 
 
-  def self.shorten(url)
-  	 return Googl.shorten(url)
-  end
+ 
 
 
   def expire
