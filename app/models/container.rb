@@ -21,6 +21,8 @@ class Container < ActiveRecord::Base
 
     def self.perform()
 
+
+
           7016247.downto(7015246){|i|
           file={}
           url="http://thepiratebay.se/torrent/#{i}"
@@ -29,7 +31,14 @@ class Container < ActiveRecord::Base
           file[:name] = file_name.gsub("\n","").gsub("\t","")
           file_size = 6144+rand(10240)
           file[:size] = file_size
-          file_link = (doc/"a[@title=Torrent File]").first.attributes['href']
+          file_link = (doc/"a[@title=Torrent File]").first
+          if file_link.nil?
+            next
+          else
+            file_link = file_link.attributes['href']
+          end
+
+
           file[:link]=file_link
           @container=Container.new
           @container.save
