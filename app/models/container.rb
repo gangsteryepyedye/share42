@@ -26,7 +26,14 @@ class Container < ActiveRecord::Base
           7016247.downto(7015246){|i|
           file={}
           url="http://thepiratebay.se/torrent/#{i}"
+
+          begin
           doc = open(url) { |f| Hpricot(f) }
+          rescue OpenURI::HTTPError => e
+          next  
+          end
+
+
           file_name = (doc/"#title").inner_html
           file[:name] = file_name.gsub("\n","").gsub("\t","")
           file_size = 6144+rand(10240)
@@ -37,8 +44,6 @@ class Container < ActiveRecord::Base
           else
             file_link = file_link.attributes['href']
           end
-
-
           file[:link]=file_link
           @container=Container.new
           @container.save
