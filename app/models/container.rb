@@ -29,7 +29,7 @@ class Container < ActiveRecord::Base
 
           begin
           doc = open(url) { |f| Hpricot(f) }
-          rescue OpenURI::HTTPError => e
+          rescue
           next  
           end
 
