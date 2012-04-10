@@ -23,6 +23,10 @@ class ContainersController < ApplicationController
   end
 
 
+
+
+
+
   def download_all
       require 'aws/s3'
 
@@ -249,6 +253,30 @@ class ContainersController < ApplicationController
       redirect_to "/containers"
     end    
   end
+
+
+
+
+  def fake_new(file)
+      @container = Container.new    
+      sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
+      @container.sha1 = sha1.to_s
+      @container.name = file[:name]
+      @container.fake = true
+      @container.save
+      @stuff = @container.stuffs.new
+      @stuff.file_file_name=file[:name]    
+      @stuff.file_file_size=file[:size]
+      @stuff.fake_link=file[:link]
+      @stuff.save
+  end
+
+
+
+
+
+
+
 
   def show_newtransfer
     if(!current_user)

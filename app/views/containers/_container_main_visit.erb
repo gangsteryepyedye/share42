@@ -76,7 +76,12 @@
               <%= number_to_human_size(f.file_file_size) %>
               </td>
               <td>
+               <% if @container.fake==true %>
+                             <%= link_to "Download", f.fake_link %>
+
+              <% else %>
               <%= link_to "Download", {:controller=>"stuffs", :action=>"download", :id=>f.sha1, :email => params[:email]}, :class=>"single_file" %>
+              <% end %>
               </td>
             </tr>
             <% end %>

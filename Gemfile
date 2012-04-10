@@ -48,6 +48,8 @@ gem "ZenTest", "4.6.0"
 gem "eventmachine", "~> 1.0.0.beta.4.1"
 gem 'roadie'
 gem 'bitly'
+gem 'hpricot'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

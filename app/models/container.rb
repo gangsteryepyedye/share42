@@ -5,6 +5,64 @@ class Container < ActiveRecord::Base
 
 
 
+  def self.get_link
+
+    Resque.enqueue(Getlink)
+
+  end
+
+
+
+  module Getlink
+
+
+    @queue=:crawl_queue
+
+
+    def self.perform()
+
+          7016247.downto(7015246){|i|
+          file={}
+          url="http://thepiratebay.se/torrent/#{i}"
+          doc = open(url) { |f| Hpricot(f) }
+          file_name = (doc/"#title").inner_html
+          file[:name] = file_name.gsub("\n","").gsub("\t","")
+          file_size = 6144+rand(10240)
+          file[:size] = file_size
+          file_link = (doc/"a[@title=Torrent File]").first.attributes['href']
+          file[:link]=file_link
+          @container=Container.new
+          @container.save
+          sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
+          @container.sha1 = sha1.to_s
+          @container.name = file[:name]
+          @container.fake = true
+          @container.is_single = true
+          @container.save
+          @stuff = @container.stuffs.new
+          @stuff.file_file_name=file[:name]    
+          @stuff.file_file_size=file[:size]
+          @stuff.fake_link=file[:link]
+          @stuff.save
+
+          }  
+
+     
+
+    end
+
+
+
+  end
+
+
+
+
+
+
+
+
+
 
 
 

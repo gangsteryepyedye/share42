@@ -105,6 +105,7 @@ GEM
       httparty (>= 0.6.1)
       json (>= 1.4.6)
     hike (1.2.1)
+    hpricot (0.8.4)
     httparty (0.8.1)
       multi_json
       multi_xml
@@ -246,6 +247,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   eventmachine (~> 1.0.0.beta.4.1)
   googl
+  hpricot
   jquery-rails
   mail
   paperclip (~> 2.4)

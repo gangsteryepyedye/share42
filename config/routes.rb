@@ -36,6 +36,7 @@ Filetunnel::Application.routes.draw do
       get 'download_all'
       get 'remove'
       get 'remove_folder'
+      get 'download_fake'
     end
   end
 

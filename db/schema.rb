@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120404014508) do
+ActiveRecord::Schema.define(:version => 20120410013821) do
 
   create_table "containers", :force => true do |t|
     t.datetime "created_at"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20120404014508) do
     t.integer  "downloadcap"
     t.string   "state"
     t.boolean  "is_single"
+    t.boolean  "fake"
   end
 
   create_table "emails", :force => true do |t|
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20120404014508) do
     t.boolean  "notif",             :default => true
     t.boolean  "legal",             :default => false
     t.string   "uploader_ip"
+    t.string   "fake_link"
   end
 
   create_table "tempusers", :force => true do |t|
