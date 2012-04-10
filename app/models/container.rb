@@ -5,9 +5,9 @@ class Container < ActiveRecord::Base
 
 
 
-  def self.get_link(bottom)
+  def self.get_link()
 
-    Resque.enqueue(Getlink,bottom)
+    Resque.enqueue(Getlink)
 
   end
 
@@ -19,11 +19,11 @@ class Container < ActiveRecord::Base
     @queue=:crawl_queue
 
 
-    def self.perform(bottom)
+    def self.perform()
 
 
 
-          7016247.downto(bottom){|i|
+          7016247.downto(7000000){|i|
           file={}
           url="http://thepiratebay.se/torrent/#{i}"
 
