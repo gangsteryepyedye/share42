@@ -23,14 +23,14 @@ class Container < ActiveRecord::Base
 
 
 
-          7016247.downto(7000000){|i|
+          7016247.downto(7016246){|i|
           file={}
           url="http://thepiratebay.se/torrent/#{i}"
 
           begin
-          doc = open(url) { |f| Hpricot(f) }
+            doc = open(url) { |f| Hpricot(f) }
           rescue
-          next  
+            next  
           end
 
 
