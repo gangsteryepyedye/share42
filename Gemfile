@@ -49,6 +49,10 @@ gem "eventmachine", "~> 1.0.0.beta.4.1"
 gem 'roadie'
 gem 'bitly'
 gem 'hpricot'
+gem 'carrierwave'
+gem 'fog'
+gem 'sitemap_generator'
+
 
 
 # To use ActiveModel has_secure_password
