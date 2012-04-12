@@ -5,7 +5,7 @@ module ContainersHelper
 	def upgrade_suggestion
 
 		if !current_user
-			html='<h4>Up to 2 GB Per Transfer</h4>'
+			html='<h4>Up to 2 GB For Free</h4>'
 		else
 			if current_user.priviledge == "1"
 				html='<h4>Up to 2 GB Per Transfer</h4>'
