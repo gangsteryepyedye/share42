@@ -20,7 +20,7 @@ Filetunnel::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-
+  config.middleware.use "WwwMiddleware"
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 
