@@ -1,9 +1,7 @@
-
-
 class WwwMiddleware
-def initialize(app)
-@app = app
-end
+  def initialize(app)
+    @app = app
+  end
 
 def call(env)
 request = Rack::Request.new(env)
@@ -14,6 +12,8 @@ else
 end
 end
 
-def each(&block)
+  def each(&block)
+  end
 end
-end
+
+
