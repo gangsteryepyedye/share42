@@ -36,6 +36,8 @@ SitemapGenerator::Sitemap.ping_search_engines # called for you when you use the 
   end
 
 
+
+
   def self.get_link()
 
     Resque.enqueue(Getlink)
