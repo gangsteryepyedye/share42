@@ -60,7 +60,7 @@ background: url('/assets/pbar.png');
 }
 
 /* Fix for IE 7: */
-*+html .fileinput-button {
+*html .fileinput-button {
   padding: 2px 0;
 }
 
