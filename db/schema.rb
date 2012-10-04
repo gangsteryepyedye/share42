@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20120410013821) do
     t.integer  "user_id"
     t.string   "password"
     t.boolean  "empty",       :default => true
-    t.integer  "downloaded",  :default => 0
+    t.integer  "downloaded",  :default => 30
     t.string   "sha1"
     t.datetime "exptime"
     t.string   "name"
