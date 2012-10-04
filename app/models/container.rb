@@ -116,7 +116,7 @@ SitemapGenerator::Sitemap.ping_search_engines # called for you when you use the 
 
   def self.shorten(url)
   	
-client = Googl.client('support@42share.com', 'cmfttlpqf4')
+client = Googl.client('harrison@42zenlab.com', 'cmfttlpqf4')
 
 
      return client.shorten(url)
