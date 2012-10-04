@@ -54,15 +54,7 @@ background: url('/assets/pbar.png');
   overflow: hidden;
 }
 
-/* Fix for IE 6: */
-*html .fileinput-button {
-  padding: 2px 0;
-}
 
-/* Fix for IE 7: */
-*html .fileinput-button {
-  padding: 2px 0;
-}
 
 .fileupload-buttonbar {
   padding: 0.2em 0.4em;
