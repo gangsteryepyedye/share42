@@ -1,76 +1,40 @@
 class ContainersController < ApplicationController
 
-
-
-
-
   require 'zip/zip'
   require 'zip/zipfilesystem'
   require 'resque_scheduler'
 
-
-
-
-
-
-
-
-  def compression_ready
-    
+  def compression_ready    
     @container=Container.find_by_id_or_sha1(params[:id])
     if params[:password]=="238357"
       @container.zipped=true
       @container.save   
     end
-      
   end
-
-
-
-
-
 
   def download_all
       require 'aws/s3'
-
       container_id=params[:id]
       email=params[:email]
-      
       ip=request.remote_ip.to_s 
-
       Spacecop.log_download(ip,params[:id].to_s,"zip")
-
       @container=Container.find_by_id_or_sha1(container_id)   
-
-
-
-
       #get the zip name
       zip_name=@container.stuffs.first.file_file_name.to_s+".zip"
-
       s3 = AWS::S3.new(:access_key_id => 'AKIAICDXU5SXRWQA5RQA',:secret_access_key => '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')
       bucket = s3.buckets['filetunnel']  
-
       filename="zip/#{@container.sha1}/#{zip_name}"
-
       s3obj = bucket.objects[filename]
-
-   
       @filelist = []
-
-      for stuff in @container.stuffs 
-
-        @filelist.push(stuff.file_file_name)
       
+      for stuff in @container.stuffs 
+        @filelist.push(stuff.file_file_name)
       end
-
 
       @container.downloaded = @container.downloaded+1
       @container.updated_at = Time.zone.now
       @container.save
       
-
-
          if (!email.nil?) 
             query=url_unescape(email)
             @email=@container.emails.where("name =?",query).first
@@ -92,24 +56,15 @@ class ContainersController < ApplicationController
               end    
             end
           end   
-
        url = s3obj.url_for(:read,:expires => 10*60)
-
     (1..5).each do |try|
-    
-    begin
-      redirect_to url.to_s
-    rescue Exception => e
+      begin
+        redirect_to url.to_s
+      rescue Exception => e
         sleep 1
+      end
     end
-    
-    end
-
-
   end
-
-
-
 
   def remove
 
@@ -150,22 +105,12 @@ class ContainersController < ApplicationController
       redirect_to '/containers'
   end
 
-
-
   #remove folder along with all the files
   def remove_folder
-
     @container=Container.find_by_id_or_sha1(params[:id])
     @container.destroy
-
-
-
     redirect_to '/containers'
-
   end
-
-
-
 
   def update
     @container=Container.find_by_id_or_sha1(params[:id])   
@@ -188,30 +133,17 @@ class ContainersController < ApplicationController
     end    
   end
 
-
-
-
   def show
     #@container=Container.find(Tiny::untiny(params[:id]))
     @container=Container.find_by_id_or_sha1(params[:id])   
     @files=@container.stuffs
     @url=request.url
-    
     @link=Container.shorten(@url).short_url
-    
-    
-
-
-
-
   end
 
-
   def partial_update
-
     if current_user
     @containers = current_user.containers.where("empty =?",false).find(:all, :order=>'created_at desc',:limit=>6)
-
      respond_to do |format|      
         format.html {render :partial => "recentcontainer", :layout => false, :locals =>{:containers=>@containers} }  
         format.js  
@@ -221,9 +153,7 @@ class ContainersController < ApplicationController
           format.all{render :nothing => true, :status => 200, :content_type => 'text/html'}
       end 
     end
-
   end
-
 
   def new_transfer
     @container = current_user.containers.new  
@@ -236,8 +166,6 @@ class ContainersController < ApplicationController
     #need to change the url later
     @tiny_id = "http://www.42share.com/containers/"+sha1
     @link=Container.shorten(@tiny_id).short_url
-  
-
   end
 
   def new    
@@ -257,9 +185,6 @@ class ContainersController < ApplicationController
     end    
   end
 
-
-
-
   def fake_new(file)
       @container = Container.new    
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
@@ -273,13 +198,6 @@ class ContainersController < ApplicationController
       @stuff.fake_link=file[:link]
       @stuff.save
   end
-
-
-
-
-
-
-
 
   def show_newtransfer
     if(!current_user)
@@ -310,47 +228,31 @@ class ContainersController < ApplicationController
   end
 
   def send_notification
-
-
-
     @container = Container.find_by_id_or_sha1(params[:id])
-
     stuff_list=[]
-
     @container.stuffs.each do |s|
       stuff_list<<s.id    
     end   
-
-
     if stuff_list.count!=1
       Resque.enqueue(Compression,@container.sha1,stuff_list,@container.stuffs.first.file_file_name)
     else
       @container.is_single=true
       @container.save
     end
-
     emails=@container.emails
-
     name_list=[]
     for c in @container.stuffs
       name_list<<c.file_file_name
     end
-
-
     link="https://www.42share.com/containers/#{@container.sha1}"
-
     #send out emails to recipients
     for e in @container.emails
           Notifier.notify(@container.subject,@container.message,@container.sender,e.name,name_list,link).deliver
     end
-
-  
     #send out a confirmation email
     if @container.sender
           Notifier.confirm(@container.sender,@container.emails,name_list,link).deliver
     end
-    
-
     respond_to do |format|      
           format.all{render :nothing => true, :status => 200, :content_type => 'text/html'}
     end 
@@ -358,20 +260,11 @@ class ContainersController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
-
-
   def index
-
-
-
-
     sort=params[:sort]
     filter =  params[:filter]
     search = params[:search]
-
     state = $redis.get("user_"+current_user.id.to_s)
-
-
     if filter=="search"
       @relevant_items=[]
       for c in current_user.containers.where("empty =?",false).where("state !=?","removed")
@@ -387,20 +280,12 @@ class ContainersController < ApplicationController
           @relevant_items << temp_item
         end
       end
-
-
     end
-
-
 
     @sent_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state !=?","removed")
     @removed_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state =?","removed") 
     @personal_items = current_user.containers.where("empty =?",false).order(sort_column+" "+sort_direction).where("state =?","personal") 
 
-
-
-
-    
     if filter.nil?
       if state == "removed"
         if sort.nil?
@@ -433,13 +318,6 @@ class ContainersController < ApplicationController
 
     @state = $redis.get("user_"+current_user.id.to_s)
 
-
-    
-
-
-
-
-
     if sort=="exptime"
         @sort_by_name="Expiration date"
     elsif sort=="name"
@@ -462,11 +340,11 @@ end
 
 
 
-  def show_container
+def show_container
   
-        @container=Container.find_by_id_or_sha1(params[:id])   
-        @link=Container.shorten("http://www.42share.com/containers/"+@container.sha1).short_url
-        if(params[:password]==@container.password)      
+      @container=Container.find_by_id_or_sha1(params[:id])   
+      @link=Container.shorten("http://www.42share.com/containers/"+@container.sha1).short_url
+      if(params[:password]==@container.password)      
           respond_to do |format|      
             format.html {render :partial => "container_main_visit",:locals =>{:container=>@container,:files=>@container.stuffs,:link=>@link} }  
             format.js  
