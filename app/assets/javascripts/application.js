@@ -1,48 +1,27 @@
-
-
-
-
 //=require jquery_ujs
 //Error message 
-
-
 var startTime, endTime;
-
-
-
 var queueBytesLoaded = 0;
 var queueBytesTotal = 0;
 var myQueue = null;
-
 String.prototype.trunc = function(n){
                           return this.substr(0,n-1)+(this.length>n?'...':'');
 };
-
-
-
-
 $(function () {
         // this identifies your website in the createToken call below
-    Stripe.setPublishableKey('pk_8QSFtQZHXA1V6vYgFixNDaVt6le5p');
-    
+    Stripe.setPublishableKey('pk_8QSFtQZHXA1V6vYgFixNDaVt6le5p');  
     $('#mycarousel').jcarousel({
         auto: 8,
         wrap: 'circular',
         initCallback: mycarousel_initCallback
     });
-    
     if($.browser.name=="msie"){
         $(".content").html("<h1>Sorry, we do not support IE</h1><p>We are sorry if you are a genuine IE fan, changing your browser can be a real pain but it's definitely worth it. Think of it as you are supporting small companies on the web by not using IE. It isn't a joke, it really is a huge support. Thanks for your understanding.</p><br><p>42share works with Chrome, Firefox and Safari</p><br>")
     }
-
     //user payment processing(upgrade)
     $(".payment-form").submit(function(event) {
-
-
-
             // disable the submit button to prevent repeated clicks
             $('.submit-button').attr("disabled", "disabled");
-
             var amount = 1000; //amount you want to charge in cents
             Stripe.createToken({
                 number: $('.card-number').val(),
@@ -50,7 +29,6 @@ $(function () {
                 exp_month: $('.card-expiry-month').val(),
                 exp_year: $('.card-expiry-year').val()
             }, amount, stripeResponseHandler);
-
             // prevent the form from submitting with the default action
             return false;
   });
@@ -58,7 +36,6 @@ $(function () {
    $(".payment-form-switch").submit(function(event) {
             // disable the submit button to prevent repeated clicks
             $('.submit-button').attr("disabled", "disabled");
-
             var amount = 1000; //amount you want to charge in cents
             Stripe.createToken({
                 number: $('.card-number-switch').val(),
@@ -66,28 +43,20 @@ $(function () {
                 exp_month: $('.card-expiry-month-switch').val(),
                 exp_year: $('.card-expiry-year-switch').val()
             }, amount, stripeResponseHandler2);
-
             // prevent the form from submitting with the default action
             return false;
   });
 
-
   $("#xlInput_tag").focus(function(){
     $(this).css("width","178px");
-});
+  });
  
-
   $('#container_password_confirm').live('blur', function() {
     validatePassword();
-    });
+  });
 
-
-
-
-  $(".zip").click(function(event){
-     
+  $(".zip").click(function(event){     
     var id=$("#folder_sha1").val();
-
     var response = $.ajax({
         url: "/compression_check?id="+id,
         dataType: "json",
@@ -97,7 +66,6 @@ $(function () {
         async: false,
     });
     var response_object = eval('(' + response.responseText + ')');
-
     if (response_object.status=='pass'){
         return true;
     }
@@ -106,11 +74,9 @@ $(function () {
       $.notification({ message:response_object.status, type:"notice" });
       return false;
     } 
-
   });
 
-
-    $.notification = function (options) {
+  $.notification = function (options) {
         $(".jbar").html("");
         var opts = $.extend({}, {
             type: 'notice',
@@ -137,7 +103,6 @@ $(function () {
         wrap_bar.append(message_span).hide().insertBefore($('.container')).fadeIn('fast');
     };
 
-
     var timeout;
     $.notification.removebar = function (txt) {
         if ($('.jbar').length) {
@@ -146,49 +111,11 @@ $(function () {
             $('.jbar').fadeOut('fast', function () {
                 $(this).remove();
             });
-        }
-    };
-});
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          }
+       };
+    });
 
 $(function () {
-
 
    $("#showcase").awShowcase(
     {
@@ -228,8 +155,6 @@ $(function () {
       $(this).delay(4500).fadeOut();
    });
    
-
-
     $('a#copy').zclip({
         path: '/assets/ZeroClipboard.swf',
         copy: $('.copied').val()
@@ -246,7 +171,6 @@ $(function () {
 
     var response_object = eval('(' + response.responseText + ')');
 
-
     $.g_config = {
         maxSize: response_object.maxfilesize,
         maxNumber: response_object.maxfilenumber,
@@ -255,7 +179,6 @@ $(function () {
         error: false
     };
 
-
     var plan = getUrlVars()["plan"]
 
     if (plan != null) {
@@ -263,57 +186,34 @@ $(function () {
         $(name).show();
     }
 
-
-
     $("#planSelect").bind('change', function () {
-
         var name = "." + $("#planSelect").val() + "_summary";
         $(name).show();
         $(name).siblings().hide();
-
-
     });
-
-
 
     $(".signin-toggle").bind("click",function(){
         $("#sign_in_block").toggle();
     });
 
     $(".expand1").each(function() {
-
-        
-        var tis = $(this), state = false;
-        
+        var tis = $(this), state = false;     
         tis.click(function() {
             state = !state;
             $(".subject-field1").toggle();
             $(".subject-field2").toggle();
-
             tis.toggleClass('active',state);
-
         });
     });
 
-
-
-
     $(".expand3").each(function() {
-
         var tis = $(this), state = false;
-
         tis.click(function() {
             state = !state;   
             $(".subject-field3").toggle();
             tis.toggleClass('active',state);
         });
-
     });
-
-
-
-
-
 
     $('.topbar').dropdown();
 
@@ -326,19 +226,15 @@ $(function () {
         }
         else{
             $("#show_hide_stats").html("&nbspShow");            
-        }
-           
+        }           
     });
 
-
     $(".free_upgrade").bind("click",function(){
-        
     });
 
     $(".cancel_upload_button").bind("click",function(){
         alert("Uploading cancelled, please refresh the page to start over.");
     });
-
 
     $("#modal-from-dom").modal({
               backdrop: true
@@ -346,8 +242,6 @@ $(function () {
      $("#modal-from-dom1").modal({
               backdrop: true
             });
-
-
 
     var plan=getURLParam("plan");
 
@@ -360,10 +254,6 @@ $(function () {
     else{
         $("#planSelect").val("personal");
     }
-
-
-
-
 
     $(".personal_switch").bind("click",function(){
         $(".plan").val("personal");
@@ -382,12 +272,6 @@ $(function () {
         $(".plan_show").html("<strong>Plus </strong>");
         $("#modal-from-dom1").modal("show");     
     });
-
-
-
-
-
-
 
     $(".personal_upgrade").bind("click",function(){
         $(".plan").val("personal");
@@ -429,15 +313,12 @@ $(function () {
       $(this).delay(2500).fadeOut();
     });
 
-
     //footerslide tour
     var open = false;
     $('.slide_button').click(function() {
         if(open === false) {
             var browser_height = $(window).height();
             var content_height = browser_height*0.95;
-
-
             $("#footerSlideContent").focus();
             $('#footerSlideContent').animate({ height: content_height }, 'fast');
             $(this).css('backgroundPosition', 'bottom left');
@@ -448,11 +329,7 @@ $(function () {
             open = false;
         }
     });
-
-
-
 });
-
 
 var availableNumber = function(){
     var response = $.ajax({
@@ -484,7 +361,6 @@ var availableSpace = function(){
     
     return parseInt(response_object.maxfilesize)+1;    
 
-
 };
 
 
@@ -504,42 +380,23 @@ var tooMany = function(){
        $.g_config.error = true;
 }
 
-
-
-
-var overLimitCheck = function(fileNumber,totalSize,maxNumber,maxSize){
-            
+var overLimitCheck = function(fileNumber,totalSize,maxNumber,maxSize){            
             if (checkSpace() < totalSize) {
                 spaceLimit();
                 return false;
-
             }
-            
-
             if (maxNumber < fileNumber){
                 tooMany();
                 return false;
-
             }
-  
-      
-
             if ((checkSpace() > totalSize) && (maxNumber > fileNumber)) {
                 $(".error").html('');
                 $.g_config.error = false;
             }
-
-
-
 };
 
-
-
 var queueChangeHandler = function(queue){
-
-    
-
-        // alert('Uploading Started');
+    // alert('Uploading Started');
     myQueue = queue;
     // console.log("COLLECTION CHANGE!");
     var list = document.getElementById('file_todo_list');
@@ -549,7 +406,6 @@ var queueChangeHandler = function(queue){
     var fileNumber=0;
     var fileSize=0;
     var spaceCheckNeeded=true;
-
     // Add the new
     for (i=0;i<queue.files.length;i++)
     {
@@ -563,10 +419,7 @@ var queueChangeHandler = function(queue){
         fileSize=fileSize+queue.files[i].size;
         addFileToTodoList(queue.files[i].name, queue.files[i].size, i);
     }
-
     //update information
-
-
     if(fileSize==0||fileSize==null||fileSize==NaN){
         $("#upload_info").html("");
         $("#upload_info").css("padding-bottom","0px");     
@@ -584,13 +437,10 @@ var queueChangeHandler = function(queue){
          $("#upload_info").css("padding-bottom","15px");       
         $.g_config.totalNumber=fileNumber;
         $.g_config.totalSize=fileSize;
-    }
-
-                  
+    }             
     if(spaceCheckNeeded==true){
         overLimitCheck($.g_config.totalNumber,$.g_config.totalSize,$.g_config.maxNumber,$.g_config.maxSize);
     }
-
 };
 
 var uploadingStartHandler = function(){
@@ -624,56 +474,44 @@ var uploadingFinishHandler = function(){
     $("#upload_control_panel").hide();
     $("#upload_col2").html("Size");
     $("#upload_col3").html("Action");
-
-      $(".head h4").html("Transfer history");
-      $("#input_button_container").hide();
-      $(".upload_footer").hide();
-      $(".help-block").hide();
-      $(".widget").css({"margin-bottom":"40px","border-bottom":"1px solid #D5D5D5"});
+    $(".head h4").html("Transfer history");
+    $("#input_button_container").hide();
+    $(".upload_footer").hide();
+    $(".help-block").hide();
+    $(".widget").css({"margin-bottom":"40px","border-bottom":"1px solid #D5D5D5"});
     $(".head h4").css("margin-left","170px");
 
+    $.notification({ message:"Success! We have uploaded your files. A notification has been sent to recipient(s).", type:"notice" });
+    var link = $(".link").val();
+    var sha1 =$(".container_id").val();
+    $("#syf").html('Send More Files');
+    $(".percent").hide();   
+    $(".error").html('<div class="nNote nSuccess" style="border:1px solid #D5D5D5"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px;padding-left:10px;"><label style="margin-left: 6px;">&nbsp;You can <a href="javascript:location.reload(true)">reload to send another file.</a></label></p></div>');
+    $('a#copy').zclip({
+        path:'/assets/ZeroClipboard.swf',
+        copy:$('a.copied').text()
+    });                      
+    $(".beforesend").hide();                                     
+    $.get('/send_notification?id='+sha1, function(data) {
+        return true
+    });
 
-
-
-
-  $.notification({ message:"Success! We have uploaded your files. A notification has been sent to recipient(s).", type:"notice" });
-                            var link = $(".link").val();
-                            var sha1 =$(".container_id").val();
-                            $("#syf").html('Send More Files');
-                            $(".percent").hide();   
-                            $(".error").html('<div class="nNote nSuccess" style="border:1px solid #D5D5D5"><p><label>Link to file(s): <a class="copied" href="'+link+'" target="_blank">'+link+'</a><a id="copy" href="#" style="margin-left:20px;color:#3190D3;"><img alt="directory" height="16" src="/assets/clipboard.png" width="16">Copy Link</a></label></p><p style="padding-top:0px;padding-left:10px;"><label style="margin-left: 6px;">&nbsp;You can <a href="javascript:location.reload(true)">reload to send another file.</a></label></p></div>');
-                            $('a#copy').zclip({
-                                    path:'/assets/ZeroClipboard.swf',
-                                    copy:$('a.copied').text()
-                            });
-                          
-                            $(".beforesend").hide();
-                                         
-                            $.get('/send_notification?id='+sha1, function(data) {
-                                return true
-                            });
-
-
-
-                            $.g_config.totalSize=0; 
+    $.g_config.totalSize=0; 
         
-                             $.ajax({
-                                  url: '/partial_update',
-                                  data: data,
-                                  beforeSend: function() {
-                                    $(".recent_activity").css("opacity","0.4"); 
-                                    $("#loader-div").css({"margin-top":"40px","margin-left":"150px"})   
-                                    $("#loader-div").show();   
-                                  },
-                                   success: function( data ) {
-                                    $('.recent_activity').html(data);
-                                    $(".recent_activity").css("opacity","1");    
-                                    $("#loader-div").hide();   
-                                  },
-                             });
-
-
-
+    $.ajax({
+        url: '/partial_update',
+        data: data,
+        beforeSend: function() {
+            $(".recent_activity").css("opacity","0.4"); 
+            $("#loader-div").css({"margin-top":"40px","margin-left":"150px"})   
+            $("#loader-div").show();   
+        },
+        success: function( data ) {
+            $('.recent_activity').html(data);
+            $(".recent_activity").css("opacity","1");    
+            $("#loader-div").hide();   
+        },
+    });
 };
 
 var queueClearHandler = function(queue){
@@ -685,32 +523,19 @@ var queueClearHandler = function(queue){
 };
 
 var addFileToDoneList = function(file_name, file_size){
-
     var list = $('#file_done_list');
-    
     var tr = document.createElement("tr");
     tr.innerHTML = 
         '<td align="center">'+file_name.trunc(40)+'</td>'+
         '<td><div id="bytes">'+readableBytes(file_size)+
         '<td>&nbsp;&nbsp;</td>'
-
     $("#file_done_list").append(tr);
 };
 
-
 var addFileToTodoList = function(file_name, file_size, index){
-
-
-
     $(".capacity_show").hide(); 
     var list = $('#file_todo_list');
-
-
-
-
     //$(".drag-drop-show").html('<h2 style="color:#B7CFDF;margin-left:3px;">Drag &amp; Drop Files Here</h2>');
-
-
     var tr = document.createElement("tr");
     tr.innerHTML = 
         '<td align="center">'+file_name.trunc(40)+'</td>'+
@@ -720,7 +545,6 @@ var addFileToTodoList = function(file_name, file_size, index){
         '<td style="padding-bottom:5px"><span class="close delete" onclick="javascript:s3_swf_1_object.removeFileFromQueue('+index+');">&nbsp;&nbsp;</span></td>'
     $("#file_todo_list").append(tr);
 };
-
 
 var formatBytes = function (bytes) {
             if (bytes >= 1000000000) {
@@ -735,58 +559,36 @@ var formatBytes = function (bytes) {
             return bytes + ' B/s';
 };
 
-
 var progressHandler = function(progress_event){
     var date = new Date();
     endTime=date.getTime() / 1000;
-
     var diff = endTime - startTime;
-
     var current_percentage = Math.floor((parseInt(progress_event.bytesLoaded)/parseInt(progress_event.bytesTotal))*100)+'%';
-   
     var upload_speed = formatBytes((queueBytesLoaded+parseInt(progress_event.bytesLoaded))/diff);
-
     $(".head h4").html("Sending File(s)... "+upload_speed);
     $(".head h4").css("margin-left","125px");
-
-
     //change td width, hide delete button
     $("#file_todo_list").children().first().children().last().html('');
     $("#file_todo_list").children().first().children().first().next().css({"width":"300px"});   
-    
-
     //change header's display
     $("#upload_col2").html("Progress");
     $("#upload_col3").html("");
-
     $("#file_todo_list").children().first().find("#bytes").hide();
     $("#progress-bar").show();
-
     var single_progress_bar = $("#file_todo_list").children().first().find("#progress-bar span");
     single_progress_bar.css({"width":current_percentage});
-
-
     var overall_percentage = Math.floor(((queueBytesLoaded+parseInt(progress_event.bytesLoaded))/queueBytesTotal)*100)+'%';
-
-
     $("#overall_percentage .progress-bar span").css({"width":overall_percentage});
     $("#overall_percentage #count").html(overall_percentage);
-
     if(overall_percentage=="100%"){
              $(".beforesend").hide();
              $(".content").css("margin-top","160px");
              $(".error").html('<div style="height:31px;float:left;padding-top:11px;margin-bottom:30px;width:100%"><div id="loader" style="height:31px;float:left;margin-right:20px"><img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px"></div><h2 style="margin-left:30px;color:#777">Processing your request...please wait</h2></div>');
              $("#loader").html('<img alt="directory" height="31" src="/assets/loader8.gif" width="31" style="margin-top:3px">');
     }
-
-
-
 };
 
-
-
 var uploadCompleteHandler = function(upload_options,event){
-
      $.ajax({
           url: '/stuffs',
           global: false,
@@ -809,7 +611,6 @@ var uploadCompleteHandler = function(upload_options,event){
           dataType: 'script'
        }
     )
-
     queueBytesLoaded += parseInt(upload_options.FileSize);
     addFileToDoneList(upload_options.FileName,upload_options.FileSize);
 };
@@ -818,12 +619,7 @@ var readableBytes = function(bytes) {
     var s = ['bytes', 'kb', 'MB', 'GB', 'TB', 'PB'];
     var e = Math.floor(Math.log(bytes)/Math.log(1024));
     return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];       
-    
 }
-
-
-
-
 
 var getURLParam = function (strParamName){
   var strReturn = "";
@@ -843,14 +639,9 @@ aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
   return unescape(strReturn);
 }
 
-
-
-
 var validateForm = function () {
     var files = $(".template-upload").length;
-
     validatePassword();
-
     if ($('.tagsinput').find(".tag").length == 0) {
         $(".error").html('<div class="alert-message success fade in" data-alert="alert"><a class="close" href="#">×</a><p>Please provide at least one email recipient to send your file(s)</p><p>(Tip: You can also send file(s) to your own email)</p></div>');
         return false;
@@ -868,16 +659,11 @@ var validateForm = function () {
             return false
         }
     }   
-
 }
-
 
 var validatePassword = function () {
     var a = $("#container_password").val();
     var b = $("#container_password_confirm").val();
-
-
-
     if (a != b) {
         $(".error").html('<div class="alert-message error fade in" data-alert="alert"><a class="close" href="#">×</a><p>Your Passwords do not match</p></div>');
         return false;
@@ -885,10 +671,7 @@ var validatePassword = function () {
         $(".error").html('');
         return true;
     }
-
-
 }
-
 
 var passwordToggle = function() {
     $('.password-block').toggle();
@@ -907,19 +690,12 @@ var passwordEnable = function () {
         $("#container_password_confirm").attr('disabled', false);
         $("#container_password").attr('disabled', false);
     }
-
 }
-
-
-
-
-
 
 var validateEmail = function (elementValue) {
     var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(elementValue);
 }
-
 
 var folderUpdate = function () {
     $(".edit_container").submit();
@@ -930,7 +706,6 @@ var updateTitle = function (){
     var title = $(".form_folder_name").val();
     $(".folder_name").html(title)    
 }
-
 
 var checkSpace = function () {
     var response = $.ajax({
@@ -945,8 +720,6 @@ var checkSpace = function () {
 
     return response_object.availablespace
 }
-
-
 
 var getUrlVars = function () {
     var vars = [],
@@ -963,7 +736,6 @@ var getUrlVars = function () {
 var folderPassword = function () {
     var pwd = $("#folder_password").val();
     var container_id = $("#folder_sha1").val();
-
     var response = $.ajax({
         url: "/password_match",
         dataType: "json",
@@ -976,9 +748,7 @@ var folderPassword = function () {
         contentType: "application/json",
         async: false
     });
-
     var response_object = eval('(' + response.responseText + ')');
-
     if (response_object.match == "true") {
         $.get('/show_container?' + 'password=' + pwd + '&id=' + container_id, function (data) {
             $('#folder_display').html(data);
@@ -986,46 +756,39 @@ var folderPassword = function () {
     } else {
         alert("Incorrect password");
     }
-
 }
 
-
-
-
-
-     
-  var stripeResponseHandler = function (status, response) {
-                if (response.error) {
-                    var message_text = response.error.message;
-                    $.notification({ message:message_text, type:"error" });
-                    $(".submit-button").attr("disabled",false);
-
-                        } else {
-                    var form = $(".payment-form");
-                    // token contains id, last4, and card type
-                    var token = response['id'];
-                    // insert the token into the form so it gets submitted to the server
-                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                    // and submit
-                    form.get(0).submit();
-                }
-            }
- var stripeResponseHandler2 = function (status, response) {
-                if (response.error) {
-                    var message_text = response.error.message;
-                    $.notification({ message:message_text, type:"error" });
-                    $(".submit-button").attr("disabled",false);
-
-                } else {
-                    var form = $(".payment-form-switch");
-                    // token contains id, last4, and card type
-                    var token = response['id'];
-                    // insert the token into the form so it gets submitted to the server
-                    form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                    // and submit
-                    form.get(0).submit();
-                }
+var stripeResponseHandler = function (status, response) {
+    if (response.error) {
+        var message_text = response.error.message;
+        $.notification({ message:message_text, type:"error" });
+        $(".submit-button").attr("disabled",false);
+    } else {
+        var form = $(".payment-form");
+        // token contains id, last4, and card type
+        var token = response['id'];
+        // insert the token into the form so it gets submitted to the server
+        form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+        // and submit
+        form.get(0).submit();
     }
+}
+
+var stripeResponseHandler2 = function (status, response) {
+    if (response.error) {
+        var message_text = response.error.message;
+        $.notification({ message:message_text, type:"error" });
+        $(".submit-button").attr("disabled",false);
+    } else {
+        var form = $(".payment-form-switch");
+        // token contains id, last4, and card type
+        var token = response['id'];
+        // insert the token into the form so it gets submitted to the server
+        form.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+        // and submit
+        form.get(0).submit();
+    }
+}
 
 var mycarousel_initCallback = function (carousel)
 {
@@ -1048,7 +811,4 @@ var mycarousel_initCallback = function (carousel)
 
 
 var move_transfer_div = function(){
-
-
-
 }
