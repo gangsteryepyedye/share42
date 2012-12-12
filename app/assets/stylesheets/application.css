@@ -6,10 +6,6 @@
  *= require_tree . 
 */
 
-
-
-
-
 .action_button{
 	position: relative;
 	overflow: visible;
@@ -33,8 +29,6 @@
 	border-radius: 0.2em;
 	zoom: 1;
 	border-image: initial;	
-
-
 }
 
 .action_button.danger:hover, .action_button.danger:focus, .action_button.danger:active {

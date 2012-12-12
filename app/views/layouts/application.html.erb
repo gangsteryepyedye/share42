@@ -70,28 +70,13 @@
 <div class="topbar">
       <div class="fill">
         <div class="top_container">
-          <a class="brand" href="/" style="text-decoration:none;font-family: 'Lobster', cursive;">
-			
-
+          <a class="brand" href="/" style="text-decoration:none;font-family: 'Lobster', cursive;margin-left:450px;">
 42Share</a>
         
 
-        <% if !current_user %>  
-         <ul class="nav">
-            <li><a href="/pages/pricing">Signup & Pricing</a></li>
-          </ul>
-        <% end %>    
-
-
-         <% if current_user %>
-
-
-
-
+    <% if current_user %>
     	<ul class="nav secondary-nav">
-
             <li style="margin-top: 2px;"><a href="/"><i class="icon-home icon-white"></i> Home</a></li>
-
             <li class="dropdown" style="margin-top: 2px;">
               <a href="#" class="dropdown-toggle"><i class="icon-user icon-white"></i> Account</a>
               <ul class="dropdown-menu">
@@ -99,34 +84,14 @@
                 <li><%= link_to "Sign out", log_out_path %></li>
               </ul>
             </li>
-          </ul>
-    		   	
-    	
-    	<% else %>		
-
-
-
+        </ul>
+    <% else %>		
       <ul class="nav secondary-nav">
-
-            <li class="dropdown">
-              <a href="#" class="signin-toggle"><i class="icon-lock icon-white" style="margin-top:1px;margin-right:4px;"></i>Log in</a>
-             
-            </li>
-          </ul>
-            
-
-
-
-
-
-
-
-        <% end %>
-
-
-
-        
-        	
+          <li class="dropdown">
+              <a href="#" class="signin-toggle"><i class="icon-lock icon-white" style="margin-top:1px;margin-right:4px;"></i>Log in</a>   
+          </li>
+        </ul>
+      <% end %>     	
     </div>
   </div>
 </div>
@@ -135,16 +100,11 @@
  	<br>
   <br>
 
-<div class="container">
-
-  		
+<div class="container">		
 	<%= yield %>
-
-
-  
-<% if !current_user %>
-<div id="sign_in_block_wrapper">
-<div id="sign_in_block">
+  <% if !current_user %>
+  <div id="sign_in_block_wrapper">
+  <div id="sign_in_block">
 
       <%= form_tag sessions_path, :class=>"form-stacked" do %>
            <fieldset>
@@ -167,10 +127,8 @@
                <button class="btn" type="submit" style="margin-left:38px">Sign in</button>
             </fieldset>
           <% end %>
-
-
-</div>
-</div>
+    </div>
+  </div>
 
 <% end %>
       
@@ -185,32 +143,19 @@
 
 <script type="text/javascript" charset="utf-8">
 
-
-
-
-
-
-
-
 $('.recipients').tagsInput({
   'height':'30px',
    'width':'483px',
    'unique':true,
    'defaultText':'Email Address(es)' 
 });    
-    
-
-
-
-
-
-
-    
-    
+        
 </script>
 
+</div>
+
   <div class="footer">
-      <div style="float:left;margin-left:220px;">
+      <div style="float:left;margin-left:320px;">
         <ul class="left_nav">
             <li><a href="/pages/about" class="at_footer_about">About</a></li>
             <li><a href="/pages/contact_us" class="at_footer_contact">Contact Us</a></li>
@@ -223,8 +168,6 @@ $('.recipients').tagsInput({
         <p style="float:left;width: 100%;">© Copyright 2012 42Zen, LLC</p>
       </div>
     </div>
-</div>
-
 
 	</div>
 

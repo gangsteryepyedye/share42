@@ -175,7 +175,6 @@ class ContainersController < ApplicationController
       #remember to clean the unused Container here   
       sha1=Digest::SHA1.hexdigest([@container.id.to_s,rand].join)
       @container.sha1=sha1.to_s
-      @container.downloadcap=30
       @container.save
       @stuff = @container.stuffs.new    
       @tiny_id = "http://www.42share.com/containers/"+sha1

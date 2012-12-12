@@ -1,101 +1,102 @@
-2012-12-11T17:25:08+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:17:25:08 +0000] "GET /assets/file_icon.png HTTP/1.0" 200 1273 "https://www.42share.com/containers/c84c411a282d8de2756970167103bfa028e0bc4c?email=jinxin@grinnell.edu" "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; MDDC)" www.42share.com
-2012-12-11T17:34:11+00:00 heroku[api]: Starting process with command `bundle exec rake cron` by scheduler@addons.heroku.com
-2012-12-11T17:34:17+00:00 heroku[scheduler.3094]: Starting process with command `bundle exec rake cron`
-2012-12-11T17:34:17+00:00 heroku[scheduler.3094]: State changed from starting to up
-2012-12-11T17:34:34+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:17:34:34 +0000] "GET / HTTP/1.1" 301 104 "-" "Ruby" www.42share.com
-2012-12-11T17:34:34+00:00 app[web.1]: 
-2012-12-11T17:34:34+00:00 app[web.1]: 
-2012-12-11T17:34:34+00:00 app[web.1]: Started GET "/" for 10.127.155.245 at 2012-12-11 17:34:34 +0000
-2012-12-11T17:34:34+00:00 app[web.1]: Redirected to https://www.42share.com/containers/new
-2012-12-11T17:34:34+00:00 app[web.1]: Completed 301 Moved Permanently in 0ms
-2012-12-11T17:34:34+00:00 app[web.1]: cache: [GET /] miss
-2012-12-11T17:34:34+00:00 heroku[router]: at=info method=GET path=/ host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=0ms connect=11ms service=15ms status=301 bytes=104
-2012-12-11T17:34:35+00:00 heroku[scheduler.3094]: Process exited with status 0
-2012-12-11T17:34:35+00:00 heroku[scheduler.3094]: State changed from up to complete
-2012-12-11T17:34:34+00:00 app[scheduler.3094]: Calling webpage
-2012-12-11T17:34:34+00:00 app[scheduler.3094]: done.
-2012-12-11T17:34:34+00:00 app[web.1]:   Processing by ContainersController#new as */*
-2012-12-11T17:50:56+00:00 app[web.1]: cache: [GET /] miss
-2012-12-11T17:50:56+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:17:50:56 +0000] "GET / HTTP/1.1" 301 104 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T17:50:56+00:00 heroku[router]: at=info method=GET path=/ host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=3ms connect=9ms service=5ms status=301 bytes=104
-2012-12-11T17:50:56+00:00 app[web.1]: 
-2012-12-11T17:50:56+00:00 app[web.1]: Completed 301 Moved Permanently in 0ms
-2012-12-11T17:50:56+00:00 app[web.1]:   Processing by ContainersController#new as HTML
-2012-12-11T17:50:56+00:00 app[web.1]: 
-2012-12-11T17:50:56+00:00 app[web.1]: Started GET "/" for 10.127.155.245 at 2012-12-11 17:50:56 +0000
-2012-12-11T17:50:56+00:00 app[web.1]: Redirected to https://www.42share.com/containers/new
-2012-12-11T17:50:56+00:00 app[web.1]: 
-2012-12-11T17:50:56+00:00 app[web.1]: 
-2012-12-11T17:50:56+00:00 app[web.1]: Started GET "/containers/new" for 10.127.155.245 at 2012-12-11 17:50:56 +0000
-2012-12-11T17:50:56+00:00 app[web.1]:   Processing by ContainersController#new as HTML
-2012-12-11T17:50:56+00:00 app[web.1]: : INSERT INTO "containers" ("compressed", "created_at", "downloadcap", "downloaded", "empty", "exptime", "fake", "is_single", "message", "name", "notif", "password", "sender", "sha1", "state", "subject", "tempuser_id", "total_size", "updated_at", "user_id", "zipped") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING "id"):
-2012-12-11T17:50:56+00:00 app[web.1]: 
-2012-12-11T17:50:56+00:00 app[web.1]:   app/controllers/containers_controller.rb:251:in `new'
-2012-12-11T17:50:56+00:00 app[web.1]: cache: [GET /containers/new] miss
-2012-12-11T17:50:56+00:00 app[web.1]: 
-2012-12-11T17:50:56+00:00 app[web.1]: ActiveRecord::StatementInvalid (PG::Error: ERROR:  permission denied for relation containers
-2012-12-11T17:50:56+00:00 app[web.1]: 
-2012-12-11T17:50:56+00:00 app[web.1]: Completed 500 Internal Server Error in 16ms
-2012-12-11T17:50:56+00:00 heroku[router]: at=info method=GET path=/containers/new host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=5ms connect=24ms service=38ms status=500 bytes=728
-2012-12-11T17:50:56+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:17:50:56 +0000] "GET /containers/new HTTP/1.0" 500 728 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T17:50:56+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:17:50:56 +0000] "GET /containers/new HTTP/1.1" 500 728 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T17:50:57+00:00 app[web.1]: cache: [GET /favicon.ico] stale, invalid, store
-2012-12-11T17:50:57+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:17:50:57 +0000] "GET /favicon.ico HTTP/1.0" 200 0 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T17:50:57+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:17:50:57 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T17:50:57+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=0ms connect=2ms service=142ms status=200 bytes=0
-2012-12-11T18:09:44+00:00 heroku[slugc]: Slug compilation started
-2012-12-11T18:13:01+00:00 heroku[web.1]: State changed from up to starting
-2012-12-11T18:13:01+00:00 heroku[worker.1]: State changed from up to starting
-2012-12-11T18:13:02+00:00 heroku[slugc]: Slug compilation finished
-2012-12-11T18:13:04+00:00 heroku[worker.1]: Stopping all processes with SIGTERM
-2012-12-11T18:13:04+00:00 heroku[web.1]: Stopping all processes with SIGTERM
-2012-12-11T18:13:06+00:00 heroku[worker.1]: Starting process with command `QUEUE=* bundle exec rake resque:work`
-2012-12-11T18:13:06+00:00 heroku[web.1]: Process exited with status 0
-2012-12-11T18:13:06+00:00 heroku[web.1]: Starting process with command `bundle exec thin start -R config.ru -e production -p 35495`
-2012-12-11T18:13:07+00:00 heroku[worker.1]: State changed from starting to up
-2012-12-11T18:13:10+00:00 heroku[worker.1]: Process exited with status 0
-2012-12-11T18:13:34+00:00 heroku[web.1]: State changed from starting to up
-2012-12-11T18:13:33+00:00 app[web.1]: >> Listening on 0.0.0.0:35495, CTRL+C to stop
-2012-12-11T18:13:33+00:00 app[web.1]: >> Maximum connections set to 1024
-2012-12-11T18:13:33+00:00 app[web.1]: >> Thin web server (v1.5.0 codename Knife)
-2012-12-11T18:17:35+00:00 app[web.1]:   Parameters: {"id"=>"b428162803668d85bd57ddde400c61a97efcf50a"}
-2012-12-11T18:17:35+00:00 app[web.1]: 
-2012-12-11T18:17:35+00:00 app[web.1]: 
-2012-12-11T18:17:35+00:00 app[web.1]:   Processing by ContainersController#show as */*
-2012-12-11T18:17:35+00:00 app[web.1]: Started GET "/containers/b428162803668d85bd57ddde400c61a97efcf50a" for 10.190.99.237 at 2012-12-11 18:17:35 +0000
-2012-12-11T18:17:36+00:00 app[web.1]: Completed 200 OK in 1152ms (Views: 474.9ms | ActiveRecord: 19.2ms)
-2012-12-11T18:17:36+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:18:17:36 +0000] "GET /containers/b428162803668d85bd57ddde400c61a97efcf50a HTTP/1.0" 200 10164 "-" "Mozilla/5.0 (Windows NT 5.1) Gecko/20100101 Firefox/9.0.1" www.42share.com
-2012-12-11T18:17:36+00:00 heroku[nginx]: 10.190.99.237 - - [11/Dec/2012:18:17:36 +0000] "GET /containers/b428162803668d85bd57ddde400c61a97efcf50a HTTP/1.0" 200 10164 "-" "Mozilla/5.0 (Windows NT 5.1) Gecko/20100101 Firefox/9.0.1" www.42share.com
-2012-12-11T18:17:36+00:00 app[web.1]: Rendered containers/_header.html.erb (0.3ms)
-2012-12-11T18:17:36+00:00 app[web.1]: Rendered containers/show.html.erb within layouts/application (292.0ms)
-2012-12-11T18:17:36+00:00 app[web.1]: Rendered containers/_container_main_visit.erb (185.6ms)
-2012-12-11T18:17:36+00:00 app[web.1]: cache: [GET /containers/b428162803668d85bd57ddde400c61a97efcf50a] miss
-2012-12-11T18:17:36+00:00 heroku[router]: at=info method=GET path=/containers/b428162803668d85bd57ddde400c61a97efcf50a host=www.42share.com fwd=10.190.99.237 dyno=web.1 queue=0 wait=0ms connect=1ms service=1319ms status=200 bytes=10164
-2012-12-11T18:26:34+00:00 app[web.1]:   Processing by ContainersController#new as HTML
-2012-12-11T18:26:34+00:00 app[web.1]: cache: [GET /] miss
-2012-12-11T18:26:34+00:00 app[web.1]: Started GET "/" for 10.127.155.245 at 2012-12-11 18:26:34 +0000
-2012-12-11T18:26:34+00:00 app[web.1]: Completed 301 Moved Permanently in 1ms
-2012-12-11T18:26:34+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:18:26:34 +0000] "GET / HTTP/1.1" 301 104 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T18:26:34+00:00 app[web.1]: 
-2012-12-11T18:26:34+00:00 app[web.1]: 
-2012-12-11T18:26:34+00:00 app[web.1]: Redirected to https://www.42share.com/containers/new
-2012-12-11T18:26:34+00:00 heroku[router]: at=info method=GET path=/ host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=3ms connect=7ms service=8ms status=301 bytes=104
-2012-12-11T18:26:35+00:00 app[web.1]: 
-2012-12-11T18:26:35+00:00 app[web.1]: 
-2012-12-11T18:26:35+00:00 app[web.1]: Started GET "/containers/new" for 10.127.155.245 at 2012-12-11 18:26:35 +0000
-2012-12-11T18:26:35+00:00 app[web.1]: 
-2012-12-11T18:26:35+00:00 app[web.1]: ActiveRecord::StatementInvalid (PG::Error: ERROR:  permission denied for relation containers
-2012-12-11T18:26:35+00:00 app[web.1]: : INSERT INTO "containers" ("compressed", "created_at", "downloadcap", "downloaded", "empty", "exptime", "fake", "is_single", "message", "name", "notif", "password", "sender", "sha1", "state", "subject", "tempuser_id", "total_size", "updated_at", "user_id", "zipped") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING "id"):
-2012-12-11T18:26:35+00:00 app[web.1]:   app/controllers/containers_controller.rb:179:in `new'
-2012-12-11T18:26:35+00:00 app[web.1]: 
-2012-12-11T18:26:35+00:00 app[web.1]: 
-2012-12-11T18:26:35+00:00 app[web.1]: cache: [GET /containers/new] miss
-2012-12-11T18:26:35+00:00 app[web.1]: Completed 500 Internal Server Error in 13ms
-2012-12-11T18:26:35+00:00 app[web.1]:   Processing by ContainersController#new as HTML
-2012-12-11T18:26:35+00:00 app[web.1]: cache: [GET /favicon.ico] miss, store
-2012-12-11T18:26:35+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=7ms connect=11ms service=9ms status=200 bytes=0
-2012-12-11T18:26:35+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:18:26:35 +0000] "GET /containers/new HTTP/1.1" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T18:26:35+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:18:26:35 +0000] "GET /containers/new HTTP/1.0" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T18:26:35+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:18:26:35 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T18:26:35+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:18:26:35 +0000] "GET /favicon.ico HTTP/1.0" 200 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
-2012-12-11T18:26:35+00:00 heroku[router]: at=info method=GET path=/containers/new host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=0ms connect=1ms service=37ms status=500 bytes=728
+2012-12-11T19:06:36+00:00 heroku[run.1904]: State changed from starting to up
+2012-12-11T19:07:03+00:00 heroku[run.1904]: Client connection closed. Sending SIGHUP to all processes
+2012-12-11T19:07:05+00:00 heroku[run.1904]: State changed from up to complete
+2012-12-11T19:07:05+00:00 heroku[run.1904]: Process exited with status 0
+2012-12-11T19:07:07+00:00 heroku[api]: Starting process with command `bundle exec rake db:migrate` by wikihowtodo@gmail.com
+2012-12-11T19:07:15+00:00 heroku[run.3133]: Starting process with command `bundle exec rake db:migrate`
+2012-12-11T19:07:15+00:00 heroku[run.3133]: Awaiting client
+2012-12-11T19:07:16+00:00 heroku[run.3133]: State changed from starting to up
+2012-12-11T19:08:01+00:00 heroku[run.3133]: Process exited with status 0
+2012-12-11T19:08:01+00:00 heroku[run.3133]: State changed from up to complete
+2012-12-11T19:08:04+00:00 app[web.1]: 
+2012-12-11T19:08:04+00:00 app[web.1]: 
+2012-12-11T19:08:04+00:00 heroku[router]: at=info method=GET path=/containers/new host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=0ms connect=1ms service=17ms status=500 bytes=728
+2012-12-11T19:08:04+00:00 app[web.1]: Started GET "/containers/new" for 10.127.155.245 at 2012-12-11 19:08:04 +0000
+2012-12-11T19:08:04+00:00 app[web.1]:   Processing by ContainersController#new as HTML
+2012-12-11T19:08:04+00:00 app[web.1]: Completed 500 Internal Server Error in 9ms
+2012-12-11T19:08:04+00:00 app[web.1]: 
+2012-12-11T19:08:04+00:00 app[web.1]: 
+2012-12-11T19:08:04+00:00 app[web.1]: ActiveRecord::StatementInvalid (PG::Error: ERROR:  permission denied for relation containers
+2012-12-11T19:08:04+00:00 app[web.1]: 
+2012-12-11T19:08:04+00:00 app[web.1]: : INSERT INTO "containers" ("compressed", "created_at", "downloadcap", "downloaded", "empty", "exptime", "fake", "is_single", "message", "name", "notif", "password", "sender", "sha1", "state", "subject", "tempuser_id", "total_size", "updated_at", "user_id", "zipped") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING "id"):
+2012-12-11T19:08:04+00:00 app[web.1]:   app/controllers/containers_controller.rb:179:in `new'
+2012-12-11T19:08:04+00:00 app[web.1]: cache: [GET /containers/new] miss
+2012-12-11T19:08:04+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:19:08:04 +0000] "GET /containers/new HTTP/1.1" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:04+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:19:08:04 +0000] "GET /containers/new HTTP/1.0" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:04+00:00 app[web.1]: cache: [GET /favicon.ico] stale, invalid, store
+2012-12-11T19:08:04+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=3ms connect=4ms service=7ms status=200 bytes=0
+2012-12-11T19:08:04+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:19:08:04 +0000] "GET /favicon.ico HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:04+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:19:08:04 +0000] "GET /favicon.ico HTTP/1.0" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:06+00:00 app[web.1]: Started GET "/containers/new" for 10.127.155.245 at 2012-12-11 19:08:06 +0000
+2012-12-11T19:08:06+00:00 app[web.1]: 
+2012-12-11T19:08:06+00:00 app[web.1]: 
+2012-12-11T19:08:06+00:00 app[web.1]:   Processing by ContainersController#new as HTML
+2012-12-11T19:08:06+00:00 heroku[router]: at=info method=GET path=/containers/new host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=0ms connect=1ms service=14ms status=500 bytes=728
+2012-12-11T19:08:06+00:00 app[web.1]: 
+2012-12-11T19:08:06+00:00 app[web.1]: ActiveRecord::StatementInvalid (PG::Error: ERROR:  permission denied for relation containers
+2012-12-11T19:08:06+00:00 app[web.1]: cache: [GET /containers/new] miss
+2012-12-11T19:08:06+00:00 app[web.1]: 
+2012-12-11T19:08:06+00:00 app[web.1]: Completed 500 Internal Server Error in 8ms
+2012-12-11T19:08:06+00:00 app[web.1]:   app/controllers/containers_controller.rb:179:in `new'
+2012-12-11T19:08:06+00:00 app[web.1]: : INSERT INTO "containers" ("compressed", "created_at", "downloadcap", "downloaded", "empty", "exptime", "fake", "is_single", "message", "name", "notif", "password", "sender", "sha1", "state", "subject", "tempuser_id", "total_size", "updated_at", "user_id", "zipped") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING "id"):
+2012-12-11T19:08:06+00:00 app[web.1]: 
+2012-12-11T19:08:06+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:19:08:06 +0000] "GET /containers/new HTTP/1.0" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:06+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:19:08:06 +0000] "GET /containers/new HTTP/1.1" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:11+00:00 app[web.1]:   
+2012-12-11T19:08:11+00:00 app[web.1]: 
+2012-12-11T19:08:11+00:00 app[web.1]: 
+2012-12-11T19:08:11+00:00 app[web.1]: 
+2012-12-11T19:08:11+00:00 app[web.1]: ActionController::RoutingError (No route matches [GET] "/about"):
+2012-12-11T19:08:11+00:00 app[web.1]: 
+2012-12-11T19:08:11+00:00 app[web.1]: 
+2012-12-11T19:08:11+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:19:08:11 +0000] "GET /about HTTP/1.0" 404 730 "
+-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:11+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:19:08:11 +0000] "GET /about HTTP/1.1" 404 730 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T19:08:11+00:00 app[web.1]: Started GET "/about" for 10.127.155.245 at 2012-12-11 19:08:11 +0000
+2012-12-11T19:08:11+00:00 heroku[router]: at=info method=GET path=/about host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=7ms connect=31ms service=9ms status=404 bytes=730
+2012-12-11T19:08:11+00:00 app[web.1]: cache: [GET /about] miss
+2012-12-11T19:08:46+00:00 heroku[api]: Starting process with command `rails console` by wikihowtodo@gmail.com
+2012-12-11T19:08:51+00:00 heroku[run.9841]: Awaiting client
+2012-12-11T19:08:51+00:00 heroku[run.9841]: Starting process with command `rails console`
+2012-12-11T19:08:51+00:00 heroku[run.9841]: State changed from starting to up
+2012-12-11T19:30:38+00:00 app[web.1]:   Parameters: {"id"=>"b428162803668d85bd57ddde400c61a97efcf50a"}
+2012-12-11T19:30:38+00:00 app[web.1]: 
+2012-12-11T19:30:38+00:00 app[web.1]:   app/controllers/containers_controller.rb:139:in `show'
+2012-12-11T19:30:38+00:00 app[web.1]: 
+2012-12-11T19:30:38+00:00 app[web.1]: NoMethodError (undefined method `stuffs' for nil:NilClass):
+2012-12-11T19:30:38+00:00 app[web.1]: Completed 500 Internal Server Error in 90ms
+2012-12-11T19:30:38+00:00 app[web.1]: cache: [GET /containers/b428162803668d85bd57ddde400c61a97efcf50a] miss
+2012-12-11T19:30:38+00:00 app[web.1]:   Processing by ContainersController#show as HTML
+2012-12-11T19:30:38+00:00 app[web.1]: Started GET "/containers/b428162803668d85bd57ddde400c61a97efcf50a" for 10.127.155.245 at 2012-12-11 19:30:38 +0000
+2012-12-11T19:30:38+00:00 app[web.1]: 
+2012-12-11T19:30:38+00:00 app[web.1]: 
+2012-12-11T19:30:38+00:00 app[web.1]: 
+2012-12-11T19:30:38+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:19:30:38 +0000] "GET /containers/b428162803668d85bd57ddde400c61a97efcf50a HTTP/1.0" 500 728 "http://goo.gl/ggd2h" "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; MDDC)" www.42share.com
+2012-12-11T19:30:38+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:19:30:38 +0000] "GET /containers/b428162803668d85bd57ddde400c61a97efcf50a HTTP/1.0" 500 728 "http://goo.gl/ggd2h" "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; MDDC)" www.42share.com
+2012-12-11T19:34:07+00:00 heroku[scheduler.5724]: Starting process with command `bundle exec rake cron`
+2012-12-11T19:34:08+00:00 heroku[scheduler.5724]: State changed from starting to up
+2012-12-11T19:34:32+00:00 app[scheduler.5724]: Calling webpage
+2012-12-11T19:34:32+00:00 app[scheduler.5724]: done.
+2012-12-11T19:34:32+00:00 heroku[nginx]: 10.190.99.237 - - [11/Dec/2012:19:34:32 +0000] "GET / HTTP/1.1" 301 104 "-" "Ruby" www.42share.com
+2012-12-11T19:34:32+00:00 heroku[router]: at=info method=GET path=/ host=www.42share.com fwd=10.190.99.237 dyno=web.1 queue=0 wait=0ms connect=1ms service=9ms status=301 bytes=104
+2012-12-11T19:34:33+00:00 app[web.1]: Completed 301 Moved Permanently in 0ms
+2012-12-11T19:34:33+00:00 app[web.1]: cache: [GET /] miss
+2012-12-11T19:34:33+00:00 app[web.1]:   Processing by ContainersController#new as */*
+2012-12-11T19:34:33+00:00 app[web.1]: 
+2012-12-11T19:34:33+00:00 app[web.1]: Redirected to https://www.42share.com/containers/new
+2012-12-11T19:34:33+00:00 app[web.1]: Started GET "/" for 10.190.99.237 at 2012-12-11 19:34:32 +0000
+2012-12-11T19:34:33+00:00 app[web.1]: 
+2012-12-11T19:34:33+00:00 heroku[scheduler.5724]: Process exited with status 0
+2012-12-11T19:34:33+00:00 heroku[scheduler.5724]: State changed from up to complete
+2012-12-11T20:16:44+00:00 heroku[nginx]: 10.190.99.237 - - [11/Dec/2012:20:16:44 +0000] "GET / HTTP/1.1" 301 104 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T20:16:44+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:20:16:44 +0000] "GET /containers/new HTTP/1.1" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T20:16:44+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:20:16:44 +0000] "GET /containers/new HTTP/1.0" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T20:16:44+00:00 heroku[router]: at=info method=GET path=/containers/new host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=0ms connect=2ms service=34ms status=500 bytes=728
+2012-12-11T20:16:44+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=www.42share.com fwd=10.127.155.245 dyno=web.1 queue=0 wait=2ms connect=7ms service=8ms status=200 bytes=0
+2012-12-11T20:16:44+00:00 heroku[nginx]: 10.127.155.245 - - [11/Dec/2012:20:16:44 +0000] "GET /favicon.ico HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T20:16:44+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:20:16:44 +0000] "GET /favicon.ico HTTP/1.0" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T20:16:52+00:00 heroku[run.9841]: Client connection closed. Sending SIGHUP to all processes
+2012-12-11T20:16:53+00:00 heroku[run.9841]: Process exited with status 0
+2012-12-11T20:16:53+00:00 heroku[run.9841]: State changed from up to complete
+2012-12-11T20:18:04+00:00 heroku[nginx]: 10.190.99.237 - - [11/Dec/2012:20:18:04 +0000] "GET / HTTP/1.1" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
+2012-12-11T20:18:04+00:00 heroku[nginx]: 127.0.0.1 - - [11/Dec/2012:20:18:04 +0000] "GET / HTTP/1.0" 500 728 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11" www.42share.com
