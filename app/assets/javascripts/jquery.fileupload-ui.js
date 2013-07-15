@@ -15,7 +15,7 @@
 (function ($) {
 	
 	     var response=$.ajax({
-			url: "http://www.42share.com/priviledge",
+			url: "http://share42.herokuapp.com/priviledge",
 			dataType: "json",
 			type: "GET",
 			processData: true,

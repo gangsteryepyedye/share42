@@ -8,7 +8,7 @@ class Container < ActiveRecord::Base
 
   def self.generate_sitemap
 
-    SitemapGenerator::Sitemap.default_host = 'http://www.42share.com'
+    SitemapGenerator::Sitemap.default_host = 'http://share42.herokuapp.com/'
     SitemapGenerator::Sitemap.create do
 
       add '/', :changefreq => 'weekly'

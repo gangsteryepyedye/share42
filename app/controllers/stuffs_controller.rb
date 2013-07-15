@@ -31,7 +31,7 @@ def download
           if(!@email.nil?)
               @email.downloads=@email.downloads+1
               @email.save
-              @link = "http://www.42share.com/containers/"+@container.sha1
+              @link = "http://share42.herokuapp.com/containers/"+@container.sha1
 
               if @email.downloads == 1
                 if (@container.user_id.nil?)&&(@container.notif==true)
